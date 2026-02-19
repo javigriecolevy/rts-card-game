@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://is4kg3erywt"]
+
+[node name="BoardView" type="Control" unique_id=1440536600]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerView" type="HBoxContainer" parent="." unique_id=1563352133]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="OpponentRow" type="HBoxContainer" parent="." unique_id=141361593]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

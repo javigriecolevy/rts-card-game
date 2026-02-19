@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://c5if164mtrvop"]
+
+[ext_resource type="Script" uid="uid://b27m2yfyjg4ql" path="res://ui/minion_view.gd" id="1_cpi00"]
+
+[node name="MinionView" type="Button" unique_id=1245051659]
+offset_right = 8.0
+offset_bottom = 8.0
+script = ExtResource("1_cpi00")

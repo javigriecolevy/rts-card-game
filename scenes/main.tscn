@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://5rthdjye480f"]
+
+[ext_resource type="Script" uid="uid://cqqo4o4edxntv" path="res://core/tick_manager.gd" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://vhi2056v6w51" path="res://main.gd" id="1_sugp2"]
+[ext_resource type="Script" uid="uid://c8p0ny0bfb1au" path="res://multiplayer/network_manager.gd" id="3_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://bhl2frco8scum" path="res://scenes/ui/game_view.tscn" id="4_jyhfs"]
+
+[node name="GameRoot" type="Node2D" unique_id=847468554]
+script = ExtResource("1_sugp2")
+
+[node name="TickManager" type="Node" parent="." unique_id=1496859558]
+script = ExtResource("1_o5qli")
+
+[node name="NetworkManager" type="Node" parent="." unique_id=683392646]
+script = ExtResource("3_jyhfs")
+
+[node name="GameView" parent="." unique_id=1326419423 node_paths=PackedStringArray("tick_manager") instance=ExtResource("4_jyhfs")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = 912.0
+offset_top = 465.0
+offset_right = 1142.0
+offset_bottom = 647.0
+grow_horizontal = 1
+grow_vertical = 1
+tick_manager = NodePath("../TickManager")

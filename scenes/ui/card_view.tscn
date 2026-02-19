@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cdrbewgg1wp7r"]
+
+[ext_resource type="Script" uid="uid://b03aa4xf83gix" path="res://ui/card_view.gd" id="1_vgx4y"]
+
+[node name="CardView" type="Button" unique_id=665730067]
+offset_right = 8.0
+offset_bottom = 8.0
+script = ExtResource("1_vgx4y")

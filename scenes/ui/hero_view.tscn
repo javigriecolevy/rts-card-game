@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://cn5m0r4oixorh"]
+
+[ext_resource type="Script" uid="uid://76q8hruljyqo" path="res://ui/hero_view.gd" id="1_2df77"]
+
+[node name="HeroView" type="Button" unique_id=137052355]
+offset_right = 8.0
+offset_bottom = 8.0
+script = ExtResource("1_2df77")

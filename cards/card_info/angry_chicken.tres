@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CardInfo" format=3 uid="uid://cu2ryss8341mk"]
+
+[ext_resource type="Script" uid="uid://cn5wuprk57deq" path="res://cards/card_info/_card_info.gd" id="1"]
+[ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_06t1u"]
+
+[resource]
+script = ExtResource("1")
+id = "angry_chicken"
+display_name = "Angry Chicken"
+cost = 1
+attack = 1
+health = 3

@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://bbrbm58u318kt"]
+
+[ext_resource type="Script" uid="uid://cnuepidn2odb4" path="res://ui/gameUI.gd" id="1_bma8u"]
+[ext_resource type="PackedScene" uid="uid://is4kg3erywt" path="res://scenes/ui/board_view.tscn" id="1_xjfbv"]
+[ext_resource type="PackedScene" uid="uid://cesuju5tmtvng" path="res://scenes/ui/hand_view.tscn" id="2_bma8u"]
+
+[node name="GameUI" type="Control" unique_id=1320527130]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bma8u")
+
+[node name="BoardView" parent="." unique_id=1440536600 instance=ExtResource("1_xjfbv")]
+layout_mode = 1
+
+[node name="HandView" parent="." unique_id=1281105930 instance=ExtResource("2_bma8u")]
+layout_mode = 1
+
+[node name="Overlay" type="Control" parent="." unique_id=1444228598]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TargetIndicator" type="TextureRect" parent="Overlay" unique_id=767512208]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

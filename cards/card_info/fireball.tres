@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="CardInfo" load_steps=3 format=3 uid="uid://bmryk8557ibf"]
+
+[ext_resource type="Script" uid="uid://cn5wuprk57deq" path="res://cards/card_info/_card_info.gd" id="1"]
+[ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_pbcfy"]
+
+[resource]
+script = ExtResource("1")
+id = "fireball"
+display_name = "Fireball"
+cost = 2
+type = 1

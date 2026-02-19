@@ -1,0 +1,13 @@
+# res://game/commands/PlayCardCommand.gd
+extends GameCommand
+class_name PlayCardCommand
+
+var player_id: int
+var card_instance_id: int
+var target_id: int = -1
+
+func _init(_tick: int, _player_id: int, _card_instance_id: int, _target_id: int = -1) -> void:
+	tick = _tick
+	player_id = _player_id
+	card_instance_id = _card_instance_id
+	target_id = _target_id

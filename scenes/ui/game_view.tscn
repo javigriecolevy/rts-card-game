@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://bhl2frco8scum"]
+
+[ext_resource type="Script" uid="uid://dehhmfpwe60qe" path="res://ui/game_view.gd" id="1_h4lqr"]
+
+[node name="GameView" type="Control" unique_id=1326419423]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_h4lqr")
+
+[node name="RootLayout" type="VBoxContainer" parent="." unique_id=1534900707]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EnemyHeroContainer" type="HBoxContainer" parent="RootLayout" unique_id=406128607]
+layout_mode = 2
+
+[node name="EnemyBoard" type="HBoxContainer" parent="RootLayout" unique_id=307958967]
+layout_mode = 2
+
+[node name="PlayerBoard" type="HBoxContainer" parent="RootLayout" unique_id=1709462813]
+layout_mode = 2
+
+[node name="PlayerHeroContainer" type="HBoxContainer" parent="RootLayout" unique_id=1526905786]
+layout_mode = 2
+
+[node name="Hand" type="HBoxContainer" parent="RootLayout" unique_id=915579663]
+layout_mode = 2
+size_flags_horizontal = 3

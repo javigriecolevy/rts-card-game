@@ -1,0 +1,28 @@
+[gd_resource type="Resource" script_class="CardInfo" format=3 uid="uid://yvlj8w5q0jlu"]
+
+[ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_wettq"]
+[ext_resource type="Resource" uid="uid://cu2ryss8341mk" path="res://cards/card_info/angry_chicken.tres" id="2_neqly"]
+[ext_resource type="Script" uid="uid://bxikxkghrdmfh" path="res://core/effects/summon_effect.gd" id="3_cqk1e"]
+[ext_resource type="Resource" uid="uid://l122h60pium0" path="res://cards/card_info/elven_archer.tres" id="4_s6be1"]
+[ext_resource type="Script" uid="uid://cn5wuprk57deq" path="res://cards/card_info/_card_info.gd" id="5_csgmr"]
+
+[sub_resource type="Resource" id="Resource_u4jex"]
+script = ExtResource("3_cqk1e")
+card = ExtResource("2_neqly")
+trigger = 5
+metadata/_custom_type_script = "uid://bxikxkghrdmfh"
+
+[sub_resource type="Resource" id="Resource_0isli"]
+script = ExtResource("3_cqk1e")
+card = ExtResource("4_s6be1")
+trigger = 6
+metadata/_custom_type_script = "uid://bxikxkghrdmfh"
+
+[resource]
+script = ExtResource("5_csgmr")
+id = "memified_rat"
+display_name = "memified_rat"
+cost = 2
+attack = 1
+health = 7
+effects = Array[ExtResource("1_wettq")]([SubResource("Resource_u4jex"), SubResource("Resource_0isli")])
