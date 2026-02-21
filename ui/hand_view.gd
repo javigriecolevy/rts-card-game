@@ -1,46 +1,59 @@
-# HandView.gd
 extends Control
+class_name HandView
 
 # Container where cards will be added
 @onready var card_container: VBoxContainer = $CardContainer
 
-# Preload the CardView scene (must be a .tscn)
+# Preload the CardView scene
 @onready var CardViewScene: PackedScene = preload("res://scenes/ui/card_view.tscn")
-
-# List of card instance IDs currently in hand
-var cards: Array[int] = []
 
 # Reference to your game state
 var game_state: GameState
 
-# Signal when a card is clicked
-signal card_selected(card_id)
+# Track cards currently displayed
+var cards: Array[int] = []
 
-func _init(_game_state: GameState) -> void:
+# Re-emitted signal for parent (GameView) to listen to
+signal card_selected(card_id: int)
+
+
+# -------------------------
+# Setup
+func setup(_game_state: GameState) -> void:
 	game_state = _game_state
 
-# Call this whenever your hand changes
+
+# -------------------------
+# Called when hand changes
 func update_hand(new_cards: Array[int]) -> void:
 	cards = new_cards
-	_refresh_card_views()
+	_refresh()
 
-# Clears the container and re-adds card views
-func _refresh_card_views() -> void:
-	card_container.clear()  # Remove old card views
 
+# -------------------------
+# Rebuild UI
+func _refresh() -> void:
+	# Clear old cards safely
+	for child in card_container.get_children():
+		child.queue_free()
+
+	# Add current cards
 	for card_instance_id in cards:
-		var instance = game_state.card_instances[card_instance_id] 
-		var card_view: Control = CardViewScene.instantiate()
+		var instance = game_state.card_instances[card_instance_id]
 
-		card_view.card_instance_id = instance.id
-		
-		# Connect the "clicked" signal from CardView to this view
-		card_view.connect("clicked", Callable(self, "_on_card_clicked"))
+		var card_view: CardView = CardViewScene.instantiate()
+		card_view.setup(instance.id, instance.definition)
 
-		# Add the view to the container
+		# Connect child → parent
+		card_view.card_clicked.connect(_on_card_clicked)
+
 		card_container.add_child(card_view)
 
-# Signal handler when a card is clicked
-func _on_card_clicked(card_instance_id: int) -> void:
-	print("!!!!! Selected card %d", card_instance_id)
-	emit_signal("card_selected", card_instance_id)
+
+# -------------------------
+# Child signal handler
+func _on_card_clicked(card_id: int) -> void:
+	print("HandView detected card:", card_id)
+
+	# Re-emit upward
+	card_selected.emit(card_id)

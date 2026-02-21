@@ -12,7 +12,7 @@ func apply_effect(game_state: GameState, _target: int) -> void:
 	game_state.event_resolver.add_event(
 		SummonEvent.new(
 			source_player_id,
-			minion,
+			card.id,
 			game_state.tick,
 			false,
 			-1

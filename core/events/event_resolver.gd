@@ -10,6 +10,7 @@ class Phase:
 
 # -------------------------
 # Event Queues
+var future_event_queue: Array[GameEvent] = []
 var draw_card_event_queue: Array[DrawCardEvent] = []
 var play_card_event_queue: Array[PlayCardEvent] = []
 var attack_event_queue: Array[AttackEvent] = []
@@ -70,6 +71,8 @@ func add_event(event: GameEvent):
 
 func resolve() -> void:
 	var processed_count: int = 0 # used to escape infinitely looping effects
+	for event in future_event_queue: # we add future events to current queue
+		add_event(future_event_queue.pop_back())
 	while _has_pending_events():
 		for phase in phase_queues:
 			
@@ -78,18 +81,32 @@ func resolve() -> void:
 			
 			while phase.queue.size() > 0 && processed_count <= MAX_EVENTS_PER_TICK:
 				var event: GameEvent = phase.queue.pop_front()
-				phase.handler.call(event)
-				combat_manager.process_triggers(event)
-				if not event.cancelled:
-					game_state.emitted_events.append(event)
-				processed_count += 1
+				if event.tick <= game_state.tick:
+					phase.handler.call(event)
+					combat_manager.process_triggers(event)
+					if not event.cancelled:
+						game_state.emit_ui(event)
+					processed_count += 1
+				else:	# we add future events to the future queue
+					future_event_queue.append(event)
 
 # -------------------------
 # Deterministic ordering
 func _compare_events(a: GameEvent, b: GameEvent) -> int:
-	if a.tick != b.tick:
-		return a.tick - b.tick
-	return a.sequence_id - b.sequence_id
+	# First, compare based on 'tick'
+	if a.tick < b.tick:
+		return 1
+	elif a.tick > b.tick:
+		return 0
+	
+	# If 'tick' is the same, compare based on 'sequence_id'
+	if a.sequence_id < b.sequence_id:
+		return 1
+	elif a.sequence_id > b.sequence_id:
+		return 0
+	
+	# If both are equal, return 0 (no need to change order)
+	return 0
 
 # -------------------------
 # elper functions

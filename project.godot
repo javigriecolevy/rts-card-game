@@ -18,3 +18,7 @@ config/name="rts cardgame"
 run/main_scene="uid://5rthdjye480f"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+card_database="*uid://bkr8u1mbr4kcv"

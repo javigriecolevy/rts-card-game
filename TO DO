@@ -5,3 +5,6 @@ CARD BASED EVENTS:
 	shuffle a card
 	add a card (to hand)
 
+
+create a start of game event (all players draw x amount of cards)
+test all edge cases for network determinism

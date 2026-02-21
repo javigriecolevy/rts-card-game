@@ -37,7 +37,7 @@ func _load_cards():
 # -------------------------
 # Get a card by ID
 # -------------------------
-func get_card(id: String) -> Resource:
+func get_card(id: String) -> CardInfo:
 	if id in cards:
 		# Return a copy to avoid mutating the original resource
 		return cards[id].duplicate()

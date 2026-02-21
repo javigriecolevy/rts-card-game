@@ -41,12 +41,16 @@ var command_queue: Array[GameCommand] = []
 
 # -------------------------
 # Simulation output (UI / replay / networking) Cleared externally once consumed
-var emitted_events: Array[GameEvent] = []
+var serialized_emitted_events: Array[Dictionary]
+var UI_emitted_events: Array[GameEvent]
 
 # -------------------------
 #  Event emitter helper
-func _emit(event: GameEvent) -> void:
-	emitted_events.append(event)
+func emit(event: GameEvent) -> void:
+	serialized_emitted_events.append(event.serialize())
+
+func emit_ui(event: GameEvent):
+	UI_emitted_events.append(event)
 
 # -------------------------
 # Entity ID helper
@@ -89,3 +93,9 @@ func print_current_state() -> void:
 	for pid in mana.keys():
 		print("Player %d mana: %d/%d"
 			% [pid, mana[pid], max_mana[pid]])
+	
+	for pid in hands.keys():
+		var hand_info: Array = []
+		for c in hands[pid]:
+			hand_info.append("%s" % c)
+		print("Player %d hand: %s" % [pid, hand_info])

@@ -27,11 +27,6 @@ func setup_players(player_ids: Array, starting_deck_func: Callable) -> void:
 		game_state.decks[pid] = starting_deck_func.call(pid)
 		game_state.hands[pid] = []
 
-		# Draw opening hand TODO: mulligan phase
-		for i in range(7):
-			#var draw_event: DrawCardEvent = DrawCardEvent.new(pid)
-			game_state.event_resolver.add_event(DrawCardEvent.new(pid, game_state.tick))
-
 		# -------------------------
 		# Mana
 		game_state.max_mana[pid] = 1

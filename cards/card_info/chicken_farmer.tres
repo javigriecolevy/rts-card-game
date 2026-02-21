@@ -15,7 +15,6 @@ metadata/_custom_type_script = "uid://bxikxkghrdmfh"
 script = ExtResource("4_v678k")
 id = "chicken_farmer"
 display_name = "chicken_farmer"
-cost = 1
 attack = 5
 health = 1
 effects = Array[ExtResource("1_a14jp")]([SubResource("Resource_a14jp")])

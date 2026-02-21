@@ -63,8 +63,8 @@ func handle_play_card(event: PlayCardEvent) -> void:
 	# Resolve card
 	match card.type:
 		card.CardType.MINION:
-			var minion: Minion = Minion.new_from_card(game_state.card_instances[event.card_instance_id].definition, player_id, game_state.tick)
-			var summon_minion: SummonEvent = SummonEvent.new(player_id, minion, game_state.tick, true, target_id)
+			#var minion: Minion = Minion.new_from_card(game_state.card_instances[event.card_instance_id].definition, player_id, game_state.tick)
+			var summon_minion: SummonEvent = SummonEvent.new(player_id, game_state.card_instances[card_instance_id].definition.id, game_state.tick, true, target_id)
 			game_state.event_resolver.add_event(summon_minion)
 
 		card.CardType.SPELL:
@@ -78,5 +78,6 @@ func handle_play_card(event: PlayCardEvent) -> void:
 	game_state.card_instances.erase(card_instance_id)
 
 func draw_for_all_players() -> void:
-	for pid in game_state.decks.keys():
-		handle_draw_card(DrawCardEvent.new(pid, game_state.tick))
+	for pid in game_state.heroes.keys():
+		game_state.event_resolver.add_event(DrawCardEvent.new(pid, game_state.tick))
+		game_state.emit(DrawCardEvent.new(pid, game_state.tick))

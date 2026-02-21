@@ -12,6 +12,9 @@ var is_host := false
 var local_player_id: int = -1
 var peer_to_player_id := {}
 
+signal remote_events_received(events: Array[GameEvent])
+
+
 
 func _ready():
 	# Optional: helpful logging
@@ -98,13 +101,24 @@ func rpc_start_game():
 	print("Assigned local player ID:", local_player_id)
 	emit_signal("start_game")
 
-@rpc("call_local", "reliable")
+# =========================
+# Sync Player IDs
+# =========================
+@rpc("any_peer", "call_local", "reliable")
 func rpc_sync_player_ids(mapping: Dictionary):
 	peer_to_player_id = mapping
 
-	var my_peer_id = multiplayer.get_unique_id()
-	local_player_id = peer_to_player_id[my_peer_id]
+	var my_peer := multiplayer.get_unique_id()
+	local_player_id = peer_to_player_id[my_peer]
 
 	print("Assigned game player ID:", local_player_id)
 
 	emit_signal("start_game")
+
+# =========================
+# Broadcast Events
+# =========================
+@rpc("any_peer", "call_remote", "reliable")
+func rpc_broadcast_events(events):
+	print(">>> RPC RECEIVED on peer", multiplayer.get_unique_id())
+	emit_signal("remote_events_received", events)

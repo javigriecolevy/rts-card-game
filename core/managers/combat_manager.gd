@@ -43,14 +43,14 @@ func handle_damage(event: DamageEvent) -> void:
 		% [target.display_name, event.amount, target.health])
 	
 	if target.health <= 0:
-		var death_event: DeathEvent = DeathEvent.new(target.id, target.display_name, event.tick)
+		var death_event: DeathEvent = DeathEvent.new(target.id, event.tick)
 		game_state.event_resolver.add_event(death_event)
 
 # -------------------------
 # Handle minion summon
 func handle_summon(event: SummonEvent):
 	var player_id = event.player_id
-	var minion = event.minion
+	var minion: Minion = Minion.new_from_card(card_database.get_card(event.card_db_id), player_id, event.tick)
 	minion.id = game_state._allocate_entity_id()
 	
 	game_state.entities[minion.id] = minion

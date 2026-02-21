@@ -13,7 +13,7 @@ var selected_attacker_id: int = -1
 # -------------------------
 # Setup
 func _ready():
-	tick_manager.events_emitted.connect(_on_events_emitted)
+	tick_manager.ui_events_emitted.connect(_on_events_emitted)
 
 # -------------------------
 # Initialize perspective
@@ -41,9 +41,8 @@ func _initialize_full_state():
 
 # -------------------------
 # Event Entry Point
-func _on_events_emitted(events: Array):
+func _on_events_emitted(events: Array[GameEvent]):
 	for event in events:
-
 		if event is DrawCardEvent:
 			if event.player_id == local_player_id:
 				_create_card_view(event.card_instance_id)
@@ -53,7 +52,7 @@ func _on_events_emitted(events: Array):
 				_remove_card_view(event.card_instance_id)
 
 		elif event is SummonEvent:
-			_create_minion_view(event.minion)
+			_create_minion_view(Minion.new_from_card(card_database.get_card(event.card_db_id), event.player_id, event.tick))
 
 		elif event is DamageEvent:
 			_update_entity_health(event.target_id)
@@ -130,6 +129,7 @@ func _remove_card_view(card_instance_id: int):
 func _on_card_clicked(card_id: int):
 	selected_card_id = card_id
 	selected_attacker_id = -1
+	_queue_play_card(selected_card_id, -1)
 
 func _on_minion_clicked(minion_id: int):
 	# Card targeting
