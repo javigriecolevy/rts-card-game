@@ -1,10 +1,25 @@
-spells should be working but needs testing
+spells should be working but still needs testing
 
 CARD BASED EVENTS:
 	discard a card
 	shuffle a card
 	add a card (to hand)
 
+RESOURCE BASED EVENTS:
+	(start of game event should be here?)
+	gain/refresh mana	- (ONLY necessary if implementing mana cheating effects (e.g. coin/innervate, wild growth))
+				  (if not implementing: gain/refresh mana should be done by each client when tick % cycle == 0)
 
 create a start of game event (all players draw x amount of cards)
 test all edge cases for network determinism
+
+clean up tick_manager 	- remove ALL unused simulate_player code
+			- code is repeated too much between _process and apply_remote_events
+			- start_host and start_client are the same, running(bool) is no longer used
+
+rewrite network_manager - not looking great
+
+rewrite main.gd		- not looking great
+
+
+!!! SEEDED RANDOM --- SAME RANDOM ACROSS ALL CLIENTS !!!
