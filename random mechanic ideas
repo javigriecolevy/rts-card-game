@@ -1,0 +1,11 @@
+STATUS CONDITIONS:
+  - BURN (X): Entity takes 1 dps for X seconds. 
+  - FREEZE (X): X seconds is added to attack cooldown
+  - VITALITY/REGEN (X): Entity heals 1 hps for X second
+  - WEAKNESS (X): Entity has -50% ATK (rounded up) for X seconds
+  - CONFUSED (X): Entity has a 50% chance to hit a random target for X seconds
+
+
+DURATION BASED EFFECTS:
+  - (MULTICAST (X), Ys: effect) repeat effect X times every Y seconds --- (most status conditions could just be multicast effects)
+  e.g. VOLCANO (MULTICAST 10, every 1s: Deal 1 damage to a random enemy minion)
