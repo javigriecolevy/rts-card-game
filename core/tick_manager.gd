@@ -47,11 +47,13 @@ func start_client():
 func _process(delta: float) -> void:
 	if not running:
 		return
+	
 	tick_timer += delta
 	
-	ui_events_emitted.emit(game_state.UI_emitted_events)
-	game_state.UI_emitted_events.clear()
-	
+	if game_state.UI_emitted_events.size() > 0:
+		ui_events_emitted.emit(game_state.UI_emitted_events)
+		game_state.UI_emitted_events.clear()
+		
 	if tick_timer >= tick_rate:
 		tick_timer = 0.0
 		print("\n=== Tick %d from Player %d ===" % [game_state.tick, local_player_id])
@@ -77,7 +79,7 @@ func send_local_command(cmd: GameCommand):
 
 func _on_remote_command_received(data: Dictionary):
 	var script: Script = load(data["type"])
-	var cmd: GameCommand = script.new(0)
+	var cmd: GameCommand = script.new()
 	cmd.deserialize(data)
 
 func queue_command(cmd: GameCommand):
@@ -90,7 +92,6 @@ func process_commands_for_tick():
 		return
 
 	var cmds: Array = commands_by_tick[game_state.tick]
-
 	# Sort deterministically
 	cmds.sort_custom(func(a, b):
 		return a.player_id < b.player_id
@@ -130,8 +131,3 @@ func _create_starting_deck(player_id: int) -> Deck:
 			card_database.get_card("chicken_farmer"),
 			card_database.get_card("chicken_farmer")
 		])
-		
-		#for pid in game_state.heroes:
-			#for i in range(7):
-				#game_state.event_resolver.add_event(DrawCardEvent.new(pid, 1))
-				#game_state.emit(DrawCardEvent.new(pid, 1))

@@ -21,7 +21,6 @@ func _ready():
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
 
-
 # ========================
 # Hosting / Joining
 # ========================
@@ -78,7 +77,7 @@ func _on_peer_connected(peer_id : int):
 
 			for i in all_peers.size():
 				peer_to_player_id[all_peers[i]] = i + 1
-			print("Peer → Player mapping:", peer_to_player_id)
+			print("Peer -> Player mapping:", peer_to_player_id)
 			rpc_sync_player_ids.rpc(peer_to_player_id)
 
 

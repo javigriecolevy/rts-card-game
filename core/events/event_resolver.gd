@@ -94,20 +94,10 @@ func resolve() -> void:
 # -------------------------
 # Deterministic ordering
 func _compare_events(a: GameEvent, b: GameEvent) -> int:
-	# First, compare based on 'tick'
-	if a.tick < b.tick:
-		return 1
-	elif a.tick > b.tick:
-		return 0
-	
-	# If 'tick' is the same, compare based on 'sequence_id'
-	if a.sequence_id < b.sequence_id:
-		return 1
-	elif a.sequence_id > b.sequence_id:
-		return 0
-	
-	# If both are equal, return 0 (no need to change order)
-	return 0
+	if a.tick != b.tick:
+		return a.tick - b.tick
+
+	return a.sequence_id - b.sequence_id
 
 # -------------------------
 # elper functions
