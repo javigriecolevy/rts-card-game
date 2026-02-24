@@ -159,17 +159,17 @@ func _on_hero_clicked(hero_id: int):
 # Command Queueing
 func _queue_play_card(card_id: int, target_id: int):
 	var cmd = PlayCardCommand.new(
-		tick_manager.game_state.tick + 1,
+		tick_manager.game_state.tick + tick_manager.INPUT_DELAY,
 		local_player_id,
 		card_id,
 		target_id
 	)
-	tick_manager.command_queue.append(cmd)
+	tick_manager.send_local_command(cmd)
 
 func _queue_attack(attacker_id: int, target_id: int):
 	var cmd = AttackCommand.new(
-		tick_manager.game_state.tick + 1,
+		tick_manager.game_state.tick + tick_manager.INPUT_DELAY,
 		attacker_id,
 		target_id
 	)
-	tick_manager.command_queue.append(cmd)
+	tick_manager.send_local_command(cmd)

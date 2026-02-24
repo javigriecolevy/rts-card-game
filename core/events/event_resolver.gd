@@ -52,7 +52,8 @@ func _init(_game_state: GameState):
 # -------------------------
 # Add events to their proper queue
 func add_event(event: GameEvent):
-	event.sequence_id = next_sequence_id
+	if(event.sequence_id == -1):
+		event.sequence_id = next_sequence_id
 	next_sequence_id += 1
 	if event is DrawCardEvent:
 		draw_card_event_queue.append(event)
@@ -71,8 +72,8 @@ func add_event(event: GameEvent):
 
 func resolve() -> void:
 	var processed_count: int = 0 # used to escape infinitely looping effects
-	for event in future_event_queue: # we add future events to current queue
-		add_event(future_event_queue.pop_back())
+	while future_event_queue.size() > 0: # we add future events to current queue
+		add_event(future_event_queue.pop_front())
 	while _has_pending_events():
 		for phase in phase_queues:
 			
@@ -81,13 +82,13 @@ func resolve() -> void:
 			
 			while phase.queue.size() > 0 && processed_count <= MAX_EVENTS_PER_TICK:
 				var event: GameEvent = phase.queue.pop_front()
-				if event.tick <= game_state.tick:
+				if event.tick == game_state.tick:
 					phase.handler.call(event)
 					combat_manager.process_triggers(event)
 					if not event.cancelled:
 						game_state.emit_ui(event)
 					processed_count += 1
-				else:	# we add future events to the future queue
+				if event.tick > game_state.tick:	# we add future events to the future queue
 					future_event_queue.append(event)
 
 # -------------------------

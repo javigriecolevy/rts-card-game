@@ -4,7 +4,7 @@ class_name GameState
 # -------------------------
 # Core game data
 var tick: int = 0
-var cycle_length: int = 3
+var cycle_length: int = 2
 
 # -------------------------
 # Entity system

@@ -1,7 +1,12 @@
 extends Node
 class_name TickManager
 
-@export var tick_rate: float = 1.0
+@export var tick_rate: float = 2.0
+
+@onready var network := get_node("/root/GameRoot/NetworkManager")
+
+const INPUT_DELAY: int = 1
+
 var tick_timer: float = 0.0
 
 var game_state: GameState = GameState.new()
@@ -10,10 +15,9 @@ var event_resolver: EventResolver = EventResolver.new(game_state)
 var running: bool = false
 var local_player_id: int = -1
 
-var command_queue: Array[GameCommand] = []
+var commands_by_tick: Dictionary = {} # tick -> Array[GameCommand]
 var command_processor: CommandProcessor = CommandProcessor.new(game_state, game_state.event_resolver)
 
-signal events_emitted(events: Array[Dictionary])
 signal ui_events_emitted(events: Array[GameEvent])
 
 # -------------------------
@@ -23,89 +27,77 @@ func _ready() -> void:
 # -------------------------
 # Initialize game
 func initialize_game() -> void:
-	game_state = GameState.new()
-	event_resolver = EventResolver.new(game_state)
-	command_processor = CommandProcessor.new(game_state, game_state.event_resolver)
-	
 	# -------------------------
 	# Setup players
 	var deck_func: Callable = Callable(self, "_create_starting_deck")
 	game_state.event_resolver.resource_manager.setup_players([1, 2], deck_func)
 
-
 # -------------------------
 func start_host():
-	running = true
 	initialize_game()
-	
+	running = true
 	print("TickManager started as host")
 
 func start_client():
-	running = false
 	initialize_game()
-	
+	running = true
 	print("TickManager started as client")
 
 # -------------------------
 func _process(delta: float) -> void:
-	if delta == 0 && running: 	 # Draw opening hand TODO: mulligan phase
-		for pid in game_state.heroes:
-			for i in range(7):
-				game_state.event_resolver.add_event(DrawCardEvent.new(pid, 1))
-				game_state.emit(DrawCardEvent.new(pid, 1))
+	if not running:
+		return
 	tick_timer += delta
+	
+	ui_events_emitted.emit(game_state.UI_emitted_events)
+	game_state.UI_emitted_events.clear()
+	
 	if tick_timer >= tick_rate:
 		tick_timer = 0.0
 		print("\n=== Tick %d from Player %d ===" % [game_state.tick, local_player_id])
 		
 		# tick processing
-		 
 		process_commands_for_tick()
-
 		game_state.event_resolver.resolve()
 		
-		_emit_events()
-		ui_events_emitted.emit(game_state.UI_emitted_events)
-		game_state.UI_emitted_events.clear()
-		
-		
-		if game_state.tick % game_state.cycle_length == 0 && running:
+		if game_state.tick % game_state.cycle_length == 0:
 			game_state.event_resolver.resource_manager.refresh_mana()
 			game_state.event_resolver.card_manager.draw_for_all_players()
 		
 		game_state.tick += 1
 		
 		game_state.print_current_state()
-		#simulate_player_intention()
+# -------------------------
+
+func send_local_command(cmd: GameCommand):
+	# Schedule locally
+	queue_command(cmd)
+	# Send to others
+	network.rpc_broadcast_command.rpc(cmd.serialize())
+
+func _on_remote_command_received(data: Dictionary):
+	var script: Script = load(data["type"])
+	var cmd: GameCommand = script.new(0)
+	cmd.deserialize(data)
+
+func queue_command(cmd: GameCommand):
+	if not commands_by_tick.has(cmd.tick):
+		commands_by_tick[cmd.tick] = []
+	commands_by_tick[cmd.tick].append(cmd)
 
 func process_commands_for_tick():
-	var remaining: Array[GameCommand] = []
-	for cmd in command_queue:
-		if cmd.tick != game_state.tick:
-			remaining.append(cmd)
-			continue
-		command_processor.process(cmd)
-	
-	command_queue = remaining
-	
-func apply_remote_events(net_events: Array) -> void:
-	print("Applying remote events: ", net_events.size())
-	for event_data in net_events:
-		var event: GameEvent = load(event_data["type"]).new()
-		event.deserialize(event_data)
-		game_state.event_resolver.add_event(event)
-	game_state.event_resolver.resolve()
-	#ui_events_emitted.emit(game_state.UI_emitted_events)
-	#game_state.UI_emitted_events.clear()
-	#print("Client GameState: ")
-	print("\n=== Tick %d from Player %d ===" % [game_state.tick, local_player_id])
-	game_state.print_current_state()
+	if not commands_by_tick.has(game_state.tick):
+		return
 
-func _emit_events():
-	if game_state.serialized_emitted_events.size() > 0:
-		print("emitting local events: ", game_state.serialized_emitted_events.size())
-		events_emitted.emit(game_state.serialized_emitted_events.duplicate())
-		game_state.serialized_emitted_events.clear()
+	var cmds: Array = commands_by_tick[game_state.tick]
+
+	# Sort deterministically
+	cmds.sort_custom(func(a, b):
+		return a.player_id < b.player_id
+	)
+	for cmd in cmds:
+		command_processor.process(cmd)
+	commands_by_tick.erase(game_state.tick)
 
 # -------------------------
 # Starting deck
@@ -138,3 +130,8 @@ func _create_starting_deck(player_id: int) -> Deck:
 			card_database.get_card("chicken_farmer"),
 			card_database.get_card("chicken_farmer")
 		])
+		
+		#for pid in game_state.heroes:
+			#for i in range(7):
+				#game_state.event_resolver.add_event(DrawCardEvent.new(pid, 1))
+				#game_state.emit(DrawCardEvent.new(pid, 1))

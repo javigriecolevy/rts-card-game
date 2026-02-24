@@ -12,7 +12,7 @@ var is_host := false
 var local_player_id: int = -1
 var peer_to_player_id := {}
 
-signal remote_events_received(events: Array[GameEvent])
+signal remote_command_received(command_data: Dictionary)
 
 
 
@@ -116,9 +116,8 @@ func rpc_sync_player_ids(mapping: Dictionary):
 	emit_signal("start_game")
 
 # =========================
-# Broadcast Events
+# Broadcast Commands
 # =========================
 @rpc("any_peer", "call_remote", "reliable")
-func rpc_broadcast_events(events):
-	print(">>> RPC RECEIVED on peer", multiplayer.get_unique_id())
-	emit_signal("remote_events_received", events)
+func rpc_broadcast_command(command_data: Dictionary):
+	emit_signal("remote_command_received", command_data)
