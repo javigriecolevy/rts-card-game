@@ -20,15 +20,6 @@ signal ui_events_emitted(events: Array[GameEvent])
 func _ready() -> void:
 	print("TickManager ready (waiting for start)")
 
-	## -------------------------
-	## Print starting hands
-	#for pid in game_state.hands.keys():
-		#print("Player %d starting hand:" % pid)
-		#for card_instance_id in game_state.hands[pid]:
-			#var instance: CardInstance = game_state.card_instances[card_instance_id]
-			#print(" - %s (cost %d)"
-				#% [instance.definition.display_name, instance.definition.cost])
-				
 # -------------------------
 # Initialize game
 func initialize_game() -> void:
@@ -107,114 +98,14 @@ func apply_remote_events(net_events: Array) -> void:
 	#ui_events_emitted.emit(game_state.UI_emitted_events)
 	#game_state.UI_emitted_events.clear()
 	#print("Client GameState: ")
-	#game_state.print_current_state()
+	print("\n=== Tick %d from Player %d ===" % [game_state.tick, local_player_id])
+	game_state.print_current_state()
 
 func _emit_events():
 	if game_state.serialized_emitted_events.size() > 0:
 		print("emitting local events: ", game_state.serialized_emitted_events.size())
 		events_emitted.emit(game_state.serialized_emitted_events.duplicate())
 		game_state.serialized_emitted_events.clear()
-
-# -------------------------
-# Simulate basic player intent
-func simulate_player_intention() -> void:
-	for pid in game_state.hands.keys():
-		if game_state.hands[pid].size() == 0:
-			continue
-
-		var card_instance_id: int = game_state.hands[pid][0]
-		var target_id: int = _pick_elven_archer_target(pid)
-
-		if target_id == -1:
-			continue
-
-		_queue_play_card(pid, card_instance_id, target_id)
-
-	_queue_minion_attacks()
-
-# -------------------------
-# Pick target for Elven Archer
-func _pick_elven_archer_target(player_id: int) -> int:
-	# Prefer enemy minions
-	for other_pid in game_state.boards.keys():
-		if other_pid == player_id:
-			continue
-
-		if game_state.boards[other_pid].size() > 0:
-			return game_state.boards[other_pid][0].id
-
-	# Otherwise hit enemy hero
-	for other_pid in game_state.heroes.keys():
-		if other_pid != player_id:
-			return game_state.heroes[other_pid]
-
-	return -1
-
-# -------------------------
-# Queue play card command
-func _queue_play_card(player_id: int, card_instance_id: int, target_id: int) -> void:
-	var cmd: PlayCardCommand = PlayCardCommand.new(
-		game_state.tick + 1,
-		player_id,
-		card_instance_id,
-		target_id
-	)
-
-	command_queue.append(cmd)
-
-	var instance: CardInstance = game_state.card_instances[card_instance_id]
-	print(
-		"Queued Player %d to play %s targeting %s"
-		% [
-			player_id,
-			instance.definition.display_name,
-			game_state.entities[target_id].display_name
-		]
-	)
-
-# -------------------------
-# Queue minion attacks
-func _queue_minion_attacks() -> void:
-	for pid in game_state.boards.keys():
-		var my_board: Array = game_state.boards[pid]
-		if my_board.size() == 0:
-			continue
-
-		# Pick enemy player ID
-		var enemy_pid: int = -1
-		for other_pid in game_state.boards.keys():
-			if other_pid != pid:
-				enemy_pid = other_pid
-				break
-
-		if enemy_pid == -1:
-			continue
-
-		for minion in my_board:
-			var target_id: int
-
-			if game_state.boards[enemy_pid].size() > 0:
-				target_id = game_state.boards[enemy_pid][0].id
-			else:
-				target_id = game_state.heroes[enemy_pid]
-
-			var cmd: AttackCommand = AttackCommand.new(
-				game_state.tick + 1,
-				minion.id,
-				target_id
-			)
-
-			command_queue.append(cmd)
-
-			print(
-				"Queued %s(%d) from Player %d to attack %s"
-				% [
-					minion.display_name,
-					minion.id,
-					minion.owner_id,
-					game_state.entities[target_id].display_name
-				]
-			)
 
 # -------------------------
 # Starting deck
