@@ -1,5 +1,5 @@
 extends GameCommand
-class_name AdvanceTickCommand
+class_name EndInputCommand
 
 func _init(_tick: int = -1, _player_id: int = -1) -> void:
 	tick = _tick

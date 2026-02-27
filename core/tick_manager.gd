@@ -14,11 +14,12 @@ var event_resolver: EventResolver = EventResolver.new(game_state)
 
 var running: bool = false
 var local_player_id: int = -1
+var finalized_local_tick: int = -1
 
 var commands_by_tick: Dictionary = {} # tick -> Array[GameCommand]
 var command_processor: CommandProcessor = CommandProcessor.new(game_state, game_state.event_resolver)
 
-signal ui_events_ready(events: Array[GameEvent])
+signal ui_events_resolved(events: Array[GameEvent])
 
 # -------------------------
 func _ready() -> void:
@@ -31,7 +32,6 @@ func initialize_game() -> void:
 	# Setup players
 	var deck_func: Callable = Callable(self, "_create_starting_deck")
 	game_state.event_resolver.resource_manager.setup_players([1, 2], deck_func)
-	send_local_command(AdvanceTickCommand.new(game_state.tick, local_player_id))
 
 # -------------------------
 func start_host():
@@ -46,37 +46,71 @@ func start_client():
 
 # -------------------------
 func _process(delta: float) -> void:
-	# Update ui if there are any pending ui events
-	if game_state.ui_event_queue.size() > 0:
-		ui_events_ready.emit(game_state.ui_event_queue)
-		game_state.ui_event_queue.clear()
+	if not running:
+		return
 	
-	# -------------------------
-	# Check if game is running, timer is above tick rate and all players have advanced tick
-	if _can_advance_tick(delta):
-		# We safely advance to next tick
-		
-		# Tick processing
+	_dispatch_ui_events()
+	_update_tick_timer(delta)
+	_try_advance_tick()
+
+# -------------------------
+# Update ui if there are any pending ui events
+func _dispatch_ui_events():
+	if not game_state.ui_event_queue.is_empty():
+		ui_events_resolved.emit(game_state.ui_event_queue)
+		game_state.ui_event_queue.clear()
+
+# -------------------------
+# Advances tick timer and sends EndInput at the end of tick
+func  _update_tick_timer(delta: float):
+	tick_timer += delta
+	if tick_timer >= tick_rate:
+		tick_timer = 0.0
+		# Finalize input for this tick when input window closes
+		if finalized_local_tick != game_state.tick:
+			send_local_command(EndInputCommand.new(game_state.tick, local_player_id))
+			finalized_local_tick = game_state.tick
+
+# -------------------------
+# After recieving all EndInputCommands handles current tick processing and advances
+func _try_advance_tick() -> void:
+	if _all_players_ended_input():
+		# Solves current tick
 		process_commands_for_tick()
 		game_state.event_resolver.resolve()
-		
-		# -------------------------
-		# Check if current tick is new cycle
-		if game_state.tick % game_state.cycle_length == 0:
-			game_state.event_resolver.resource_manager.refresh_mana()
-			game_state.event_resolver.card_manager.draw_for_all_players()
-		# -------------------------
-		game_state.tick += 1
-		tick_timer = 0.0
-		# We announce that we've advanced this tick
-		send_local_command(AdvanceTickCommand.new(game_state.tick, local_player_id))
+		_handle_cycle()
+	
+		game_state.tick += 1 # Advances to next tick
 		
 		#DEBUG OUTPUT. TODO: REMOVE
 		print("\n=== Tick %d from Player %d ===" % [game_state.tick - 1, local_player_id])
 		game_state.print_current_state()
 
 # -------------------------
+# Checks if recieved end input command from all players
+func _all_players_ended_input() -> bool:
+	if not commands_by_tick.has(game_state.tick):
+		return false
+	
+	var ended_count: int = 0
+	var total_players: int = game_state.heroes.size()
+	
+	for cmd in commands_by_tick[game_state.tick]:
+		if cmd is EndInputCommand:
+			ended_count += 1
+	
+	return ended_count == total_players
+
+# -------------------------
+# Refreshes mana and draws cards at the start of each new cycle
+func _handle_cycle():
+		if game_state.tick % game_state.cycle_length == 0:
+			game_state.event_resolver.resource_manager.refresh_mana()
+			game_state.event_resolver.card_manager.draw_for_all_players()
+	
+# -------------------------
 # Command handling
+# -------------------------
 func send_local_command(cmd: GameCommand):
 	# Schedule locally
 	queue_command(cmd)
@@ -101,42 +135,13 @@ func process_commands_for_tick():
 	var cmds: Array = commands_by_tick[game_state.tick]
 	# Sort deterministically
 	cmds.sort_custom(func(a, b):
-		return a.player_id - b.player_id
+		return a.player_id < b.player_id
 	)
 	for cmd in cmds:
 		command_processor.process(cmd)
 	commands_by_tick.erase(game_state.tick)
-
 # -------------------------
-func _can_advance_tick(delta: float) -> bool:
-	# Check if timer is above tick rate
-	if tick_timer < tick_rate:
-		tick_timer += delta
-		return false
-	# Check if paused and recieved advance tick from all players
-	if not running or not _advance_tick_command_recieved():
-		return false
-	
-	return true
 
-# -------------------------
-# Checks if all players have sent the advance tick command
-func _advance_tick_command_recieved():
-	if not commands_by_tick.has(game_state.tick):
-		return false
-
-	var current_tick_commands: Array = commands_by_tick[game_state.tick]
-	var players_with_empty := {}
-
-	for command: GameCommand in current_tick_commands:
-		if command is AdvanceTickCommand:
-			players_with_empty[command.player_id] = true
-
-	for pid in game_state.heroes.keys():
-		if not players_with_empty.has(pid):
-			return false
-	
-	return true
 # -------------------------
 # Starting deck
 func _create_starting_deck(player_id: int) -> Deck:

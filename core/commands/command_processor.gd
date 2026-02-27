@@ -16,7 +16,7 @@ func process(command: GameCommand) -> void:
 		_process_play_card(command)
 	elif command is AttackCommand:
 		_process_attack(command)
-	elif command is AdvanceTickCommand:
+	elif command is EndInputCommand:
 		_process_empty_input()
 	else:
 		assert(false, "Unhandled command type: %s" % command)

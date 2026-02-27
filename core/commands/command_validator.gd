@@ -12,7 +12,7 @@ func is_valid(command: GameCommand) -> bool:
 		return check_attack_command(command)
 	elif command is PlayCardCommand:
 		return check_play_card_command(command)
-	elif command is AdvanceTickCommand:
+	elif command is EndInputCommand:
 		return true
 	#elif command is HeroPowerCommand:
 	#	return check_hero_power_command(command)
