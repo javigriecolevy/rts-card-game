@@ -1,7 +1,13 @@
-[gd_resource type="Resource" script_class="CardInfo" load_steps=3 format=3 uid="uid://bmryk8557ibf"]
+[gd_resource type="Resource" script_class="CardInfo" format=3 uid="uid://bmryk8557ibf"]
 
 [ext_resource type="Script" uid="uid://cn5wuprk57deq" path="res://cards/card_info/_card_info.gd" id="1"]
 [ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_pbcfy"]
+[ext_resource type="Script" uid="uid://blome7s1rkwbb" path="res://core/effects/damage_effect.gd" id="2_vnawu"]
+
+[sub_resource type="Resource" id="Resource_18ii1"]
+script = ExtResource("2_vnawu")
+amount = 6
+metadata/_custom_type_script = "uid://blome7s1rkwbb"
 
 [resource]
 script = ExtResource("1")
@@ -9,3 +15,5 @@ id = "fireball"
 display_name = "Fireball"
 cost = 2
 type = 1
+requires_target = true
+effects = Array[ExtResource("1_pbcfy")]([SubResource("Resource_18ii1")])

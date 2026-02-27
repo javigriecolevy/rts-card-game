@@ -28,7 +28,7 @@ var event_resolver: EventResolver = EventResolver.new(self)
 # -------------------------
 # Player data
 var decks: Dictionary[int, Deck] = {}
-var hands: Dictionary = {}                   # player_id -> Array[int]
+var hands: Dictionary = {}                   # player_id -> Array[CardInstance]
 var boards: Dictionary[int, Array] = {}      # player_id -> Array[Minion]
 
 var mana: Dictionary[int, int] = {}          # player_id -> int (current mana)
@@ -41,16 +41,11 @@ var command_queue: Array[GameCommand] = []
 
 # -------------------------
 # Simulation output (UI / replay / networking) Cleared externally once consumed
-var serialized_emitted_events: Array[Dictionary]
-var ui_event_queue: Array[GameEvent]
+var ui_event_queue: Array[GameEvent] = []
 
 # -------------------------
-#  Event emitter helper
-func emit(event: GameEvent) -> void:
-	serialized_emitted_events.append(event.serialize())
-
-func emit_ui(event: GameEvent):
-	ui_event_queue.append(event)
+# Seeded random
+var rng: RandomNumberGenerator 
 
 # -------------------------
 # Entity ID helper

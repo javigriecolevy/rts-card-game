@@ -17,7 +17,6 @@ signal remote_command_received(command_data: Dictionary)
 
 
 func _ready():
-	# Optional: helpful logging
 	multiplayer.peer_connected.connect(_on_peer_connected)
 	multiplayer.peer_disconnected.connect(_on_peer_disconnected)
 
@@ -69,8 +68,8 @@ func _on_peer_connected(peer_id : int):
 		print("Players connected:", total_players, "/", MAX_PLAYERS)
 
 		if total_players == MAX_PLAYERS:
-			print("Lobby full — assigning player slots")
-
+			print("Lobby full -- assigning player slots")
+			
 			var all_peers := multiplayer.get_peers()
 			all_peers.append(1) # host is always 1
 			all_peers.sort()
@@ -78,7 +77,16 @@ func _on_peer_connected(peer_id : int):
 			for i in all_peers.size():
 				peer_to_player_id[all_peers[i]] = i + 1
 			print("Peer -> Player mapping:", peer_to_player_id)
-			rpc_sync_player_ids.rpc(peer_to_player_id)
+			
+			# Host generates deterministic match seed
+			var rng := RandomNumberGenerator.new()
+			rng.randomize()
+			var match_seed := rng.randi()
+
+			print("Generated match seed:", match_seed)
+
+			# NEW: Sync mapping + seed together
+			rpc_sync_match_data.rpc(peer_to_player_id, match_seed)
 
 
 func _on_peer_disconnected(peer_id : int):
@@ -101,18 +109,19 @@ func rpc_start_game():
 	emit_signal("start_game")
 
 # =========================
-# Sync Player IDs
+# Sync Player IDs and RNG seed
 # =========================
 @rpc("any_peer", "call_local", "reliable")
-func rpc_sync_player_ids(mapping: Dictionary):
+func rpc_sync_match_data(mapping: Dictionary, match_seed: int):
 	peer_to_player_id = mapping
 
 	var my_peer := multiplayer.get_unique_id()
 	local_player_id = peer_to_player_id[my_peer]
 
 	print("Assigned game player ID:", local_player_id)
-
-	emit_signal("start_game")
+	print("Received match seed:", match_seed)
+	
+	emit_signal("start_game", match_seed)
 
 # =========================
 # Broadcast Commands

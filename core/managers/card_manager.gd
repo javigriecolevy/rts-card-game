@@ -81,4 +81,4 @@ func draw_for_all_players() -> void:
 	for pid in game_state.heroes.keys():
 		var event: DrawCardEvent = DrawCardEvent.new(pid, game_state.tick + 1)
 		game_state.event_resolver.add_event(event)
-		game_state.emit(event)
+#		game_state.emit(event)

@@ -86,7 +86,7 @@ func resolve() -> void:
 					phase.handler.call(event)
 					combat_manager.process_triggers(event)
 					if not event.cancelled:
-						game_state.emit_ui(event)
+						game_state.ui_event_queue.append(event)
 					processed_count += 1
 				if event.tick > game_state.tick:	# we add future events to the future queue
 					future_event_queue.append(event)

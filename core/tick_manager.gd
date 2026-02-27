@@ -10,11 +10,11 @@ const INPUT_DELAY: int = 2
 var tick_timer: float = 0.0
 
 var game_state: GameState = GameState.new()
-var event_resolver: EventResolver = EventResolver.new(game_state)
 
 var running: bool = false
 var local_player_id: int = -1
 var finalized_local_tick: int = -1
+var match_seed: int = -1
 
 var commands_by_tick: Dictionary = {} # tick -> Array[GameCommand]
 var command_processor: CommandProcessor = CommandProcessor.new(game_state, game_state.event_resolver)
@@ -28,10 +28,15 @@ func _ready() -> void:
 # -------------------------
 # Initialize game
 func initialize_game() -> void:
-	# -------------------------
+	# Setup seeded rng
+	game_state.rng = RandomNumberGenerator.new()
+	game_state.rng.seed = match_seed
+	
 	# Setup players
 	var deck_func: Callable = Callable(self, "_create_starting_deck")
 	game_state.event_resolver.resource_manager.setup_players([1, 2], deck_func)
+	
+	print("Current match_seed for Player %d is: %d" % [local_player_id, match_seed])
 
 # -------------------------
 func start_host():
@@ -48,7 +53,7 @@ func start_client():
 func _process(delta: float) -> void:
 	if not running:
 		return
-	
+
 	_dispatch_ui_events()
 	_update_tick_timer(delta)
 	_try_advance_tick()
@@ -107,15 +112,13 @@ func _handle_cycle():
 		if game_state.tick % game_state.cycle_length == 0:
 			game_state.event_resolver.resource_manager.refresh_mana()
 			game_state.event_resolver.card_manager.draw_for_all_players()
-	
+
 # -------------------------
 # Command handling
 # -------------------------
 func send_local_command(cmd: GameCommand):
-	# Schedule locally
-	queue_command(cmd)
-	# Send to others
-	network.rpc_broadcast_command.rpc(cmd.serialize())
+	queue_command(cmd) # Schedule locally
+	network.rpc_broadcast_command.rpc(cmd.serialize()) # Send to others
 
 func _on_remote_command_received(data: Dictionary):
 	var script: Script = load(data["type"])
@@ -131,7 +134,7 @@ func queue_command(cmd: GameCommand):
 func process_commands_for_tick():
 	if not commands_by_tick.has(game_state.tick):
 		return
-
+	
 	var cmds: Array = commands_by_tick[game_state.tick]
 	# Sort deterministically
 	cmds.sort_custom(func(a, b):

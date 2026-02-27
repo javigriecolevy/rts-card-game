@@ -19,9 +19,10 @@ func _ready():
 		print("Running as client")
 		network.join_game("127.0.0.1")
 
-func _on_start_game():
+func _on_start_game(match_seed: int):
 	print("Main received start_game")
-	
+	tick_manager.match_seed = match_seed
+	tick_manager.local_player_id = network.local_player_id
 	#tick_manager.initialize_game()
 	tick_manager.local_player_id = network.local_player_id
 	if network.is_host:
