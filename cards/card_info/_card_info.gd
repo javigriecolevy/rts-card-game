@@ -7,6 +7,7 @@ class_name CardInfo
 
 enum CardType {MINION, SPELL}
 @export var type: CardType = CardType.MINION
+@export var requires_target: bool = false
 
 # For minions
 @export var attack: int = 0

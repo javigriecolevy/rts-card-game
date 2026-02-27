@@ -15,6 +15,7 @@ script = ExtResource("2_dn4lc")
 id = "elven_archer"
 display_name = "elven_archer"
 cost = 1
+requires_target = true
 attack = 1
 health = 1
 attack_cooldown = 3

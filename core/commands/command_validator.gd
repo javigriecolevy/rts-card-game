@@ -12,6 +12,8 @@ func is_valid(command: GameCommand) -> bool:
 		return check_attack_command(command)
 	elif command is PlayCardCommand:
 		return check_play_card_command(command)
+	elif command is AdvanceTickCommand:
+		return true
 	#elif command is HeroPowerCommand:
 	#	return check_hero_power_command(command)
 	else:
@@ -32,6 +34,9 @@ func check_attack_command(attack_command: AttackCommand) -> bool:
 	if not attacker.can_attack(game_state.tick):
 		print("%s is too tired to attack! (must wait %d)"
 		% [attacker.display_name, attacker.ready_at_tick - game_state.tick])
+		return false
+	if attacker.owner_id == target.owner_id:
+		print ("Can't attack allies!")
 		return false
 	return true
 	

@@ -23,13 +23,12 @@ func _on_start_game():
 	print("Main received start_game")
 	
 	#tick_manager.initialize_game()
-	
+	tick_manager.local_player_id = network.local_player_id
 	if network.is_host:
 		tick_manager.start_host()
 	else:
 		tick_manager.start_client()
 	game_view.setup(network.local_player_id)
-	tick_manager.local_player_id = network.local_player_id
 	game_view._initialize_full_state()
 	
 func _on_remote_command(data: Dictionary):

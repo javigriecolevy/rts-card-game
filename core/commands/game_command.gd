@@ -2,6 +2,7 @@ extends RefCounted
 class_name GameCommand
 
 var tick: int
+var player_id: int
 
 func _init(_tick: int = -1) -> void:
 	tick = _tick

@@ -4,7 +4,7 @@ class_name GameState
 # -------------------------
 # Core game data
 var tick: int = 0
-var cycle_length: int = 2
+var cycle_length: int = 200
 
 # -------------------------
 # Entity system
@@ -86,8 +86,8 @@ func print_current_state() -> void:
 	for pid in boards.keys():
 		var board_info: Array = []
 		for m: Minion in boards[pid]:
-			board_info.append("%s (%d/%d)"
-				% [m.display_name, m.attack, m.health])
+			board_info.append("%s (%d/%d) id: %d"
+				% [m.display_name, m.attack, m.health, m.id])
 		print("Player %d board: %s" % [pid, board_info])
 
 	for pid in mana.keys():

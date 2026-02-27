@@ -2,7 +2,6 @@
 extends GameCommand
 class_name PlayCardCommand
 
-var player_id: int
 var card_instance_id: int
 var target_id: int = -1
 

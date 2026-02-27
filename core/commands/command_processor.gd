@@ -16,6 +16,8 @@ func process(command: GameCommand) -> void:
 		_process_play_card(command)
 	elif command is AttackCommand:
 		_process_attack(command)
+	elif command is AdvanceTickCommand:
+		_process_empty_input()
 	else:
 		assert(false, "Unhandled command type: %s" % command)
 
@@ -24,19 +26,19 @@ func _process_play_card(cmd: PlayCardCommand) -> void:
 			cmd.player_id,
 			cmd.card_instance_id,
 			cmd.target_id,
-			cmd.tick + 1
+			cmd.tick
 		)
 	game_state.event_resolver.add_event(event)
-	game_state.emit(event)
 
 func _process_attack(cmd: AttackCommand) -> void:
 	var event: AttackEvent = AttackEvent.new(
 			cmd.attacker_id,
 			cmd.target_id,
-			cmd.tick + 1
+			cmd.tick
 		)
 	game_state.event_resolver.add_event(event)
-	game_state.emit(event)
 
+func _process_empty_input():
+	pass
 #func _process_use_heropower(cmd: UseHeroPowerCommand):
 	#pass
