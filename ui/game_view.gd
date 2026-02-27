@@ -16,7 +16,7 @@ var selecting_target: bool = false
 # -------------------------
 # Setup
 func _ready():
-	tick_manager.ui_events_emitted.connect(_on_events_emitted)
+	tick_manager.ui_events_ready.connect(_on_events_emitted)
 
 # -------------------------
 # Initialize perspective

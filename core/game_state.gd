@@ -42,7 +42,7 @@ var command_queue: Array[GameCommand] = []
 # -------------------------
 # Simulation output (UI / replay / networking) Cleared externally once consumed
 var serialized_emitted_events: Array[Dictionary]
-var UI_emitted_events: Array[GameEvent]
+var ui_event_queue: Array[GameEvent]
 
 # -------------------------
 #  Event emitter helper
@@ -50,7 +50,7 @@ func emit(event: GameEvent) -> void:
 	serialized_emitted_events.append(event.serialize())
 
 func emit_ui(event: GameEvent):
-	UI_emitted_events.append(event)
+	ui_event_queue.append(event)
 
 # -------------------------
 # Entity ID helper
