@@ -11,5 +11,9 @@ func draw() -> Resource:
 		return null
 	return cards.pop_front()
 
-func shuffle():
-	cards.shuffle()
+func shuffle(rng: RandomNumberGenerator) -> void:
+	for i in range(cards.size() - 1, 0, -1):
+		var j: int = rng.randi_range(0, i)
+		var tmp = cards[i]
+		cards[i] = cards[j]
+		cards[j] = tmp

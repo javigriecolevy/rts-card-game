@@ -3,12 +3,20 @@
 [ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_46tcj"]
 [ext_resource type="Script" uid="uid://cn5wuprk57deq" path="res://cards/card_info/_card_info.gd" id="2_dn4lc"]
 [ext_resource type="Script" uid="uid://blome7s1rkwbb" path="res://core/effects/damage_effect.gd" id="2_pse1u"]
+[ext_resource type="Script" uid="uid://bqrbfpci0xk35" path="res://core/effects/random_repeat_effect.gd" id="3_pse1u"]
 
 [sub_resource type="Resource" id="Resource_pyf2x"]
 script = ExtResource("2_pse1u")
 amount = 1
-trigger = 1
 metadata/_custom_type_script = "uid://blome7s1rkwbb"
+
+[sub_resource type="Resource" id="Resource_fs8ie"]
+script = ExtResource("3_pse1u")
+min_amount = 1
+max_amount = 10
+effect = SubResource("Resource_pyf2x")
+trigger = 1
+metadata/_custom_type_script = "uid://bqrbfpci0xk35"
 
 [resource]
 script = ExtResource("2_dn4lc")
@@ -19,4 +27,4 @@ requires_target = true
 attack = 1
 health = 1
 attack_cooldown = 3
-effects = Array[ExtResource("1_46tcj")]([SubResource("Resource_pyf2x")])
+effects = Array[ExtResource("1_46tcj")]([SubResource("Resource_fs8ie")])

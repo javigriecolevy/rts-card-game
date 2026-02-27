@@ -2,14 +2,21 @@
 
 [ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_a14jp"]
 [ext_resource type="Resource" uid="uid://cu2ryss8341mk" path="res://cards/card_info/angry_chicken.tres" id="2_blstd"]
+[ext_resource type="Script" uid="uid://bqrbfpci0xk35" path="res://core/effects/random_repeat_effect.gd" id="3_a14jp"]
 [ext_resource type="Script" uid="uid://bxikxkghrdmfh" path="res://core/effects/summon_effect.gd" id="3_qy1gu"]
 [ext_resource type="Script" uid="uid://cn5wuprk57deq" path="res://cards/card_info/_card_info.gd" id="4_v678k"]
 
-[sub_resource type="Resource" id="Resource_a14jp"]
+[sub_resource type="Resource" id="Resource_qy1gu"]
 script = ExtResource("3_qy1gu")
 card = ExtResource("2_blstd")
-trigger = 2
 metadata/_custom_type_script = "uid://bxikxkghrdmfh"
+
+[sub_resource type="Resource" id="Resource_blstd"]
+script = ExtResource("3_a14jp")
+min_amount = 1
+effect = SubResource("Resource_qy1gu")
+trigger = 1
+metadata/_custom_type_script = "uid://bqrbfpci0xk35"
 
 [resource]
 script = ExtResource("4_v678k")
@@ -17,4 +24,4 @@ id = "chicken_farmer"
 display_name = "chicken_farmer"
 attack = 5
 health = 1
-effects = Array[ExtResource("1_a14jp")]([SubResource("Resource_a14jp")])
+effects = Array[ExtResource("1_a14jp")]([SubResource("Resource_blstd")])

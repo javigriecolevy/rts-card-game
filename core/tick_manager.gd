@@ -1,7 +1,7 @@
 extends Node
 class_name TickManager
 
-@export var tick_rate: float = 0.001
+@export var tick_rate: float = 0.01
 
 @onready var network := get_node("/root/GameRoot/NetworkManager")
 
@@ -36,7 +36,9 @@ func initialize_game() -> void:
 	var deck_func: Callable = Callable(self, "_create_starting_deck")
 	game_state.event_resolver.resource_manager.setup_players([1, 2], deck_func)
 	
-	print("Current match_seed for Player %d is: %d" % [local_player_id, match_seed])
+	# Shuffle each player's deck deterministically
+	for pid in game_state.decks.keys():
+		game_state.decks[pid].shuffle(game_state.rng)
 
 # -------------------------
 func start_host():
@@ -150,17 +152,17 @@ func process_commands_for_tick():
 func _create_starting_deck(player_id: int) -> Deck:
 	if player_id == 1:
 		return Deck.new([
+			card_database.get_card("angry_chicken"),
 			card_database.get_card("elven_archer"),
+			card_database.get_card("angry_chicken"),
 			card_database.get_card("elven_archer"),
+			card_database.get_card("angry_chicken"),
 			card_database.get_card("elven_archer"),
+			card_database.get_card("angry_chicken"),
 			card_database.get_card("elven_archer"),
+			card_database.get_card("angry_chicken"),
 			card_database.get_card("elven_archer"),
-			card_database.get_card("elven_archer"),
-			card_database.get_card("elven_archer"),
-			card_database.get_card("elven_archer"),
-			card_database.get_card("elven_archer"),
-			card_database.get_card("elven_archer"),
-			card_database.get_card("elven_archer")
+			card_database.get_card("angry_chicken")
 		])
 	else:
 		return Deck.new([
@@ -169,10 +171,10 @@ func _create_starting_deck(player_id: int) -> Deck:
 			card_database.get_card("chicken_farmer"),
 			card_database.get_card("chicken_farmer"),
 			card_database.get_card("chicken_farmer"),
+			card_database.get_card("egg"),
+			card_database.get_card("egg"),
+			card_database.get_card("egg"),
 			card_database.get_card("chicken_farmer"),
-			card_database.get_card("chicken_farmer"),
-			card_database.get_card("chicken_farmer"),
-			card_database.get_card("chicken_farmer"),
-			card_database.get_card("chicken_farmer"),
+			card_database.get_card("egg"),
 			card_database.get_card("chicken_farmer")
 		])

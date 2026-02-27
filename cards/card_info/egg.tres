@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="CardInfo" format=3 uid="uid://bjcklj0iagd1g"]
+
+[ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_a5a06"]
+[ext_resource type="Resource" uid="uid://cu2ryss8341mk" path="res://cards/card_info/angry_chicken.tres" id="2_6wkby"]
+[ext_resource type="Script" uid="uid://cn5wuprk57deq" path="res://cards/card_info/_card_info.gd" id="2_j4ani"]
+[ext_resource type="Script" uid="uid://bqrbfpci0xk35" path="res://core/effects/random_repeat_effect.gd" id="3_4ncnc"]
+[ext_resource type="Script" uid="uid://bxikxkghrdmfh" path="res://core/effects/summon_effect.gd" id="3_x361h"]
+
+[sub_resource type="Resource" id="Resource_6y0qm"]
+script = ExtResource("3_x361h")
+card = ExtResource("2_6wkby")
+metadata/_custom_type_script = "uid://bxikxkghrdmfh"
+
+[sub_resource type="Resource" id="Resource_x361h"]
+script = ExtResource("3_4ncnc")
+effect = SubResource("Resource_6y0qm")
+trigger = 2
+metadata/_custom_type_script = "uid://bqrbfpci0xk35"
+
+[resource]
+script = ExtResource("2_j4ani")
+id = "egg"
+display_name = "egg"
+cost = 1
+health = 2
+effects = Array[ExtResource("1_a5a06")]([SubResource("Resource_x361h")])
