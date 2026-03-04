@@ -1,7 +1,8 @@
 extends Node
 class_name TickManager
 
-@export var tick_rate: float = 0.01
+@export var tick_rate: float = 0.5
+var TICKS_PER_SECOND: float = (1 / tick_rate)
 
 @onready var network := get_node("/root/GameRoot/NetworkManager")
 
@@ -83,7 +84,8 @@ func  _update_tick_timer(delta: float):
 func _try_advance_tick() -> void:
 	if _all_players_ended_input():
 		# Solves current tick
-		process_stats_for_tick()
+		game_state.enchantment_manager.sweep_expired_enchantments(game_state.tick)
+		game_state.enchantment_manager.recalculate_dirty_entities()
 		process_commands_for_tick()
 		game_state.event_resolver.resolve()
 		_handle_cycle()
@@ -109,37 +111,6 @@ func _all_players_ended_input() -> bool:
 	
 	return ended_count == total_players
 	
-func process_stats_for_tick():
-	for entity: Entity in game_state.entities.values():
-		var damage_taken = entity.max_health - entity.health
-		# we reset current stats to base
-		entity.attack = entity.base_attack
-		entity.max_health = entity.base_max_health
-		entity.health = min(entity.max_health, entity.health) 
-		
-		for enchantment : Enchantment in entity.enchantments:
-			if enchantment.expires_at_tick and enchantment.expires_at_tick <= game_state.tick:
-				entity.enchantments.erase(enchantment)
-				break
-			if enchantment is StatEnchantment:
-				apply_stat_modifier(entity, enchantment, damage_taken)
-
-func apply_stat_modifier(entity: Entity, enchantment: StatEnchantment, dmg):
-	if enchantment.stat == enchantment.StatType.ATTACK:
-		entity.attack = _apply_stat_mode(entity.attack, enchantment)
-	if enchantment.stat == enchantment.StatType.HEALTH:
-		entity.max_health = _apply_stat_mode(entity.max_health, enchantment)
-		entity.health = entity.max_health - dmg
-
-func _apply_stat_mode(current_value: int, enchantment: StatEnchantment) -> int:
-	match enchantment.mode:
-		StatEnchantment.Mode.ADD:
-			return max(0, current_value + enchantment.value)
-		StatEnchantment.Mode.SET:
-			return max(0, enchantment.value)
-		StatEnchantment.Mode.MULT:
-			return max(0, int(current_value * enchantment.value))
-	return 0 # ERROR: UNHANDLED MODE TYPE
 # -------------------------
 # Refreshes mana and draws cards at the start of each new cycle
 func _handle_cycle():
@@ -198,12 +169,12 @@ func _create_starting_deck(player_id: int) -> Deck:
 		])
 	else:
 		return Deck.new([
-			card_database.get_card("squire"),
-			card_database.get_card("squire"),
-			card_database.get_card("squire"),
-			card_database.get_card("squire"),
-			card_database.get_card("squire"),
-			card_database.get_card("squire"),
+			card_database.get_card("abusive_sergeant"),
+			card_database.get_card("abusive_sergeant"),
+			card_database.get_card("abusive_sergeant"),
+			card_database.get_card("abusive_sergeant"),
+			card_database.get_card("abusive_sergeant"),
+			card_database.get_card("abusive_sergeant"),
 			card_database.get_card("egg"),
 			card_database.get_card("egg"),
 			card_database.get_card("egg"),

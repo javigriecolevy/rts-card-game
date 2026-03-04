@@ -17,6 +17,7 @@ var selecting_target: bool = false
 # Setup
 func _ready():
 	tick_manager.ui_events_resolved.connect(_on_events_emitted)
+	tick_manager.game_state.enchantment_manager.entity_recalculated.connect(_update_entity_stats)
 
 # -------------------------
 # Initialize perspective
@@ -59,11 +60,10 @@ func _on_events_emitted(events: Array[GameEvent]):
 			_update_board_view(event)
 		
 		elif event is DamageEvent:
-			_update_entity_health(event.target_id)
+			_update_entity_stats(event.target_id)
 		
 		elif event is DeathEvent:
 			_remove_entity_view(event.entity_id)
-	_update_full_board()
 # -------------------------
 # Hero UI
 func _create_hero_view(hero_id: int):
@@ -109,7 +109,7 @@ func _create_minion_view(minion):
 
 	entity_nodes[minion.id] = view
 
-func _update_entity_health(entity_id: int):
+func _update_entity_stats(entity_id: int):
 	if entity_nodes.has(entity_id):
 		var entity = tick_manager.game_state.entities.get(entity_id)
 		if entity:

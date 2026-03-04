@@ -21,6 +21,7 @@ metadata/_custom_type_script = "uid://bqrbfpci0xk35"
 [resource]
 script = ExtResource("5_4ncnc")
 health = 2
+attack_cooldown = 1
 id = "egg"
 display_name = "egg"
 cost = 1

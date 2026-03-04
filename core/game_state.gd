@@ -4,7 +4,7 @@ class_name GameState
 # -------------------------
 # Core game data
 var tick: int = 0
-var cycle_length: int = 200
+var cycle_length: int = 5
 
 # -------------------------
 # Entity system
@@ -24,6 +24,7 @@ var pending_deaths: Array[int] = []
 # -------------------------
 # Event System
 var event_resolver: EventResolver = EventResolver.new(self)
+var enchantment_manager: EnchantmentManager = EnchantmentManager.new(self)
 
 # -------------------------
 # Player data

@@ -1,15 +1,21 @@
 [gd_scene format=3 uid="uid://c5if164mtrvop"]
 
 [ext_resource type="Script" uid="uid://b27m2yfyjg4ql" path="res://ui/minion_view.gd" id="1_cpi00"]
+[ext_resource type="Texture2D" uid="uid://cy10bo6l578gi" path="res://icon.svg" id="2_8sn2j"]
 [ext_resource type="Texture2D" uid="uid://dojkj8qqte0uj" path="res://assets/card_border.png" id="2_subad"]
 
-[node name="MinionView" type="Button" unique_id=1245051659]
-anchors_preset = -1
-anchor_right = 0.16100001
-anchor_bottom = 0.349
-offset_right = -0.47201538
-offset_bottom = -0.15200806
-expand_icon = true
+[node name="MinionView" type="TextureButton" unique_id=552597267]
+clip_contents = true
+custom_minimum_size = Vector2(200, 200)
+offset_right = 327.0
+offset_bottom = 461.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture_normal = ExtResource("2_subad")
+texture_pressed = ExtResource("2_8sn2j")
+texture_hover = ExtResource("2_8sn2j")
+ignore_texture_size = true
+stretch_mode = 0
 script = ExtResource("1_cpi00")
 
 [node name="border" type="TextureRect" parent="." unique_id=2147279127]
