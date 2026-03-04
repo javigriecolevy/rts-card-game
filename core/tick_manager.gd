@@ -128,7 +128,7 @@ func apply_stat_modifier(entity: Entity, enchantment: StatEnchantment):
 		entity.attack = _apply_stat_mode(entity.attack, enchantment)
 	if enchantment.stat == enchantment.StatType.HEALTH:
 		entity.max_health = _apply_stat_mode(entity.max_health, enchantment)
-		entity.health = min(entity.max_health, entity.health)
+		entity.health = min(entity.max_health, entity.health + enchantment.value)
 
 func _apply_stat_mode(current_value: int, enchantment: StatEnchantment) -> int:
 	match enchantment.mode:

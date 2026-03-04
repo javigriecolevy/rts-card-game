@@ -12,8 +12,8 @@ func setup(minion: Minion, game_state: GameState):
 func update_stats(minion: Minion, game_state: GameState):
 	text = "%s (%d/%d)" % [
 		minion.display_name,
-		game_state.event_resolver.combat_manager.get_current_attack(minion),
-		game_state.event_resolver.combat_manager.get_current_health(minion)
+		minion.attack,
+		minion.health
 	]
 
 func _pressed():

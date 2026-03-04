@@ -23,7 +23,7 @@ static func new_from_card(card_info: MinionCardInfo, owner_player_id: int, curre
 	# -------------------------
 	# Stats
 	minion.base_attack = card_info.attack
-	minion.base_max_health = card_info.attack
+	minion.base_max_health = card_info.health
 	
 	minion.attack = minion.base_attack
 	minion.health = minion.base_max_health
