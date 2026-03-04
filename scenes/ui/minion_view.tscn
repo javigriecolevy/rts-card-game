@@ -1,13 +1,53 @@
 [gd_scene format=3 uid="uid://c5if164mtrvop"]
 
 [ext_resource type="Script" uid="uid://b27m2yfyjg4ql" path="res://ui/minion_view.gd" id="1_cpi00"]
-
-[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_cpi00"]
+[ext_resource type="Texture2D" uid="uid://dojkj8qqte0uj" path="res://assets/card_border.png" id="2_subad"]
 
 [node name="MinionView" type="Button" unique_id=1245051659]
-offset_right = 8.0
-offset_bottom = 8.0
-icon = SubResource("PlaceholderTexture2D_cpi00")
-flat = true
+anchors_preset = -1
+anchor_right = 0.16100001
+anchor_bottom = 0.349
+offset_right = -0.47201538
+offset_bottom = -0.15200806
 expand_icon = true
 script = ExtResource("1_cpi00")
+
+[node name="border" type="TextureRect" parent="." unique_id=2147279127]
+visible = false
+layout_mode = 0
+offset_left = 1.0
+offset_top = -7.0
+offset_right = 174.0
+offset_bottom = 232.13606
+texture = ExtResource("2_subad")
+expand_mode = 1
+
+[node name="hp" type="Label" parent="." unique_id=576858779]
+visible = false
+layout_mode = 0
+offset_left = 132.0
+offset_top = 198.0
+offset_right = 172.0
+offset_bottom = 221.0
+text = "hp"
+horizontal_alignment = 1
+
+[node name="atk" type="Label" parent="." unique_id=91699580]
+visible = false
+layout_mode = 0
+offset_left = 17.0
+offset_top = 196.0
+offset_right = 44.0
+offset_bottom = 219.0
+text = "atk"
+horizontal_alignment = 1
+
+[node name="display_name" type="Label" parent="." unique_id=293288606]
+visible = false
+layout_mode = 0
+offset_left = 29.0
+offset_top = 110.0
+offset_right = 148.0
+offset_bottom = 154.0
+text = "minion name"
+horizontal_alignment = 1

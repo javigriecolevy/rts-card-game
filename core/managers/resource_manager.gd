@@ -12,12 +12,10 @@ func setup_players(player_ids: Array, starting_deck_func: Callable) -> void:
 	for pid in player_ids:
 		# -------------------------
 		# Create hero entity
-		var hero: Hero = Hero.new()
+		var hero: Hero = Hero.new_hero(pid, 10)
 		hero.id = game_state._allocate_entity_id()
 		hero.owner_id = pid
 		hero.display_name = "Hero %d" % pid
-		hero.health = 10
-		hero.max_health = 10
 
 		game_state.entities[hero.id] = hero
 		game_state.heroes[pid] = hero.id

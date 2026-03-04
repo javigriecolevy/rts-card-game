@@ -35,18 +35,20 @@ func handle_attack(event: AttackEvent) -> void:
 func handle_damage(event: DamageEvent) -> void:
 	var target: Entity = game_state.entities.get(event.target_id)
 	var source: Entity = game_state.entities.get(event.source_id)
-	if target == null:
+	if target == null or source == null:
 		print("Damage skipped: target %d not found" % event.target_id)
 		return
 	
 	var damage = event.amount
 	
-	for enchantment: ActiveEnchantment in target.enchantments:
-		damage = enchantment.on_damage_taken(target.id, game_state, damage)
+	for enchantment: Enchantment in target.enchantments:
+		if enchantment is ActiveEnchantment:
+			damage = enchantment.on_damage_taken(target.id, game_state, damage)
 	
 	if damage > 0:
-		for enchantment: ActiveEnchantment in source.enchantments:
-			enchantment.on_damage_dealt(source.id, game_state, target.id)
+		for enchantment: Enchantment in source.enchantments:
+			if enchantment is ActiveEnchantment:
+				enchantment.on_damage_dealt(source.id, game_state, target.id)
 	
 	target.health -= damage
 	

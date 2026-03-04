@@ -63,6 +63,7 @@ func _on_events_emitted(events: Array[GameEvent]):
 		
 		elif event is DeathEvent:
 			_remove_entity_view(event.entity_id)
+	_update_full_board()
 # -------------------------
 # Hero UI
 func _create_hero_view(hero_id: int):
@@ -72,13 +73,13 @@ func _create_hero_view(hero_id: int):
 	var scene = preload("res://scenes/ui/hero_view.tscn")
 	var view = scene.instantiate()
 	
-	view.setup(hero, tick_manager.game_state)
+	view.setup(hero)
 	view.hero_clicked.connect(_on_hero_clicked)
 	
 	if hero.owner_id == local_player_id:
-		$RootLayout/PlayerHeroContainer.add_child(view)
+		$PlayerHeroContainer.add_child(view)
 	else:
-		$RootLayout/EnemyHeroContainer.add_child(view)
+		$EnemyHeroContainer.add_child(view)
 	
 	entity_nodes[hero_id] = view
 
@@ -99,10 +100,10 @@ func _create_minion_view(minion):
 	var scene = preload("res://scenes/ui/minion_view.tscn")
 	var view = scene.instantiate()
 
-	view.setup(minion, tick_manager.game_state)
+	view.setup(minion)
 	view.minion_clicked.connect(_on_minion_clicked)
 
-	var container = $RootLayout/PlayerBoard if minion.owner_id == local_player_id else $RootLayout/EnemyBoard
+	var container = $PlayerBoard if minion.owner_id == local_player_id else $EnemyBoard
 
 	container.add_child(view)
 
@@ -112,7 +113,7 @@ func _update_entity_health(entity_id: int):
 	if entity_nodes.has(entity_id):
 		var entity = tick_manager.game_state.entities.get(entity_id)
 		if entity:
-			entity_nodes[entity_id].update_stats(entity, tick_manager.game_state)
+			entity_nodes[entity_id].update_stats(entity)
 
 func _remove_entity_view(entity_id: int):
 	if entity_nodes.has(entity_id):
@@ -130,7 +131,7 @@ func _create_card_view(card_instance_id: int):
 
 	view.card_clicked.connect(_on_card_clicked)
 
-	$RootLayout/Hand.add_child(view)
+	$Hand.add_child(view)
 	card_nodes[card_instance_id] = view
 
 func _remove_card_view(card_instance_id: int):

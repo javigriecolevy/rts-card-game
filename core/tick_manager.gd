@@ -111,24 +111,25 @@ func _all_players_ended_input() -> bool:
 	
 func process_stats_for_tick():
 	for entity: Entity in game_state.entities.values():
+		var damage_taken = entity.max_health - entity.health
 		# we reset current stats to base
 		entity.attack = entity.base_attack
 		entity.max_health = entity.base_max_health
-		entity.health = min(entity.max_health, entity.health)
+		entity.health = min(entity.max_health, entity.health) 
 		
 		for enchantment : Enchantment in entity.enchantments:
-			if enchantment.expires_at_tick == game_state.tick:
+			if enchantment.expires_at_tick and enchantment.expires_at_tick <= game_state.tick:
 				entity.enchantments.erase(enchantment)
 				break
 			if enchantment is StatEnchantment:
-				apply_stat_modifier(entity, enchantment)
+				apply_stat_modifier(entity, enchantment, damage_taken)
 
-func apply_stat_modifier(entity: Entity, enchantment: StatEnchantment):
+func apply_stat_modifier(entity: Entity, enchantment: StatEnchantment, dmg):
 	if enchantment.stat == enchantment.StatType.ATTACK:
 		entity.attack = _apply_stat_mode(entity.attack, enchantment)
 	if enchantment.stat == enchantment.StatType.HEALTH:
 		entity.max_health = _apply_stat_mode(entity.max_health, enchantment)
-		entity.health = min(entity.max_health, entity.health + enchantment.value)
+		entity.health = entity.max_health - dmg
 
 func _apply_stat_mode(current_value: int, enchantment: StatEnchantment) -> int:
 	match enchantment.mode:
