@@ -61,13 +61,12 @@ func handle_play_card(event: PlayCardEvent) -> void:
 
 	# -------------------------
 	# Resolve card
-	match card.type:
-		card.CardType.MINION:
-			#var minion: Minion = Minion.new_from_card(game_state.card_instances[event.card_instance_id].definition, player_id, game_state.tick)
-			var summon_minion: SummonEvent = SummonEvent.new(player_id, game_state.card_instances[card_instance_id].definition.id, game_state.tick, true, target_id)
-			game_state.event_resolver.add_event(summon_minion)
+	if card is MinionCardInfo:
+		#var minion: Minion = Minion.new_from_card(game_state.card_instances[event.card_instance_id].definition, player_id, game_state.tick)
+		var summon_minion: SummonEvent = SummonEvent.new(player_id, game_state.card_instances[card_instance_id].definition.id, game_state.tick, true, target_id)
+		game_state.event_resolver.add_event(summon_minion)
 
-		card.CardType.SPELL:
+	elif card is CardInfo: #Card is a spell, it holds no additional data 
 			#TODO play spell with target_id
 			for effect in card.effects:
 				effect.source_player_id = player_id

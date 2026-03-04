@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="MinionCardInfo" format=3 uid="uid://bfy6kv0yo81xv"]
+
+[ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_vde0f"]
+[ext_resource type="Script" uid="uid://dry8c4ux5oe5s" path="res://core/effects/stat_modify_effect.gd" id="2_5ui7t"]
+[ext_resource type="Script" uid="uid://b5d8j7lm45poq" path="res://cards/card_info/minion_card_info.gd" id="5_udik7"]
+
+[sub_resource type="Resource" id="Resource_7gshx"]
+script = ExtResource("2_5ui7t")
+attack = 2
+health = 2
+trigger = 1
+metadata/_custom_type_script = "uid://dry8c4ux5oe5s"
+
+[resource]
+script = ExtResource("5_udik7")
+attack = 1
+health = 1
+enchantments = Dictionary[int, int]({
+0: 0
+})
+id = "squire"
+display_name = "Squire"
+cost = 1
+requires_target = true
+effects = Array[ExtResource("1_vde0f")]([SubResource("Resource_7gshx")])

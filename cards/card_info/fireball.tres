@@ -14,6 +14,5 @@ script = ExtResource("1")
 id = "fireball"
 display_name = "Fireball"
 cost = 2
-type = 1
 requires_target = true
 effects = Array[ExtResource("1_pbcfy")]([SubResource("Resource_18ii1")])

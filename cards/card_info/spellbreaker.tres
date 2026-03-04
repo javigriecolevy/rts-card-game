@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="MinionCardInfo" format=3 uid="uid://580s7hlo05qc"]
+
+[ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_4so33"]
+[ext_resource type="Script" uid="uid://cf0gw82tjs0a1" path="res://core/effects/silence_effect.gd" id="2_4so33"]
+[ext_resource type="Script" uid="uid://b5d8j7lm45poq" path="res://cards/card_info/minion_card_info.gd" id="3_5fa2w"]
+
+[sub_resource type="Resource" id="Resource_iqtqh"]
+script = ExtResource("2_4so33")
+trigger = 1
+metadata/_custom_type_script = "uid://cf0gw82tjs0a1"
+
+[resource]
+script = ExtResource("3_5fa2w")
+attack = 1
+health = 10
+id = "spellbreaker"
+display_name = "Spell Breaker !!!"
+requires_target = true
+effects = Array[ExtResource("1_4so33")]([SubResource("Resource_iqtqh")])

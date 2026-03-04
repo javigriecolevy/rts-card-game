@@ -3,7 +3,7 @@ class_name SummonEffect
 
 # -------------------------
 # Config
-@export var card: CardInfo
+@export var card: MinionCardInfo
 
 # -------------------------
 # Summon minion

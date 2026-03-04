@@ -1,9 +1,23 @@
-# core/entities/entity.gd
 extends RefCounted
 class_name Entity
 
+# -------------------------
+# Identity
 var id: int
 var owner_id: int
-var health: int
-var max_health: int
 var display_name: String
+
+# -------------------------
+# Combat stats
+var ready_at_tick: int = 0
+# Base stats (from card)
+var base_attack: int = 0
+var base_max_health: int = 0
+# Current stats (after applying enchants)
+var attack: int = 0
+var health: int = 0
+var max_health: int = 0
+
+# -------------------------
+# Enchantments List
+var enchantments: Array[Enchantment] = []

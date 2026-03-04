@@ -5,11 +5,11 @@ signal hero_clicked(hero_id)
 
 var entity_id: int
 
-func setup(hero):
+func setup(hero: Hero, game_state: GameState):
 	entity_id = hero.id
-	update_stats(hero)
+	update_stats(hero, game_state)
 
-func update_stats(hero):
+func update_stats(hero: Hero, game_state: GameState):
 	text = "%s (%d/%d)" % [
 		hero.display_name,
 		hero.health,

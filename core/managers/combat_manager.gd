@@ -26,7 +26,7 @@ func handle_attack(event: AttackEvent) -> void:
 	var dmg_to_target: DamageEvent = DamageEvent.new(attacker.id, target.id, attacker.attack, event.tick)
 	game_state.event_resolver.add_event(dmg_to_target)
 	
-	if target is Minion and target.attack > 0:
+	if target.attack > 0:
 		var dmg_to_attacker: DamageEvent = DamageEvent.new(target.id, attacker.id, target.attack, event.tick)
 		game_state.event_resolver.add_event(dmg_to_attacker)
 
@@ -34,17 +34,28 @@ func handle_attack(event: AttackEvent) -> void:
 # Handle a damage event
 func handle_damage(event: DamageEvent) -> void:
 	var target: Entity = game_state.entities.get(event.target_id)
+	var source: Entity = game_state.entities.get(event.source_id)
 	if target == null:
 		print("Damage skipped: target %d not found" % event.target_id)
 		return
 	
-	target.health -= event.amount
-	print("%s takes %d damage (%d remaining)"
-		% [target.display_name, event.amount, target.health])
+	var damage = event.amount
+	
+	for enchantment: ActiveEnchantment in target.enchantments:
+		damage = enchantment.on_damage_taken(target.id, game_state, damage)
+	
+	if damage > 0:
+		for enchantment: ActiveEnchantment in source.enchantments:
+			enchantment.on_damage_dealt(source.id, game_state, target.id)
+	
+	target.health -= damage
 	
 	if target.health <= 0:
 		var death_event: DeathEvent = DeathEvent.new(target.id, event.tick)
 		game_state.event_resolver.add_event(death_event)
+		
+	print("%s takes %d damage (%d remaining)"
+		% [target.display_name, event.amount, target.health])
 
 # -------------------------
 # Handle minion summon
@@ -58,14 +69,14 @@ func handle_summon(event: SummonEvent):
 	
 	# Trigger battlecry
 	if event.from_play:
-		for effect in minion.card.effects:
+		for effect: Effect in minion.effects:
 			if effect.trigger == effect.Trigger.BATTLECRY:
 				effect.source_player_id = player_id
 				effect.source_entity_id = minion.id
 				effect.apply_effect(game_state, event.battlecry_target_id)
 
 	# Check for event trigger and add to listener list
-	for effect: Effect in minion.card.effects:
+	for effect: Effect in minion.effects:
 		if effect.trigger_event_class:
 			effect.source_player_id = minion.owner_id
 			_register_listener(effect.trigger_event_class, effect)
@@ -86,7 +97,7 @@ func handle_death(event: DeathEvent) -> void:
 	
 	# Apply deathrattle
 	if entity is Minion:
-		for effect in entity.card.effects:
+		for effect in entity.effects:
 			# Check for deathrattle
 			if effect.trigger == effect.Trigger.DEATHRATTLE:
 				effect.source_entity_id = entity.id

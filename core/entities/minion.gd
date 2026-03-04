@@ -6,13 +6,12 @@ class_name Minion
 var card: CardInfo
 
 # -------------------------
-# Combat stats
-var attack: int
-var ready_at_tick: int = 0
+# Effect list
+var effects: Array[Effect] = []
 
 # -------------------------
 # Factory
-static func new_from_card(card_info: CardInfo, owner_player_id: int, current_tick: int) -> Minion:
+static func new_from_card(card_info: MinionCardInfo, owner_player_id: int, current_tick: int) -> Minion:
 	var minion: Minion = Minion.new()
 
 	# -------------------------
@@ -23,13 +22,21 @@ static func new_from_card(card_info: CardInfo, owner_player_id: int, current_tic
 
 	# -------------------------
 	# Stats
-	minion.attack = card_info.attack
-	minion.health = card_info.health
-	minion.max_health = card_info.health
+	minion.base_attack = card_info.attack
+	minion.base_max_health = card_info.attack
+	
+	minion.attack = minion.base_attack
+	minion.health = minion.base_max_health
+	minion.max_health = minion.base_max_health
 
 	# -------------------------
 	# Timing
 	minion.ready_at_tick = current_tick + card_info.attack_cooldown
+	
+	# -------------------------
+	# Effect/Enchant instanciating
+	minion.effects = card_info.effects.duplicate(true)
+	minion.enchantments = card_info.enchantments.duplicate(true)
 
 	return minion
 
@@ -37,9 +44,9 @@ static func new_from_card(card_info: CardInfo, owner_player_id: int, current_tic
 # Combat rules
 func can_attack(current_tick: int) -> bool:
 	return current_tick >= ready_at_tick
+
 func on_attack(current_tick: int) -> void:
 	ready_at_tick = current_tick + card.attack_cooldown
-
 
 # -------------------------
 # ! UNUSED FUNC, PONDERING IF SHOULD BE USED OR NOT.

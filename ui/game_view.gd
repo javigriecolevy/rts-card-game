@@ -45,24 +45,24 @@ func _initialize_full_state():
 # -------------------------
 # Event Entry Point
 func _on_events_emitted(events: Array[GameEvent]):
+	_update_full_board()
 	for event in events:
 		if event is DrawCardEvent:
 			if event.player_id == local_player_id:
 				_create_card_view(event.card_instance_id)
-
+		
 		elif event is PlayCardEvent:
 			if event.player_id == local_player_id:
 				_remove_card_view(event.card_instance_id)
-
+		
 		elif event is SummonEvent:
 			_update_board_view(event)
-
+		
 		elif event is DamageEvent:
 			_update_entity_health(event.target_id)
-
+		
 		elif event is DeathEvent:
 			_remove_entity_view(event.entity_id)
-
 # -------------------------
 # Hero UI
 func _create_hero_view(hero_id: int):
@@ -72,7 +72,7 @@ func _create_hero_view(hero_id: int):
 	var scene = preload("res://scenes/ui/hero_view.tscn")
 	var view = scene.instantiate()
 	
-	view.setup(hero)
+	view.setup(hero, tick_manager.game_state)
 	view.hero_clicked.connect(_on_hero_clicked)
 	
 	if hero.owner_id == local_player_id:
@@ -87,13 +87,19 @@ func _update_board_view(event: SummonEvent):
 		_remove_entity_view(minion.id)
 		_create_minion_view(minion)
 
+func _update_full_board():
+	for pid in tick_manager.game_state.decks.keys():
+		for minion in tick_manager.game_state.boards[pid]:
+			_remove_entity_view(minion.id)
+			_create_minion_view(minion)
+
 # -------------------------
 # Minion UI
 func _create_minion_view(minion):
 	var scene = preload("res://scenes/ui/minion_view.tscn")
 	var view = scene.instantiate()
 
-	view.setup(minion)
+	view.setup(minion, tick_manager.game_state)
 	view.minion_clicked.connect(_on_minion_clicked)
 
 	var container = $RootLayout/PlayerBoard if minion.owner_id == local_player_id else $RootLayout/EnemyBoard
@@ -106,7 +112,7 @@ func _update_entity_health(entity_id: int):
 	if entity_nodes.has(entity_id):
 		var entity = tick_manager.game_state.entities.get(entity_id)
 		if entity:
-			entity_nodes[entity_id].update_stats(entity)
+			entity_nodes[entity_id].update_stats(entity, tick_manager.game_state)
 
 func _remove_entity_view(entity_id: int):
 	if entity_nodes.has(entity_id):

@@ -2,7 +2,12 @@
 
 [ext_resource type="Script" uid="uid://b27m2yfyjg4ql" path="res://ui/minion_view.gd" id="1_cpi00"]
 
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_cpi00"]
+
 [node name="MinionView" type="Button" unique_id=1245051659]
 offset_right = 8.0
 offset_bottom = 8.0
+icon = SubResource("PlaceholderTexture2D_cpi00")
+flat = true
+expand_icon = true
 script = ExtResource("1_cpi00")
