@@ -1,7 +1,7 @@
 extends Node
 class_name TickManager
 
-@export var tick_rate: float = 0.5
+@export var tick_rate: float = 0.01
 var TICKS_PER_SECOND: float = (1 / tick_rate)
 
 @onready var network := get_node("/root/GameRoot/NetworkManager")

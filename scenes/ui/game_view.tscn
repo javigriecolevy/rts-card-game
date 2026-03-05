@@ -5,11 +5,13 @@
 
 [node name="GameView" type="Control" unique_id=1326419423]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 script = ExtResource("1_h4lqr")
 
 [node name="EnemyHeroContainer" type="HBoxContainer" parent="." unique_id=406128607]
@@ -17,12 +19,14 @@ layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.448
 anchor_top = 0.09
-anchor_right = 0.56200004
+anchor_right = 0.938
 anchor_bottom = 0.26200002
-offset_left = -0.0960083
-offset_top = -0.3200035
-offset_right = -0.42407227
-offset_bottom = 0.22398376
+offset_left = -65.0
+offset_top = -583.0
+offset_right = 63.0
+offset_bottom = -478.0
+grow_horizontal = 2
+grow_vertical = 2
 alignment = 1
 
 [node name="EnemyBoard" type="HBoxContainer" parent="." unique_id=307958967]
@@ -32,26 +36,26 @@ anchor_left = 0.096
 anchor_top = 0.28100002
 anchor_right = 0.93100005
 anchor_bottom = 0.45700002
-offset_left = 0.40799713
-offset_top = -0.088012695
-offset_right = 0.48791504
-offset_bottom = -0.13601685
+offset_left = -456.0
+offset_top = -458.0
+offset_right = 452.0
+offset_bottom = -352.0
 alignment = 1
 
 [node name="PlayerBoard" type="HBoxContainer" parent="." unique_id=1709462813]
+layout_direction = 2
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.093
 anchor_top = 0.46800002
-anchor_right = 0.92600006
-anchor_bottom = 0.642
-offset_left = -0.13600159
-offset_top = -0.26400757
-offset_right = 0.2479248
-offset_bottom = -0.016021729
-grow_horizontal = 2
-grow_vertical = 2
+anchor_right = 0.093
+anchor_bottom = 0.46800002
+offset_left = -473.0
+offset_top = -348.0
+offset_right = 499.0
+offset_bottom = -222.0
 theme_override_constants/separation = 4
+alignment = 1
 
 [node name="PlayerHeroContainer" type="HBoxContainer" parent="." unique_id=1526905786]
 layout_mode = 1
@@ -60,22 +64,19 @@ anchor_left = 0.45000002
 anchor_top = 0.67300004
 anchor_right = 0.55700004
 anchor_bottom = 0.84000003
-offset_left = -0.4000244
-offset_top = -0.104034424
-offset_right = 0.3359375
-offset_bottom = -0.32000732
+offset_left = -68.0
+offset_top = -210.0
+offset_right = 71.0
+offset_bottom = -92.895966
 alignment = 1
 
 [node name="Hand" type="HBoxContainer" parent="." unique_id=915579663]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.25500003
-anchor_top = 0.86100006
-anchor_right = 0.69100004
-anchor_bottom = 1.0
-offset_left = 0.23995972
-offset_top = 0.07196045
-offset_right = -0.032043457
+offset_left = -280.0
+offset_top = -84.0
+offset_right = 287.0
+offset_bottom = -1.0719604
 size_flags_horizontal = 3
 alignment = 1
 
@@ -90,7 +91,8 @@ grow_vertical = 2
 alignment = 1
 
 [node name="ScreenshotOfAHearthStoneMatch" type="Sprite2D" parent="." unique_id=444685803]
-visible = false
-position = Vector2(578.5, 321.5)
+z_index = -3
+position = Vector2(2.3841858e-07, -322.99994)
 scale = Vector2(1.3541176, 1.0203762)
 texture = ExtResource("2_u6547")
+metadata/_edit_lock_ = true

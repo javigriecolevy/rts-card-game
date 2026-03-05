@@ -2,20 +2,20 @@
 
 [ext_resource type="Script" uid="uid://b27m2yfyjg4ql" path="res://ui/minion_view.gd" id="1_cpi00"]
 [ext_resource type="Texture2D" uid="uid://cy10bo6l578gi" path="res://icon.svg" id="2_8sn2j"]
+[ext_resource type="Texture2D" uid="uid://c0ffpb6hv458v" path="res://assets/Screenshot-of-a-HearthStone-match.jpg" id="2_octte"]
 [ext_resource type="Texture2D" uid="uid://dojkj8qqte0uj" path="res://assets/card_border.png" id="2_subad"]
 
 [node name="MinionView" type="TextureButton" unique_id=552597267]
-clip_contents = true
-custom_minimum_size = Vector2(200, 200)
-offset_right = 327.0
-offset_bottom = 461.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+custom_minimum_size = Vector2(125, 125)
+offset_top = -2.0
+offset_right = 183.0
+offset_bottom = 165.0
 texture_normal = ExtResource("2_subad")
-texture_pressed = ExtResource("2_8sn2j")
+texture_pressed = ExtResource("2_octte")
 texture_hover = ExtResource("2_8sn2j")
+texture_focused = ExtResource("2_8sn2j")
 ignore_texture_size = true
-stretch_mode = 0
+stretch_mode = 5
 script = ExtResource("1_cpi00")
 
 [node name="border" type="TextureRect" parent="." unique_id=2147279127]
@@ -29,31 +29,56 @@ texture = ExtResource("2_subad")
 expand_mode = 1
 
 [node name="hp" type="Label" parent="." unique_id=576858779]
-visible = false
-layout_mode = 0
-offset_left = 132.0
-offset_top = 198.0
-offset_right = 172.0
-offset_bottom = 221.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.74100006
+anchor_top = 0.90500003
+anchor_right = 0.74100006
+anchor_bottom = 0.90500003
+offset_left = -18.603012
+offset_top = -13.13501
+offset_right = 21.396988
+offset_bottom = 9.86499
+grow_horizontal = 2
+grow_vertical = 2
 text = "hp"
 horizontal_alignment = 1
 
 [node name="atk" type="Label" parent="." unique_id=91699580]
-visible = false
-layout_mode = 0
-offset_left = 17.0
-offset_top = 196.0
-offset_right = 44.0
-offset_bottom = 219.0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.27600002
+anchor_top = 0.89500004
+anchor_right = 0.27600002
+anchor_bottom = 0.89500004
+offset_left = -12.508003
+offset_top = -12.465012
+offset_right = 12.491997
+offset_bottom = 12.534988
+grow_horizontal = 2
+grow_vertical = 2
 text = "atk"
 horizontal_alignment = 1
 
 [node name="display_name" type="Label" parent="." unique_id=293288606]
-visible = false
-layout_mode = 0
-offset_left = 29.0
-offset_top = 110.0
-offset_right = 148.0
-offset_bottom = 154.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -51.5
+offset_top = -18.5
+offset_right = 51.5
+offset_bottom = 18.5
+grow_horizontal = 2
+grow_vertical = 2
 text = "minion name"
 horizontal_alignment = 1
+
+[node name="ScreenshotOfAHearthStoneMatch" type="Sprite2D" parent="." unique_id=1786673822]
+visible = false
+z_index = -2
+position = Vector2(146, 54)
+scale = Vector2(1.3541176, 1.0094044)
+texture = ExtResource("2_octte")

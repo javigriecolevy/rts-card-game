@@ -6,7 +6,6 @@ signal minion_clicked(minion_id)
 var entity_id: int
 
 func setup(minion: Minion):
-	custom_minimum_size = Vector2(1, 1)
 	entity_id = minion.id
 	update_stats(minion)
 
