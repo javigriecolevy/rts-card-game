@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="MinionCardInfo" format=3 uid="uid://bu7hekdkiqbyw"]
+
+[ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_4b8iv"]
+[ext_resource type="Script" uid="uid://k5pl2ei0nb7f" path="res://core/enchantments/enchantment.gd" id="2_swur8"]
+[ext_resource type="Script" uid="uid://l5wgo4mw2n31" path="res://core/enchantments/poison_enchantment.gd" id="3_tvjng"]
+[ext_resource type="Script" uid="uid://b5d8j7lm45poq" path="res://cards/card_info/minion_card_info.gd" id="4_n5ddl"]
+
+[sub_resource type="Resource" id="Resource_w5iug"]
+script = ExtResource("3_tvjng")
+metadata/_custom_type_script = "uid://l5wgo4mw2n31"
+
+[resource]
+script = ExtResource("4_n5ddl")
+attack = 1
+health = 4
+enchantments = Array[ExtResource("2_swur8")]([SubResource("Resource_w5iug")])
+id = "rotten_chicken"
+display_name = "Rotten Chicken"
+cost = 4

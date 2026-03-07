@@ -169,12 +169,12 @@ func _create_starting_deck(player_id: int) -> Deck:
 		])
 	else:
 		return Deck.new([
-			card_database.get_card("abusive_sergeant"),
-			card_database.get_card("abusive_sergeant"),
-			card_database.get_card("abusive_sergeant"),
-			card_database.get_card("abusive_sergeant"),
-			card_database.get_card("abusive_sergeant"),
-			card_database.get_card("abusive_sergeant"),
+			card_database.get_card("rotten_chicken"),
+			card_database.get_card("rotten_chicken"),
+			card_database.get_card("rotten_chicken"),
+			card_database.get_card("rotten_chicken"),
+			card_database.get_card("rotten_chicken"),
+			card_database.get_card("rotten_chicken"),
 			card_database.get_card("egg"),
 			card_database.get_card("egg"),
 			card_database.get_card("egg"),

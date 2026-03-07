@@ -12,3 +12,5 @@ class_name CardInfo
 @export var requires_target: bool = false
 
 @export var effects: Array[Effect] = []
+
+@export var description: String

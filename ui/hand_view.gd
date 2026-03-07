@@ -41,13 +41,13 @@ func _refresh() -> void:
 	for card_instance_id in cards:
 		var instance = game_state.card_instances[card_instance_id]
 
-		var card_view: CardView = CardViewScene.instantiate()
-		card_view.setup(instance.id, instance.definition)
+		var hand_card_view: HandCardView = CardViewScene.instantiate()
+		hand_card_view.setup(instance.id, instance.definition)
 
 		# Connect child → parent
-		card_view.card_clicked.connect(_on_card_clicked)
+		hand_card_view.card_clicked.connect(_on_card_clicked)
 
-		card_container.add_child(card_view)
+		card_container.add_child(hand_card_view)
 
 
 # -------------------------

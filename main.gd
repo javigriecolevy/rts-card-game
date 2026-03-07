@@ -2,7 +2,7 @@ extends Node2D
 
 @onready var network := $NetworkManager
 @onready var tick_manager := $TickManager
-@onready var game_view := $GameView
+@onready var game_view : GameView = $GameView
 
 func _ready():
 	print("Main ready")
@@ -29,8 +29,9 @@ func _on_start_game(match_seed: int):
 		tick_manager.start_host()
 	else:
 		tick_manager.start_client()
-	game_view.setup(network.local_player_id)
-	game_view._initialize_full_state()
+	game_view.local_player_id = network.local_player_id
+	game_view.setup()
+	#game_view._initialize_full_state()
 	
 func _on_remote_command(data: Dictionary):
 	var script: Script = load(data["type"])

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MinionCardInfo" format=3 uid="uid://cu2ryss8341mk"]
+
+[ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_06t1u"]
+[ext_resource type="Script" uid="uid://b5d8j7lm45poq" path="res://cards/card_info/minion_card_info.gd" id="2_06t1u"]
+[ext_resource type="Script" uid="uid://k5pl2ei0nb7f" path="res://core/enchantments/enchantment.gd" id="2_yqsi6"]
+
+[resource]
+script = ExtResource("2_06t1u")
+attack = 1
+health = 3
+id = "angry_chicken"
+display_name = "Angry Chicken"
+cost = 1

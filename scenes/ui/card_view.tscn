@@ -1,8 +1,156 @@
 [gd_scene format=3 uid="uid://cdrbewgg1wp7r"]
 
 [ext_resource type="Script" uid="uid://b03aa4xf83gix" path="res://ui/card_view.gd" id="1_vgx4y"]
+[ext_resource type="Texture2D" uid="uid://dojkj8qqte0uj" path="res://assets/card_border.png" id="2_jjgc2"]
+[ext_resource type="Texture2D" uid="uid://c0ffpb6hv458v" path="res://assets/random/Screenshot-of-a-HearthStone-match.jpg" id="3_1v373"]
+[ext_resource type="Texture2D" uid="uid://b2o2k40a6u7cc" path="res://assets/gradient.png" id="4_1v373"]
+[ext_resource type="Texture2D" uid="uid://b22vpxaf01y7y" path="res://assets/random/594152982_1405824260925496_2212293862454278028_n.jpg" id="5_fssk5"]
+[ext_resource type="Texture2D" uid="uid://cy10bo6l578gi" path="res://icon.svg" id="6_shnkw"]
 
-[node name="CardView" type="Button" unique_id=665730067]
-offset_right = 8.0
-offset_bottom = 8.0
+[sub_resource type="LabelSettings" id="LabelSettings_d111w"]
+outline_size = 3
+outline_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_fssk5"]
+line_spacing = -3.0
+font_size = 11
+
+[node name="CardView" type="Control" unique_id=904282697 node_paths=PackedStringArray("CostLabel", "HealthLabel", "AttackLabel", "DisplayNameLabel", "DescriptionLabel", "CardBorder", "Shadow", "CardArt", "TextGradient")]
+custom_minimum_size = Vector2(152, 207)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 152.0
+offset_bottom = 207.0
+mouse_filter = 2
 script = ExtResource("1_vgx4y")
+CostLabel = NodePath("CostLabel")
+HealthLabel = NodePath("HealthLabel")
+AttackLabel = NodePath("AttackLabel")
+DisplayNameLabel = NodePath("DisplayNameLabel")
+DescriptionLabel = NodePath("DescriptionLabel")
+CardBorder = NodePath("CardBorder")
+Shadow = NodePath("Shadow")
+CardArt = NodePath("ArtContainer/CardArt")
+TextGradient = NodePath("TextGradient")
+
+[node name="CardBorder" type="TextureRect" parent="." unique_id=643084955]
+layout_mode = 0
+offset_left = -7.0
+offset_top = -18.0
+offset_right = 159.0
+offset_bottom = 212.0
+mouse_filter = 2
+texture = ExtResource("2_jjgc2")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Shadow" type="TextureRect" parent="." unique_id=1917089971]
+modulate = Color(0, 0, 0, 0.34117648)
+z_index = -3
+layout_mode = 0
+offset_top = -6.0
+offset_right = 166.0
+offset_bottom = 224.0
+mouse_filter = 2
+texture = ExtResource("2_jjgc2")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="HealthLabel" type="Label" parent="." unique_id=2132230808]
+layout_mode = 0
+offset_left = 118.0
+offset_top = 178.0
+offset_right = 158.0
+offset_bottom = 201.0
+text = "hp"
+label_settings = SubResource("LabelSettings_d111w")
+horizontal_alignment = 1
+
+[node name="AttackLabel" type="Label" parent="." unique_id=824502823]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 176.0
+offset_right = 42.0
+offset_bottom = 203.0
+text = "at"
+label_settings = SubResource("LabelSettings_d111w")
+horizontal_alignment = 1
+
+[node name="DisplayNameLabel" type="Label" parent="." unique_id=1470136522]
+layout_mode = 1
+offset_left = 25.0
+offset_top = 95.0
+offset_right = 128.0
+offset_bottom = 118.00001
+text = "Card Name"
+label_settings = SubResource("LabelSettings_d111w")
+horizontal_alignment = 1
+
+[node name="CostLabel" type="Label" parent="." unique_id=1148536595]
+layout_mode = 1
+offset_left = 10.0
+offset_top = 3.0
+offset_right = 28.0
+offset_bottom = 26.000008
+text = "$"
+label_settings = SubResource("LabelSettings_d111w")
+horizontal_alignment = 1
+
+[node name="ScreenshotOfAHearthStoneMatch" type="Sprite2D" parent="." unique_id=1979335624]
+visible = false
+z_index = -2
+position = Vector2(146, 54)
+scale = Vector2(1.3541176, 1.0094044)
+texture = ExtResource("3_1v373")
+
+[node name="DescriptionLabel" type="Label" parent="." unique_id=1149858481]
+layout_mode = 0
+offset_left = 26.0
+offset_top = 114.0
+offset_right = 131.0
+offset_bottom = 177.0
+text = "Battlecry: deal 4 damage to an enemy"
+label_settings = SubResource("LabelSettings_fssk5")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="TextGradient" type="TextureRect" parent="." unique_id=1296324803]
+z_index = -1
+layout_mode = 0
+offset_left = 16.0
+offset_top = 64.0
+offset_right = 683.0
+offset_bottom = 1230.125
+scale = Vector2(0.18422039, 0.114052944)
+texture = ExtResource("4_1v373")
+
+[node name="59415298214058242609254962212293862454278028N" type="Sprite2D" parent="." unique_id=1631317159]
+visible = false
+z_index = -4
+position = Vector2(75.99999, 104.55462)
+scale = Vector2(0.114814796, 0.16563483)
+texture = ExtResource("5_fssk5")
+offset = Vector2(0, -0.675)
+flip_h = true
+
+[node name="ArtContainer" type="Control" parent="." unique_id=1364334668]
+z_index = -2
+clip_contents = true
+custom_minimum_size = Vector2(125, 180)
+anchors_preset = 0
+offset_left = 14.0
+offset_top = 15.0
+offset_right = 138.0
+offset_bottom = 194.0
+mouse_filter = 2
+
+[node name="CardArt" type="TextureRect" parent="ArtContainer" unique_id=2064672836]
+layout_mode = 0
+offset_top = -3.0
+offset_right = 125.0
+offset_bottom = 185.0
+mouse_filter = 2
+texture = ExtResource("6_shnkw")
+expand_mode = 1
+stretch_mode = 6

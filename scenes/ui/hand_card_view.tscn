@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://iore074xjej4"]
+
+[ext_resource type="Script" uid="uid://bs546tbmdylwq" path="res://ui/hand_card_view.gd" id="1_4o805"]
+[ext_resource type="PackedScene" uid="uid://cdrbewgg1wp7r" path="res://scenes/ui/card_view.tscn" id="2_4o805"]
+
+[node name="HandCardView" type="Button" unique_id=665730067]
+custom_minimum_size = Vector2(152, 207)
+offset_right = 8.0
+offset_bottom = 8.0
+flat = true
+script = ExtResource("1_4o805")
+
+[node name="CardView" parent="." unique_id=1827294601 instance=ExtResource("2_4o805")]
+layout_mode = 0

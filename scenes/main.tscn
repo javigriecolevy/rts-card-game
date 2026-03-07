@@ -15,15 +15,4 @@ script = ExtResource("1_o5qli")
 script = ExtResource("3_jyhfs")
 
 [node name="GameView" parent="." unique_id=1326419423 node_paths=PackedStringArray("tick_manager") instance=ExtResource("4_jyhfs")]
-anchors_preset = 0
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 576.0
-offset_top = 653.0
-offset_right = 576.0
-offset_bottom = 653.0
-grow_horizontal = 1
-grow_vertical = 1
 tick_manager = NodePath("../TickManager")

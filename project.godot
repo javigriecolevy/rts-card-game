@@ -22,3 +22,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 card_database="*uid://bkr8u1mbr4kcv"
+
+[display]
+
+window/size/viewport_height=800
+window/stretch/mode="viewport"

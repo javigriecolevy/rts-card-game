@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="MinionCardInfo" format=3 uid="uid://cp6572jay43n3"]
+
+[ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_a14jp"]
+[ext_resource type="Resource" uid="uid://cu2ryss8341mk" path="res://cards/resources/angry_chicken.tres" id="2_blstd"]
+[ext_resource type="Script" uid="uid://bqrbfpci0xk35" path="res://core/effects/random_repeat_effect.gd" id="3_a14jp"]
+[ext_resource type="Script" uid="uid://bxikxkghrdmfh" path="res://core/effects/summon_effect.gd" id="3_qy1gu"]
+[ext_resource type="Script" uid="uid://b5d8j7lm45poq" path="res://cards/card_info/minion_card_info.gd" id="5_blstd"]
+[ext_resource type="Script" uid="uid://k5pl2ei0nb7f" path="res://core/enchantments/enchantment.gd" id="5_qy1gu"]
+
+[sub_resource type="Resource" id="Resource_qy1gu"]
+script = ExtResource("3_qy1gu")
+card = ExtResource("2_blstd")
+metadata/_custom_type_script = "uid://bxikxkghrdmfh"
+
+[sub_resource type="Resource" id="Resource_blstd"]
+script = ExtResource("3_a14jp")
+min_amount = 1
+effect = SubResource("Resource_qy1gu")
+trigger = 1
+metadata/_custom_type_script = "uid://bqrbfpci0xk35"
+
+[resource]
+script = ExtResource("5_blstd")
+attack = 5
+health = 5
+id = "chicken_farmer"
+display_name = "chicken_farmer"
+cost = 1
+effects = Array[ExtResource("1_a14jp")]([SubResource("Resource_blstd")])

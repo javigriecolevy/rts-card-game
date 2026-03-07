@@ -1,17 +1,36 @@
-extends Button
+extends Control
 class_name CardView
 
-signal card_clicked(card_instance_id)
+@export var CostLabel : Label
+@export var HealthLabel : Label
+@export var AttackLabel : Label
+@export var DisplayNameLabel : Label
+@export var DescriptionLabel : Label
 
-var card_id: int
+@export var CardBorder : TextureRect
+@export var Shadow : TextureRect
+@export var CardArt : TextureRect
+@export var TextGradient : TextureRect
 
-func setup(instance_id: int, definition):
-	card_id = instance_id
-	text = "%s (Cost %d)" % [
-		definition.display_name,
-		definition.cost
-	]
+func setup(definition: CardInfo):
 
-func _pressed():
-	print("Selected card %d", card_id)
-	card_clicked.emit(card_id)
+	CostLabel.text = str(definition.cost)
+	DisplayNameLabel.text = str(definition.display_name)
+	HealthLabel.text = str(definition.health)
+	AttackLabel.text = str(definition.attack)
+	
+	Shadow.visible = true
+	CardBorder.texture = load("res://assets/card_border.png")
+	
+	DescriptionLabel.text = definition.description
+	if not definition.description:
+		TextGradient.visible = false
+	
+	var art_path = "res://assets/card_art/%s.png" % definition.id
+	if ResourceLoader.exists(art_path):
+		CardArt.texture = load(art_path)
+	
+func minion_setup():
+	Shadow.visible = false
+	CostLabel.visible = false
+	CardBorder.texture = load("res://assets/minion_border.png")

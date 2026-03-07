@@ -13,13 +13,13 @@ func _ready():
 # Load all .tres card resources from card_info folder
 # -------------------------
 func _load_cards():
-	var dir = DirAccess.open("res://cards/card_info")
+	var dir = DirAccess.open("res://cards/resources")
 	if dir:
 		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name != "":
 			if not dir.current_is_dir() and file_name.ends_with(".tres"):
-				var path = "res://cards/card_info/" + file_name
+				var path = "res://cards/resources/" + file_name
 				var card_res = ResourceLoader.load(path)
 				if card_res:
 					var card_id = card_res.get("id")  # safe way to access
@@ -33,7 +33,7 @@ func _load_cards():
 			file_name = dir.get_next()
 		dir.list_dir_end()
 	else:
-		print("Failed to open cards/card_info folder!")
+		print("Failed to open cards/resources folder!")
 # -------------------------
 # Get a card by ID
 # -------------------------
