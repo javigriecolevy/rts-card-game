@@ -18,8 +18,9 @@ func update_stats(minion: Minion):
 	card_view.AttackLabel.text = str(minion.attack)
 	#TODO: Change Label color if the stat is higher or lower than on the minion.card
 
-func update_can_attack_view():
-	$Glow.visible = true
+func update_can_attack_view(value: bool):
+	$Glow.visible = value
+
 
 func _pressed():
 	minion_clicked.emit(entity_id)

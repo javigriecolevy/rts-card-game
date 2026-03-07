@@ -83,6 +83,7 @@ func update_entity_stats(entity_id: int):
 		var entity = tick_manager.game_state.entities.get(entity_id)
 		if entity:
 			entity_nodes[entity_id].update_stats(entity)
+			
 
 # Public method
 func update_board(player_id: int):
@@ -99,7 +100,7 @@ func attack_glow(tick: int):
 	if entities_ready_to_attack_by_tick.has(tick):
 		for entity: Entity in entities_ready_to_attack_by_tick.get(tick):
 			if entity.can_attack(tick):
-				entity_nodes[entity.id].Glow.visible = true
+				entity_nodes[entity.id].update_can_attack_view(true)
 # -------------------------
 # Signal forwarding
 func _on_minion_clicked(minion_id: int):

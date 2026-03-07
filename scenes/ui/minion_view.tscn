@@ -17,6 +17,7 @@ card_view = NodePath("CardView")
 layout_mode = 0
 
 [node name="Glow" type="TextureRect" parent="." unique_id=983265320]
+visible = false
 modulate = Color(0, 18.892157, 0, 1)
 self_modulate = Color(0, 18.892157, 0, 1)
 z_index = -1

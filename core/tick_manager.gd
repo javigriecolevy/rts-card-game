@@ -86,6 +86,7 @@ func _try_advance_tick() -> void:
 		# Solves current tick
 		game_state.enchantment_manager.sweep_expired_enchantments(game_state.tick)
 		game_state.enchantment_manager.recalculate_dirty_entities()
+		get_node("/root/GameRoot/GameView").entity_manager.attack_glow(game_state.tick) #TODO: Make this but good
 		process_commands_for_tick()
 		game_state.event_resolver.resolve()
 		_handle_cycle()
