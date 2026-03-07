@@ -1,24 +1,25 @@
 extends Button
 class_name MinionView
 
+@export var card_view: CardView
+
 signal minion_clicked(minion_id)
 
 var entity_id: int
 
 func setup(minion: Minion):
 	entity_id = minion.id
-	$CardView.setup(minion.card)
-	$CardView.minion_setup()
+	card_view.setup(minion.card)
+	card_view.minion_setup()
 	update_stats(minion)
 
 func update_stats(minion: Minion):
-	#text = "%s (%d/%d)" % [
-		#minion.display_name,
-		#minion.attack,
-		#minion.health
-	#]
+	card_view.HealthLabel.text = str(minion.health)
+	card_view.AttackLabel.text = str(minion.attack)
+	#TODO: Change Label color if the stat is higher or lower than on the minion.card
 
-	$CardView/HealthLabel.text = str(minion.health)
-	$CardView/AttackLabel.text = str(minion.attack)
+func update_can_attack_view():
+	$Glow.visible = true
+
 func _pressed():
 	minion_clicked.emit(entity_id)

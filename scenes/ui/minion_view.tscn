@@ -3,124 +3,28 @@
 [ext_resource type="Script" uid="uid://b27m2yfyjg4ql" path="res://ui/minion_view.gd" id="1_cpi00"]
 [ext_resource type="PackedScene" uid="uid://cdrbewgg1wp7r" path="res://scenes/ui/card_view.tscn" id="2_3sorx"]
 [ext_resource type="Texture2D" uid="uid://k4b70hmpphyg" path="res://assets/minion_border.png" id="2_gk52o"]
-[ext_resource type="Texture2D" uid="uid://c0ffpb6hv458v" path="res://assets/random/Screenshot-of-a-HearthStone-match.jpg" id="2_octte"]
-[ext_resource type="Texture2D" uid="uid://b2o2k40a6u7cc" path="res://assets/gradient.png" id="4_octte"]
-[ext_resource type="Texture2D" uid="uid://b22vpxaf01y7y" path="res://assets/random/594152982_1405824260925496_2212293862454278028_n.jpg" id="5_gk52o"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_octte"]
-line_spacing = 1.0
-outline_size = 3
-outline_color = Color(0, 0, 0, 1)
-
-[sub_resource type="LabelSettings" id="LabelSettings_gk52o"]
-line_spacing = -3.0
-font_size = 9
-
-[node name="MinionView" type="Button" unique_id=354509731]
+[node name="MinionView" type="Button" unique_id=354509731 node_paths=PackedStringArray("card_view")]
 custom_minimum_size = Vector2(152, 207)
 offset_right = 152.0
 offset_bottom = 207.0
 pivot_offset = Vector2(76, 103.5)
 flat = true
 script = ExtResource("1_cpi00")
+card_view = NodePath("CardView")
 
 [node name="CardView" parent="." unique_id=665730067 instance=ExtResource("2_3sorx")]
 layout_mode = 0
 
-[node name="CardBorder" type="TextureRect" parent="." unique_id=2147279127]
-visible = false
-layout_mode = 0
-offset_left = -7.0
-offset_top = -18.0
-offset_right = 159.0
-offset_bottom = 212.0
-texture = ExtResource("2_gk52o")
-expand_mode = 1
-stretch_mode = 4
-
-[node name="Shadow" type="TextureRect" parent="." unique_id=43763283]
-visible = false
-modulate = Color(0, 0, 0, 0.43137255)
-z_index = -4
-layout_mode = 0
-offset_top = -8.0
-offset_right = 166.0
-offset_bottom = 222.0
-texture = ExtResource("2_gk52o")
-expand_mode = 1
-stretch_mode = 4
-
-[node name="HealthLabel" type="Label" parent="." unique_id=576858779]
-visible = false
-layout_mode = 1
-offset_left = 118.0
-offset_top = 178.0
-offset_right = 158.0
-offset_bottom = 201.0
-text = "hp"
-label_settings = SubResource("LabelSettings_octte")
-horizontal_alignment = 1
-
-[node name="DescriptionLabel" type="Label" parent="." unique_id=1001852885]
-visible = false
-layout_mode = 1
-offset_left = 26.0
-offset_top = 114.0
-offset_right = 131.0
-offset_bottom = 177.0
-text = "Battlecry: deal 4 damage to an enemy"
-label_settings = SubResource("LabelSettings_gk52o")
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 3
-
-[node name="AttackLabel" type="Label" parent="." unique_id=2129955336]
-visible = false
-layout_mode = 1
-offset_left = 4.0
-offset_top = 176.0
-offset_right = 42.0
-offset_bottom = 203.0
-text = "at"
-label_settings = SubResource("LabelSettings_octte")
-horizontal_alignment = 1
-
-[node name="DisplayNameLabel" type="Label" parent="." unique_id=1085834414]
-visible = false
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.74100006
-anchor_top = 0.90500003
-anchor_right = 0.74100006
-anchor_bottom = 0.90500003
-offset_left = -86.63201
-offset_top = -97.33501
-offset_right = 16.367989
-offset_bottom = -74.33501
-grow_horizontal = 2
-grow_vertical = 2
-text = "minion name"
-label_settings = SubResource("LabelSettings_octte")
-horizontal_alignment = 1
-
-[node name="ScreenshotOfAHearthStoneMatch" type="Sprite2D" parent="." unique_id=1786673822]
-visible = false
-z_index = -2
-position = Vector2(146, 54)
-scale = Vector2(1.3541176, 1.0094044)
-texture = ExtResource("2_octte")
-
-[node name="Gradient" type="Sprite2D" parent="." unique_id=1990918527]
-visible = false
+[node name="Glow" type="TextureRect" parent="." unique_id=983265320]
+modulate = Color(0, 18.892157, 0, 1)
+self_modulate = Color(0, 18.892157, 0, 1)
 z_index = -1
-position = Vector2(76.56249, 136)
-scale = Vector2(0.18422039, 0.114052944)
-texture = ExtResource("4_octte")
-
-[node name="59415298214058242609254962212293862454278028N" type="Sprite2D" parent="." unique_id=1709174612]
-z_index = -4
-position = Vector2(75.99999, 104.55462)
-scale = Vector2(0.114814796, 0.16563483)
-texture = ExtResource("5_gk52o")
-offset = Vector2(0, -0.675)
-flip_h = true
+layout_mode = 0
+offset_left = -9.0
+offset_top = -21.0
+offset_right = 161.0
+offset_bottom = 213.0
+mouse_filter = 2
+texture = ExtResource("2_gk52o")
+expand_mode = 1

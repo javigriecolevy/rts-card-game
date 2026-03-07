@@ -93,8 +93,8 @@ func _try_advance_tick() -> void:
 		game_state.tick += 1 # Advances to next tick
 		
 		#DEBUG OUTPUT. TODO: REMOVE
-		print("\n=== Tick %d from Player %d ===" % [game_state.tick - 1, local_player_id])
-		game_state.print_current_state()
+		#print("\n=== Tick %d from Player %d ===" % [game_state.tick - 1, local_player_id])
+		#game_state.print_current_state()
 
 # -------------------------
 # Checks if recieved end input command from all players
@@ -169,12 +169,12 @@ func _create_starting_deck(player_id: int) -> Deck:
 		])
 	else:
 		return Deck.new([
-			card_database.get_card("rotten_chicken"),
-			card_database.get_card("rotten_chicken"),
-			card_database.get_card("rotten_chicken"),
-			card_database.get_card("rotten_chicken"),
-			card_database.get_card("rotten_chicken"),
-			card_database.get_card("rotten_chicken"),
+			card_database.get_card("abusive_sergeant"),
+			card_database.get_card("abusive_sergeant"),
+			card_database.get_card("abusive_sergeant"),
+			card_database.get_card("abusive_sergeant"),
+			card_database.get_card("abusive_sergeant"),
+			card_database.get_card("abusive_sergeant"),
 			card_database.get_card("egg"),
 			card_database.get_card("egg"),
 			card_database.get_card("egg"),

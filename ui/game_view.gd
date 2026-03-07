@@ -64,7 +64,7 @@ func _handle_play_card(event: PlayCardEvent):
 # Summon a minion to the board
 func _handle_summon(event: SummonEvent):
 	var board = tick_manager.game_state.boards[event.player_id]
-	for minion in board:
+	for minion: Minion in board:
 		entity_manager.remove_entity(minion.id) # ensure no duplicates
 		entity_manager.create_minion(minion)
 

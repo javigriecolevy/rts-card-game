@@ -45,6 +45,7 @@ expand_mode = 1
 stretch_mode = 4
 
 [node name="Shadow" type="TextureRect" parent="." unique_id=1917089971]
+visible = false
 modulate = Color(0, 0, 0, 0.34117648)
 z_index = -3
 layout_mode = 0

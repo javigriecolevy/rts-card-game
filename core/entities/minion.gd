@@ -3,7 +3,7 @@ class_name Minion
 
 # -------------------------
 # Card data
-var card: CardInfo
+var card: MinionCardInfo
 
 # -------------------------
 # Effect list
@@ -31,6 +31,7 @@ static func new_from_card(card_info: MinionCardInfo, owner_player_id: int, curre
 
 	# -------------------------
 	# Timing
+	minion.attack_cooldown = card_info.attack_cooldown
 	minion.ready_at_tick = current_tick + card_info.attack_cooldown
 	
 	# -------------------------
@@ -39,14 +40,6 @@ static func new_from_card(card_info: MinionCardInfo, owner_player_id: int, curre
 	minion.enchantments = card_info.enchantments.duplicate(true)
 
 	return minion
-
-# -------------------------
-# Combat rules
-func can_attack(current_tick: int) -> bool:
-	return current_tick >= ready_at_tick
-
-func on_attack(current_tick: int) -> void:
-	ready_at_tick = current_tick + card.attack_cooldown
 
 # -------------------------
 # ! UNUSED FUNC, PONDERING IF SHOULD BE USED OR NOT.

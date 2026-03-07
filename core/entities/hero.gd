@@ -9,7 +9,10 @@ static func new_hero(owner_player_id: int, starting_health: int) -> Hero:
 	hero.health = hero.base_max_health
 	hero.max_health = hero.base_max_health
 	
+	hero.attack_cooldown = 500
+	
 	hero.display_name = "Player %d" % owner_player_id
 	hero.enchantments = []
+
 	
 	return hero

@@ -11,6 +11,8 @@ var enemy_board: Node
 var player_hero_container: Node
 var enemy_hero_container: Node
 
+var entities_ready_to_attack_by_tick: Dictionary[int, Array]
+
 # Store entity nodes by ID
 var entity_nodes: Dictionary[int, Node] = {}
 
@@ -51,7 +53,7 @@ func create_hero(hero_id: int):
 
 # -------------------------
 # Minion functions
-func create_minion(minion):
+func create_minion(minion: Minion):
 	var container = player_board if minion.owner_id == local_player_id else enemy_board
 	var scene = preload("res://scenes/ui/minion_view.tscn")
 	var view = scene.instantiate()
@@ -62,6 +64,10 @@ func create_minion(minion):
 
 	container.add_child(view)
 	entity_nodes[minion.id] = view
+	
+	if not entities_ready_to_attack_by_tick.has(minion.ready_at_tick):
+		entities_ready_to_attack_by_tick[minion.ready_at_tick] = []
+	entities_ready_to_attack_by_tick[minion.ready_at_tick].append(minion)
 
 # -------------------------
 # Remove entity
@@ -89,6 +95,11 @@ func update_board(player_id: int):
 		# Create new view
 		create_minion(minion)
 
+func attack_glow(tick: int):
+	if entities_ready_to_attack_by_tick.has(tick):
+		for entity: Entity in entities_ready_to_attack_by_tick.get(tick):
+			if entity.can_attack(tick):
+				entity_nodes[entity.id].Glow.visible = true
 # -------------------------
 # Signal forwarding
 func _on_minion_clicked(minion_id: int):
