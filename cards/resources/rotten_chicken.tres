@@ -17,3 +17,4 @@ enchantments = Array[ExtResource("2_swur8")]([SubResource("Resource_w5iug")])
 id = "rotten_chicken"
 display_name = "Rotten Chicken"
 cost = 4
+description = "Poison"

@@ -21,6 +21,7 @@ var commands_by_tick: Dictionary = {} # tick -> Array[GameCommand]
 var command_processor: CommandProcessor = CommandProcessor.new(game_state, game_state.event_resolver)
 
 signal ui_events_resolved(events: Array[GameEvent])
+signal tick_advanced(current_tick: int)
 
 # -------------------------
 func _ready() -> void:
@@ -86,11 +87,12 @@ func _try_advance_tick() -> void:
 		# Solves current tick
 		game_state.enchantment_manager.sweep_expired_enchantments(game_state.tick)
 		game_state.enchantment_manager.recalculate_dirty_entities()
-		get_node("/root/GameRoot/GameView").entity_manager.attack_glow(game_state.tick) #TODO: Make this but good
+		
 		process_commands_for_tick()
 		game_state.event_resolver.resolve()
 		_handle_cycle()
-	
+		
+		emit_signal("tick_advanced", game_state.tick)
 		game_state.tick += 1 # Advances to next tick
 		
 		#DEBUG OUTPUT. TODO: REMOVE
@@ -170,12 +172,12 @@ func _create_starting_deck(player_id: int) -> Deck:
 		])
 	else:
 		return Deck.new([
-			card_database.get_card("abusive_sergeant"),
-			card_database.get_card("abusive_sergeant"),
-			card_database.get_card("abusive_sergeant"),
-			card_database.get_card("abusive_sergeant"),
-			card_database.get_card("abusive_sergeant"),
-			card_database.get_card("abusive_sergeant"),
+			card_database.get_card("rotten_chicken"),
+			card_database.get_card("rotten_chicken"),
+			card_database.get_card("rotten_chicken"),
+			card_database.get_card("rotten_chicken"),
+			card_database.get_card("rotten_chicken"),
+			card_database.get_card("rotten_chicken"),
 			card_database.get_card("egg"),
 			card_database.get_card("egg"),
 			card_database.get_card("egg"),

@@ -16,6 +16,7 @@ line_spacing = -3.0
 font_size = 11
 
 [node name="CardView" type="Control" unique_id=904282697 node_paths=PackedStringArray("CostLabel", "HealthLabel", "AttackLabel", "DisplayNameLabel", "DescriptionLabel", "CardBorder", "Shadow", "CardArt", "TextGradient")]
+use_parent_material = true
 custom_minimum_size = Vector2(152, 207)
 layout_mode = 3
 anchors_preset = 0
@@ -34,6 +35,7 @@ CardArt = NodePath("ArtContainer/CardArt")
 TextGradient = NodePath("TextGradient")
 
 [node name="CardBorder" type="TextureRect" parent="." unique_id=643084955]
+use_parent_material = true
 layout_mode = 0
 offset_left = -7.0
 offset_top = -18.0

@@ -11,7 +11,6 @@ var input_controller: InputController
 
 func setup():
 	# Initialize managers
-	print("assigning local player id to ", local_player_id)
 	entity_manager = EntityViewManager.new()
 	hand_manager = HandViewManager.new()
 	input_controller = InputController.new()
@@ -19,9 +18,10 @@ func setup():
 	entity_manager.setup(tick_manager, local_player_id, $PlayerBoard, $EnemyBoard, $PlayerHeroContainer, $EnemyHeroContainer)
 	hand_manager.setup(tick_manager, local_player_id, $Hand)
 	input_controller.setup(tick_manager, local_player_id, entity_manager, hand_manager)
-
+	
 	# Connect events
 	tick_manager.ui_events_resolved.connect(_on_events_emitted)
+	tick_manager.tick_advanced.connect(_on_tick_advanced)
 	tick_manager.game_state.enchantment_manager.entity_recalculated.connect(entity_manager.update_entity_stats)
 	
 	var gs = tick_manager.game_state
@@ -75,3 +75,6 @@ func _handle_damage(event: DamageEvent):
 # Remove dead entity from board
 func _handle_death(event: DeathEvent):
 	entity_manager.remove_entity(event.entity_id)
+
+func _on_tick_advanced(current_tick: int):
+	entity_manager.update_attack_glow(current_tick)

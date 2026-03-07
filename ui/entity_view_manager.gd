@@ -96,11 +96,11 @@ func update_board(player_id: int):
 		# Create new view
 		create_minion(minion)
 
-func attack_glow(tick: int):
-	if entities_ready_to_attack_by_tick.has(tick):
-		for entity: Entity in entities_ready_to_attack_by_tick.get(tick):
-			if entity.can_attack(tick):
-				entity_nodes[entity.id].update_can_attack_view(true)
+func update_attack_glow(tick: int):
+	for entity_id: int in entity_nodes.keys():
+		if tick_manager.game_state.entities.get(entity_id) is Minion:
+			entity_nodes[entity_id].update_can_attack_view(tick_manager.game_state.entities.get(entity_id).can_attack(tick))
+
 # -------------------------
 # Signal forwarding
 func _on_minion_clicked(minion_id: int):
