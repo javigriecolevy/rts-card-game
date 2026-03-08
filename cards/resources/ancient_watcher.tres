@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="MinionCardInfo" format=3 uid="uid://dnsvfsycup7cj"]
+
+[ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_ghlgk"]
+[ext_resource type="Script" uid="uid://k5pl2ei0nb7f" path="res://core/enchantments/enchantment.gd" id="2_b38op"]
+[ext_resource type="Script" uid="uid://c4vhkwuqt7v2d" path="res://core/enchantments/cant_attack_enchantment.gd" id="3_ghlgk"]
+[ext_resource type="Script" uid="uid://b5d8j7lm45poq" path="res://cards/card_info/minion_card_info.gd" id="4_gd60p"]
+
+[sub_resource type="Resource" id="Resource_b38op"]
+script = ExtResource("3_ghlgk")
+metadata/_custom_type_script = "uid://c4vhkwuqt7v2d"
+
+[resource]
+script = ExtResource("4_gd60p")
+attack = 4
+health = 5
+enchantments = Array[ExtResource("2_b38op")]([SubResource("Resource_b38op")])
+id = "ancient_watcher"
+display_name = "Ancient Watcher"
+cost = 2
+description = "Poison"

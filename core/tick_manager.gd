@@ -88,6 +88,7 @@ func _try_advance_tick() -> void:
 		game_state.enchantment_manager.sweep_expired_enchantments(game_state.tick)
 		game_state.enchantment_manager.recalculate_dirty_entities()
 		
+		game_state.enchantment_manager.on_tick()
 		process_commands_for_tick()
 		game_state.event_resolver.resolve()
 		_handle_cycle()
@@ -172,12 +173,12 @@ func _create_starting_deck(player_id: int) -> Deck:
 		])
 	else:
 		return Deck.new([
-			card_database.get_card("rotten_chicken"),
-			card_database.get_card("rotten_chicken"),
-			card_database.get_card("rotten_chicken"),
-			card_database.get_card("rotten_chicken"),
-			card_database.get_card("rotten_chicken"),
-			card_database.get_card("rotten_chicken"),
+			card_database.get_card("ancient_watcher"),
+			card_database.get_card("ancient_watcher"),
+			card_database.get_card("ancient_watcher"),
+			card_database.get_card("ancient_watcher"),
+			card_database.get_card("ancient_watcher"),
+			card_database.get_card("ancient_watcher"),
 			card_database.get_card("egg"),
 			card_database.get_card("egg"),
 			card_database.get_card("egg"),

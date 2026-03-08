@@ -3,6 +3,7 @@ class_name EnchantmentManager
 
 var game_state: GameState
 
+var entities_with_active_enchant: Dictionary = {}
 var entities_by_enchant_expiration_tick: Dictionary[int, Array] # tick -> Array[Entity_id]
 var dirty_entities: Dictionary = {} # entity.id
 
@@ -12,13 +13,38 @@ func _init(_game_state: GameState) -> void:
 	game_state = _game_state
 
 func apply_enchantment(entity_id: int, enchantment: Enchantment):
-	var entity = game_state.entities.get(entity_id)
+	var entity: Entity = game_state.entities.get(entity_id)
 	entity.enchantments.append(enchantment)
 	recalculate_entity(entity)
-	if enchantment.expires_at_tick:
-		if not entities_by_enchant_expiration_tick.has(enchantment.expires_at_tick):
-			entities_by_enchant_expiration_tick[enchantment.expires_at_tick] = []
-		entities_by_enchant_expiration_tick[enchantment.expires_at_tick].append(entity_id)
+	register_enchantments(entity_id)
+	
+func register_enchantments(entity_id: int):
+	print("REGISTERING ENCHANTMENT")
+	var entity: Entity = game_state.entities.get(entity_id)
+	var has_active_enchant = false
+	for enchantment in entity.enchantments:
+		if enchantment.expires_at_tick:
+			if not entities_by_enchant_expiration_tick.has(enchantment.expires_at_tick):
+				entities_by_enchant_expiration_tick[enchantment.expires_at_tick] = []
+			entities_by_enchant_expiration_tick[enchantment.expires_at_tick].append(entity_id)
+		
+		if not has_active_enchant and enchantment is ActiveEnchantment:
+			has_active_enchant = true
+	if has_active_enchant:
+		entities_with_active_enchant[entity_id] = true
+	else:
+		entities_with_active_enchant.erase(entity_id)
+
+func on_tick():
+	for entity_id in entities_with_active_enchant:
+		var entity: Entity = game_state.entities.get(entity_id)
+		if entity:
+			print("CALLING ONTICK ON REGISTERED ENCHANTMENT")
+			for enchant in entity.enchantments:
+				if enchant is ActiveEnchantment:
+					enchant.on_tick(entity_id, game_state)
+		else:
+			entities_with_active_enchant.erase(entity_id)
 
 func mark_dirty(entity_id: int):
 	dirty_entities[entity_id] = true
@@ -28,6 +54,7 @@ func recalculate_dirty_entities():
 		var entity = game_state.entities.get(entity_id)
 		if entity:
 			recalculate_entity(entity)
+			register_enchantments(entity_id)
 	dirty_entities.clear()
 
 func recalculate_entity(entity: Entity) -> void:

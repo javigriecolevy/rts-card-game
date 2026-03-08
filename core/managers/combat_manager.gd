@@ -82,6 +82,8 @@ func handle_summon(event: SummonEvent):
 		if effect.trigger_event_class:
 			effect.source_player_id = minion.owner_id
 			_register_listener(effect.trigger_event_class, effect)
+	
+	game_state.enchantment_manager.register_enchantments(minion.id)
 
 # -------------------------
 # Handle a death event

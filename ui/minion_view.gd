@@ -2,14 +2,15 @@ extends Button
 class_name MinionView
 
 @export var card_view: CardView
-var glow_material: ShaderMaterial
+@export var VFXLayer: Control
+@export var AttackGlow: TextureRect
 
 signal minion_clicked(minion_id)
 
 var entity_id: int
 
 func setup(minion: Minion):
-	material = material.duplicate()
+	AttackGlow.material = AttackGlow.material.duplicate()
 	entity_id = minion.id
 	card_view.setup(minion.card)
 	card_view.minion_setup()
@@ -22,9 +23,9 @@ func update_stats(minion: Minion):
 
 func update_can_attack_view(enabled: bool):
 	if enabled:
-		material.set_shader_parameter("glow_strength", 10.0)
+		AttackGlow.material.set_shader_parameter("glow_strength", 10.0)
 	else:
-		material.set_shader_parameter("glow_strength", 0.0)
+		AttackGlow.material.set_shader_parameter("glow_strength", 0.0)
 
 
 func _pressed():

@@ -4,64 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://cdrbewgg1wp7r" path="res://scenes/ui/card_view.tscn" id="2_3sorx"]
 [ext_resource type="Texture2D" uid="uid://k4b70hmpphyg" path="res://assets/minion_border.png" id="2_gk52o"]
 
-[sub_resource type="Shader" id="Shader_8sn2j"]
-code = "shader_type canvas_item;
-
-uniform vec4 glow_color : source_color = vec4(0.2, 1.0, 0.2, 1.0);
-uniform float glow_radius = 10.0;
-uniform float glow_strength = 5.0;
-uniform float pulse_speed = 2.5;
-
-const int SAMPLES = 16;
-
-void fragment() {
-
-    vec4 tex = texture(TEXTURE, UV);
-    vec2 px = TEXTURE_PIXEL_SIZE;
-
-    float pulse = sin(TIME * pulse_speed) * 0.5 + 0.5;
-
-    float glow = 0.0;
-    float rim = 0.0;
-
-    for (int i = 0; i < SAMPLES; i++) {
-
-        float angle = float(i) / float(SAMPLES) * 6.283185;
-        vec2 dir = vec2(cos(angle), sin(angle));
-
-        float inner_sample = texture(TEXTURE, UV + dir * px * 1.5).a;
-        float outer_sample = texture(TEXTURE, UV + dir * px * glow_radius).a;
-
-        rim += inner_sample;
-        glow += outer_sample;
-    }
-
-    rim /= float(SAMPLES);
-    glow /= float(SAMPLES);
-
-    float rim_strength = rim * 1.5;
-    float glow_strength_final = glow * glow_strength * pulse;
-
-    vec3 glow_color_final =
-        vec3(1.0) * rim_strength +
-        glow_color.rgb * glow_strength_final;
-
-    float glow_alpha = max(rim_strength, glow_strength_final);
-
-    // Only show glow where the texture is transparent
-    vec3 final_color = mix(glow_color_final, tex.rgb, tex.a);
-    float final_alpha = max(tex.a, glow_alpha * (1.0 - tex.a));
-
-    COLOR = vec4(final_color, final_alpha);
-}"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8sn2j"]
-shader = SubResource("Shader_8sn2j")
-shader_parameter/glow_color = Color(0.077492796, 0.49315646, 0, 1)
-shader_parameter/glow_radius = 6.0
-shader_parameter/glow_strength = 5.0
-shader_parameter/pulse_speed = 0.0
-
 [sub_resource type="Shader" id="Shader_octte"]
 code = "shader_type canvas_item;
 
@@ -116,12 +58,11 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_octte"]
 shader = SubResource("Shader_octte")
 shader_parameter/glow_color = Color(0.2, 1, 0.2, 1)
-shader_parameter/glow_radius = 10.0
+shader_parameter/glow_radius = 6.0
 shader_parameter/glow_strength = 5.0
-shader_parameter/pulse_speed = 1.5
+shader_parameter/pulse_speed = 0.0
 
-[node name="MinionView" type="Button" unique_id=354509731 node_paths=PackedStringArray("card_view")]
-material = SubResource("ShaderMaterial_8sn2j")
+[node name="MinionView" type="Button" unique_id=354509731 node_paths=PackedStringArray("card_view", "AttackGlow")]
 custom_minimum_size = Vector2(152, 207)
 offset_right = 152.0
 offset_bottom = 207.0
@@ -129,12 +70,17 @@ pivot_offset = Vector2(76, 103.5)
 flat = true
 script = ExtResource("1_cpi00")
 card_view = NodePath("CardView")
+AttackGlow = NodePath("VFXLayer/AttackGlow")
 
 [node name="CardView" parent="." unique_id=665730067 instance=ExtResource("2_3sorx")]
 layout_mode = 0
 
-[node name="Glow" type="TextureRect" parent="CardView" unique_id=1555666224]
-visible = false
+[node name="VFXLayer" type="Control" parent="." unique_id=1324072792]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="AttackGlow" type="TextureRect" parent="VFXLayer" unique_id=1555666224]
 z_index = -5
 material = SubResource("ShaderMaterial_octte")
 layout_mode = 0
@@ -146,3 +92,8 @@ mouse_filter = 2
 texture = ExtResource("2_gk52o")
 expand_mode = 1
 stretch_mode = 4
+
+[node name="InteractionLayer" type="Control" parent="." unique_id=1256709385]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
