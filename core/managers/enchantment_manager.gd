@@ -19,7 +19,6 @@ func apply_enchantment(entity_id: int, enchantment: Enchantment):
 	register_enchantments(entity_id)
 	
 func register_enchantments(entity_id: int):
-	print("REGISTERING ENCHANTMENT")
 	var entity: Entity = game_state.entities.get(entity_id)
 	var has_active_enchant = false
 	for enchantment in entity.enchantments:
@@ -39,7 +38,6 @@ func on_tick():
 	for entity_id in entities_with_active_enchant:
 		var entity: Entity = game_state.entities.get(entity_id)
 		if entity:
-			print("CALLING ONTICK ON REGISTERED ENCHANTMENT")
 			for enchant in entity.enchantments:
 				if enchant is ActiveEnchantment:
 					enchant.on_tick(entity_id, game_state)

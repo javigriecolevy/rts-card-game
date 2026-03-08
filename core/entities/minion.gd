@@ -37,7 +37,10 @@ static func new_from_card(card_info: MinionCardInfo, owner_player_id: int, curre
 	# -------------------------
 	# Effect/Enchant instanciating
 	minion.effects = card_info.effects.duplicate(true)
-	minion.enchantments = card_info.enchantments.duplicate(true)
+	
+	minion.enchantments = []
+	for enchant in card_info.enchantments:
+		minion.enchantments.append(enchant.duplicate(true))
 
 	return minion
 

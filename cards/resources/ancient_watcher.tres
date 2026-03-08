@@ -5,7 +5,7 @@
 [ext_resource type="Script" uid="uid://c4vhkwuqt7v2d" path="res://core/enchantments/cant_attack_enchantment.gd" id="3_ghlgk"]
 [ext_resource type="Script" uid="uid://b5d8j7lm45poq" path="res://cards/card_info/minion_card_info.gd" id="4_gd60p"]
 
-[sub_resource type="Resource" id="Resource_b38op"]
+[sub_resource type="Resource" id="Resource_ghlgk"]
 script = ExtResource("3_ghlgk")
 metadata/_custom_type_script = "uid://c4vhkwuqt7v2d"
 
@@ -13,8 +13,8 @@ metadata/_custom_type_script = "uid://c4vhkwuqt7v2d"
 script = ExtResource("4_gd60p")
 attack = 4
 health = 5
-enchantments = Array[ExtResource("2_b38op")]([SubResource("Resource_b38op")])
+enchantments = Array[ExtResource("2_b38op")]([SubResource("Resource_ghlgk")])
 id = "ancient_watcher"
 display_name = "Ancient Watcher"
-cost = 2
-description = "Poison"
+cost = 3
+description = "Can't attack"
