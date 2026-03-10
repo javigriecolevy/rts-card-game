@@ -5,8 +5,8 @@ class_name InputController
 # Dependencies
 var tick_manager
 var local_player_id
-var entity_manager
-var hand_manager
+var entity_manager: EntityViewManager
+var hand_manager: HandViewManager
 
 # -------------------------
 # Selection state
@@ -33,14 +33,20 @@ func setup(_tick_manager, _local_player_id, _entity_manager, _hand_manager):
 # Signal handlers
 func _on_card_clicked(card_instance_id: int):
 	selected_card_id = card_instance_id
-	var card_def = tick_manager.game_state.card_instances[card_instance_id].definition
 
-	if card_def.requires_target:
-		state = SelectionState.SELECTING_CARD_TARGET
+	var card: CardInstance = tick_manager.game_state.card_instances[card_instance_id]
+	var valid_targets = Targeting.get_valid_targets(
+		tick_manager.game_state,
+		card.definition.target_type,
+		card.owner_id
+	)
+
+	if valid_targets.is_empty():
+		if card.definition.target_optional or card.definition.target_type == CardInfo.TargetType.NONE:
+			_queue_play_card(selected_card_id, -1)
+			_reset_selection()
 	else:
-		_queue_play_card(selected_card_id, -1)
-		selected_card_id = -1
-		state = SelectionState.IDLE
+		state = SelectionState.SELECTING_CARD_TARGET
 
 func _on_minion_clicked(minion_id: int):
 	match state:
@@ -51,8 +57,10 @@ func _on_minion_clicked(minion_id: int):
 		SelectionState.IDLE:
 			if selected_attacker_id == -1:
 				selected_attacker_id = minion_id
+				entity_manager.entity_nodes[selected_attacker_id].is_selected(true)
 			else:
 				_queue_attack(selected_attacker_id, minion_id)
+				entity_manager.entity_nodes[selected_attacker_id].is_selected(false)
 				selected_attacker_id = -1
 
 func _on_hero_clicked(hero_id: int):
@@ -64,6 +72,7 @@ func _on_hero_clicked(hero_id: int):
 		SelectionState.IDLE:
 			if selected_attacker_id != -1:
 				_queue_attack(selected_attacker_id, hero_id)
+				entity_manager.entity_nodes[selected_attacker_id].is_selected(false)
 				selected_attacker_id = -1
 
 # -------------------------

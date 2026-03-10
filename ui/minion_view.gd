@@ -27,6 +27,11 @@ func update_can_attack_view(enabled: bool):
 	else:
 		AttackGlow.material.set_shader_parameter("glow_strength", 0.0)
 
+func is_selected(enabled: bool):
+	if enabled:
+		AttackGlow.material.set_shader_parameter("pulse_speed", 5.5)
+	else:
+		AttackGlow.material.set_shader_parameter("pulse_speed", 0.0)
 
 func _pressed():
 	minion_clicked.emit(entity_id)

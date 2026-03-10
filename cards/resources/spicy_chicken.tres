@@ -27,4 +27,4 @@ display_name = "Spicy Chiggin"
 cost = 3
 requires_target = true
 effects = Array[ExtResource("1_k2fj1")]([SubResource("Resource_xafxp")])
-description = "Battlecry: Deal 4 burn to target and 6 burn to self"
+description = "Battlecry: Deal 4 burn to target. This minion has 6 Burn."

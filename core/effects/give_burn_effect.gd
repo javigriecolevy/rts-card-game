@@ -6,7 +6,7 @@ class_name GiveBurnEffect
 @export var duration_amount: int = 0
 
 # -------------------------
-# adds the attack and health values to the minions stats as buffs
+# gives target minion the burned enchantment
 func apply_effect(game_state: GameState, target_id: int) -> void:
 	var burn: BurnedEnchantment = BurnedEnchantment.new()
 	burn.duration = duration_amount
