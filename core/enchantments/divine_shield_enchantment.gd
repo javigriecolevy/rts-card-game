@@ -1,6 +1,9 @@
 extends ActiveEnchantment
 class_name DivineShieldEnchantment
 
+func _on_ready():
+	stackable = false
+
 # Absorbs first instance of damage
 func on_damage_taken(_entity_id: int, game_state: GameState, _damage: int) -> int:
 	expires_at_tick = game_state.tick

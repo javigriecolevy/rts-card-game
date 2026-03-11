@@ -1,6 +1,9 @@
 extends ActiveEnchantment
 class_name FrozenEnchantment
 
+func _on_ready():
+	stackable = false
+
 # Frozen entities cant attack and its attack cooldown timer doesnt go down
 func on_tick(entity_id: int, game_state: GameState) -> void:
 	var entity: Entity = game_state.entities.get(entity_id)

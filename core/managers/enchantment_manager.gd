@@ -12,9 +12,17 @@ signal entity_recalculated(entity_id: int)
 func _init(_game_state: GameState) -> void:
 	game_state = _game_state
 
-func apply_enchantment(entity_id: int, enchantment: Enchantment):
+func apply_enchantment(entity_id: int, new_enchantment: Enchantment):
 	var entity: Entity = game_state.entities.get(entity_id)
-	entity.enchantments.append(enchantment)
+	
+	if not new_enchantment.stackable:
+		for existing_enchantment in entity.enchantments:
+			if existing_enchantment.get_script() == new_enchantment.get_script():
+				existing_enchantment.expires_at_tick = existing_enchantment.expires_at_tick + new_enchantment.expires_at_tick - game_state.tick
+				recalculate_entity(entity)
+				register_enchantments(entity_id)
+				return
+	entity.enchantments.append(new_enchantment)
 	recalculate_entity(entity)
 	register_enchantments(entity_id)
 	

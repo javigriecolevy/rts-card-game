@@ -4,10 +4,15 @@ class_name BurnedEnchantment
 @export var duration: int
 
 var starting_tick
-var damage = 1 # design space for increasing burn damage 
+var damage = 1 # future design space for increasing burn damage 
 
 const TICKS_PER_SECOND = 100 #TODO: make global singleton for entire project = (1 / tickrate)
+
+func _init() -> void:
+	stackable = false
+
 # Deals damage to entity every second
+# TODO: make additional burn enchantments add to the timer of existing burn enchants instead of stacking
 func on_tick(entity_id: int, game_state: GameState) -> void:
 	var entity: Entity = game_state.entities.get(entity_id)
 	if not starting_tick:
