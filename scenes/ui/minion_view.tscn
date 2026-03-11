@@ -77,7 +77,7 @@ pivot_offset = Vector2(76, 103.5)
 flat = true
 script = ExtResource("1_cpi00")
 card_view = NodePath("CardView")
-AttackGlow = NodePath("VFXLayer/s")
+AttackGlow = NodePath("VFXLayer/AttackGlow")
 TargettedGlow = NodePath("VFXLayer/TargettedGlow")
 
 [node name="CardView" parent="." unique_id=665730067 instance=ExtResource("2_3sorx")]
@@ -88,7 +88,7 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="s" type="TextureRect" parent="VFXLayer" unique_id=1555666224]
+[node name="AttackGlow" type="TextureRect" parent="VFXLayer" unique_id=1555666224]
 z_index = -5
 material = SubResource("ShaderMaterial_octte")
 layout_mode = 0

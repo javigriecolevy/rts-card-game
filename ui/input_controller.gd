@@ -18,7 +18,7 @@ var selected_attacker_id: int = -1
 
 var valid_targets: Array[int] = []
 
-signal targets_displayed(valid_targets: Array[int])
+signal valid_targets_modified(valid_targets: Array[int])
 
 # -------------------------
 # Setup function
@@ -51,7 +51,7 @@ func _on_card_clicked(card_instance_id: int):
 			state = SelectionState.IDLE
 	else:
 		state = SelectionState.SELECTING_CARD_TARGET
-		emit_signal("targets_displayed", valid_targets)
+		emit_signal("valid_targets_modified", valid_targets)
 
 func _on_minion_clicked(minion_id: int):
 	match state:
@@ -66,12 +66,16 @@ func _on_minion_clicked(minion_id: int):
 				entity_manager.entity_nodes[selected_attacker_id].is_selected(true)
 				state = SelectionState.SELECTING_ATTACK
 				valid_targets = Targeting.get_attack_targets(selected_attacker_id, tick_manager.game_state)
-				emit_signal("targets_displayed", valid_targets)
+				emit_signal("valid_targets_modified", valid_targets)
 		
 		SelectionState.SELECTING_ATTACK:
-			if valid_targets.has(minion_id):
-				_queue_attack(selected_attacker_id, minion_id)
-			entity_manager.entity_nodes[selected_attacker_id].is_selected(false)
+			if tick_manager.game_state.entities.get(selected_attacker_id):
+				if valid_targets.has(minion_id):
+					_queue_attack(selected_attacker_id, minion_id)
+				entity_manager.entity_nodes[selected_attacker_id].is_selected(false)
+			else:
+				valid_targets.clear()
+				emit_signal("valid_targets_modified", valid_targets)
 			selected_attacker_id = -1
 			state = SelectionState.IDLE
 
@@ -106,7 +110,7 @@ func _queue_play_card(card_id: int, target_id: int):
 	)
 	tick_manager.send_local_command(cmd)
 	valid_targets.clear()
-	emit_signal("targets_displayed", valid_targets)
+	emit_signal("valid_targets_modified", valid_targets)
 
 func _queue_attack(attacker_id: int, target_id: int):
 	var cmd = AttackCommand.new(
@@ -117,4 +121,4 @@ func _queue_attack(attacker_id: int, target_id: int):
 	)
 	tick_manager.send_local_command(cmd)
 	valid_targets.clear()
-	emit_signal("targets_displayed", valid_targets)
+	emit_signal("valid_targets_modified", valid_targets)

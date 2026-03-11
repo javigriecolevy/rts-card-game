@@ -23,7 +23,7 @@ func setup():
 	tick_manager.ui_events_resolved.connect(_on_events_emitted)
 	tick_manager.tick_advanced.connect(_on_tick_advanced)
 	tick_manager.game_state.enchantment_manager.entity_recalculated.connect(entity_manager.update_entity_stats)
-	input_controller.targets_displayed.connect(_on_displayed_targets)
+	input_controller.valid_targets_modified.connect(_on_displayed_targets)
 	
 	var gs = tick_manager.game_state
 	for pid in gs.heroes.keys():
@@ -31,6 +31,9 @@ func setup():
 		entity_manager.create_hero(hero_id)
 	
 func _on_events_emitted(events: Array):
+	#TODO: target displays update here
+	#	   valid targets could enter play while selecting, attacker could die, etc
+	#	   somehow recalculate the input_controller.valid_targets on each event
 	for event in events:
 		if event is DrawCardEvent:
 			if event.player_id == local_player_id:

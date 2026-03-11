@@ -28,3 +28,4 @@ display_name = "Elven Archer"
 cost = 1
 effects = Array[ExtResource("1_46tcj")]([SubResource("Resource_pse1u")])
 target_type = 6
+description = "Battlecry: deal 2 to 4 damage to target"
