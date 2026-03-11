@@ -10,6 +10,9 @@ class_name AddTimedStatsEffect
 # -------------------------
 # adds the attack and health values to the minions stats as buffs for the duration
 func apply_effect(game_state: GameState, target_id: int) -> void:
+	if target_id == -1:
+		return
+	
 	if game_state.entities.get(target_id) is Minion:
 		var hp_mod: StatEnchantment = StatEnchantment.new(StatEnchantment.StatType.HEALTH, StatEnchantment.Mode.ADD, health)
 		hp_mod.expires_at_tick = game_state.tick + int(duration * 100)

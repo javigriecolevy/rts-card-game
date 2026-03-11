@@ -57,12 +57,19 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_octte"]
 shader = SubResource("Shader_octte")
-shader_parameter/glow_color = Color(0.2, 1, 0.2, 1)
-shader_parameter/glow_radius = 6.0
-shader_parameter/glow_strength = 5.0
+shader_parameter/glow_color = Color(0, 1, 0, 1)
+shader_parameter/glow_radius = 10.0
+shader_parameter/glow_strength = 0.0
 shader_parameter/pulse_speed = 0.0
 
-[node name="MinionView" type="Button" unique_id=354509731 node_paths=PackedStringArray("card_view", "AttackGlow")]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8sn2j"]
+shader = SubResource("Shader_octte")
+shader_parameter/glow_color = Color(7.70092e-07, 0.8831871, 0.9334329, 1)
+shader_parameter/glow_radius = 10.0
+shader_parameter/glow_strength = 0.0
+shader_parameter/pulse_speed = 0.0
+
+[node name="MinionView" type="Button" unique_id=354509731 node_paths=PackedStringArray("card_view", "AttackGlow", "TargettedGlow")]
 custom_minimum_size = Vector2(152, 207)
 offset_right = 152.0
 offset_bottom = 207.0
@@ -70,7 +77,8 @@ pivot_offset = Vector2(76, 103.5)
 flat = true
 script = ExtResource("1_cpi00")
 card_view = NodePath("CardView")
-AttackGlow = NodePath("VFXLayer/AttackGlow")
+AttackGlow = NodePath("VFXLayer/s")
+TargettedGlow = NodePath("VFXLayer/TargettedGlow")
 
 [node name="CardView" parent="." unique_id=665730067 instance=ExtResource("2_3sorx")]
 layout_mode = 0
@@ -80,9 +88,22 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="AttackGlow" type="TextureRect" parent="VFXLayer" unique_id=1555666224]
+[node name="s" type="TextureRect" parent="VFXLayer" unique_id=1555666224]
 z_index = -5
 material = SubResource("ShaderMaterial_octte")
+layout_mode = 0
+offset_left = -7.0
+offset_top = -18.0
+offset_right = 159.0
+offset_bottom = 212.0
+mouse_filter = 2
+texture = ExtResource("2_gk52o")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="TargettedGlow" type="TextureRect" parent="VFXLayer" unique_id=635661936]
+z_index = -5
+material = SubResource("ShaderMaterial_8sn2j")
 layout_mode = 0
 offset_left = -7.0
 offset_top = -18.0

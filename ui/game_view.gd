@@ -23,6 +23,7 @@ func setup():
 	tick_manager.ui_events_resolved.connect(_on_events_emitted)
 	tick_manager.tick_advanced.connect(_on_tick_advanced)
 	tick_manager.game_state.enchantment_manager.entity_recalculated.connect(entity_manager.update_entity_stats)
+	input_controller.targets_displayed.connect(_on_displayed_targets)
 	
 	var gs = tick_manager.game_state
 	for pid in gs.heroes.keys():
@@ -78,3 +79,6 @@ func _handle_death(event: DeathEvent):
 
 func _on_tick_advanced(current_tick: int):
 	entity_manager.update_attack_glow(current_tick)
+
+func _on_displayed_targets(target_ids: Array[int]):
+	entity_manager.update_target_glow(target_ids)

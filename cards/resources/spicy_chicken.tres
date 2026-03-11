@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://bpng4h5x5u6s4" path="res://core/effects/give_burn_effect.gd" id="2_xw0io"]
 [ext_resource type="Script" uid="uid://bdyjb86m4s0cy" path="res://core/enchantments/burned_enchantment.gd" id="3_xw0io"]
 [ext_resource type="Script" uid="uid://b5d8j7lm45poq" path="res://cards/card_info/minion_card_info.gd" id="4_xafxp"]
+[ext_resource type="Script" uid="uid://bmcwxpgl4selc" path="res://core/targeting/target_filter.gd" id="6_xw0io"]
 
 [sub_resource type="Resource" id="Resource_xafxp"]
 script = ExtResource("2_xw0io")
@@ -25,6 +26,6 @@ enchantments = Array[ExtResource("2_1ee3s")]([SubResource("Resource_ghlgk")])
 id = "spicy_chicken"
 display_name = "Spicy Chiggin"
 cost = 3
-requires_target = true
 effects = Array[ExtResource("1_k2fj1")]([SubResource("Resource_xafxp")])
+target_type = 6
 description = "Battlecry: Deal 4 burn to target. This minion has 6 Burn."

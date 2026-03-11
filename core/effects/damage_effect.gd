@@ -23,6 +23,9 @@ func valid_targets(_game_state: GameState) -> Array:
 # -------------------------
 # Queue damage event
 func apply_effect(game_state: GameState, target_id: int) -> void:
+	if target_id == -1:
+		return
+	
 	game_state.event_resolver.add_event(
 			DamageEvent.new(
 				source_entity_id,

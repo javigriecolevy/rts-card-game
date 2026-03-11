@@ -3,7 +3,7 @@ class_name EntityViewManager
 
 # -------------------------
 # Dependencies
-var tick_manager
+var tick_manager: TickManager
 var local_player_id
 
 var player_board: Node
@@ -100,6 +100,15 @@ func update_attack_glow(tick: int):
 	for entity_id: int in entity_nodes.keys():
 		if tick_manager.game_state.entities.get(entity_id) is Minion:
 			entity_nodes[entity_id].update_can_attack_view(tick_manager.game_state.entities.get(entity_id).can_attack(tick))
+
+#TODO: make this function not stupid
+func update_target_glow(target_ids: Array[int]):
+	for entity_id in tick_manager.game_state.entities.keys():
+		if tick_manager.game_state.entities.get(entity_id) is Minion:
+			entity_nodes[entity_id].is_target(false)
+	for entity_id in target_ids:
+		if tick_manager.game_state.entities.get(entity_id) is Minion:
+			entity_nodes[entity_id].is_target(true)
 
 # -------------------------
 # Signal forwarding

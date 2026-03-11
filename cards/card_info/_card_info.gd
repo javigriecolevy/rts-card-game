@@ -8,12 +8,9 @@ class_name CardInfo
 @export var id: String
 @export var display_name: String
 @export var cost: int
-@export var effects: Array[Effect] = []
+@export var effects: Array[Effect] = [] 
 
-enum TargetType {
-	
-}
-@export var target_type: TargetType = TargetType.NONE
+@export var target_type: Targeting.TargetType = Targeting.TargetType.NONE
 @export var target_filters: Array[TargetFilter] = []
 @export var target_optional: bool = false
 

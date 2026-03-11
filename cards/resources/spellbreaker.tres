@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://cf0gw82tjs0a1" path="res://core/effects/silence_effect.gd" id="2_4so33"]
 [ext_resource type="Script" uid="uid://b5d8j7lm45poq" path="res://cards/card_info/minion_card_info.gd" id="3_5fa2w"]
 [ext_resource type="Script" uid="uid://k5pl2ei0nb7f" path="res://core/enchantments/enchantment.gd" id="3_iqtqh"]
+[ext_resource type="Script" uid="uid://bmcwxpgl4selc" path="res://core/targeting/target_filter.gd" id="5_n4o2g"]
 
 [sub_resource type="Resource" id="Resource_iqtqh"]
 script = ExtResource("2_4so33")
@@ -17,6 +18,7 @@ health = 3
 id = "spellbreaker"
 display_name = "Spellbreaker!!"
 cost = 4
-requires_target = true
 effects = Array[ExtResource("1_4so33")]([SubResource("Resource_iqtqh")])
+target_type = 3
+target_optional = true
 description = "Battlecry: Silence a minion"
