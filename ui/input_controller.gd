@@ -48,56 +48,62 @@ func _on_card_clicked(card_instance_id: int):
 	if valid_targets.is_empty():
 		if card.definition.target_optional or card.definition.target_type == Targeting.TargetType.NONE: # Play card with no target 
 			_queue_play_card(selected_card_id, -1) # effect should handle skipping when no target
-			state = SelectionState.IDLE
+			_reset_card_selection()
 	else:
 		state = SelectionState.SELECTING_CARD_TARGET
-		emit_signal("valid_targets_modified", valid_targets)
+		_emit_targets()
 
 func _on_minion_clicked(minion_id: int):
-	match state:
-		SelectionState.SELECTING_CARD_TARGET:
-			_queue_play_card(selected_card_id, minion_id)
-			selected_card_id = -1
-			state = SelectionState.IDLE
-		
-		SelectionState.IDLE:
-			if selected_attacker_id == -1:
-				selected_attacker_id = minion_id
-				entity_manager.entity_nodes[selected_attacker_id].is_selected(true)
-				state = SelectionState.SELECTING_ATTACK
-				valid_targets = Targeting.get_attack_targets(selected_attacker_id, tick_manager.game_state)
-				emit_signal("valid_targets_modified", valid_targets)
-		
-		SelectionState.SELECTING_ATTACK:
-			if tick_manager.game_state.entities.get(selected_attacker_id):
-				if valid_targets.has(minion_id):
-					_queue_attack(selected_attacker_id, minion_id)
-				entity_manager.entity_nodes[selected_attacker_id].is_selected(false)
-			else:
-				valid_targets.clear()
-				emit_signal("valid_targets_modified", valid_targets)
-			selected_attacker_id = -1
-			state = SelectionState.IDLE
+	_on_entity_clicked(minion_id)
 
 func _on_hero_clicked(hero_id: int):
+	_on_entity_clicked(hero_id)
+
+func _on_entity_clicked(entity_id: int):
 	match state:
 		SelectionState.SELECTING_CARD_TARGET:
-			_queue_play_card(selected_card_id, hero_id)
-			selected_card_id = -1
-			state = SelectionState.IDLE
+			_queue_play_card(selected_card_id, entity_id)
+			_reset_card_selection()
 		
 		SelectionState.IDLE:
-			if selected_attacker_id != -1:
-				_queue_attack(selected_attacker_id, hero_id)
-				entity_manager.entity_nodes[selected_attacker_id].is_selected(false)
-				selected_attacker_id = -1
-			
+			_start_attack_selection(entity_id)
+		
 		SelectionState.SELECTING_ATTACK:
-			if valid_targets.has(hero_id):
-				_queue_attack(selected_attacker_id, hero_id)
-			entity_manager.entity_nodes[selected_attacker_id].is_selected(false)
-			selected_attacker_id = -1
-			state = SelectionState.IDLE
+			_finish_attack_selection(entity_id)
+
+# -------------------------
+# Attack selection
+func _start_attack_selection(attacker_id: int):
+	if selected_attacker_id != -1 or tick_manager.game_state.entities.get(attacker_id) is Hero:
+		return
+
+	selected_attacker_id = attacker_id
+	entity_manager.entity_nodes[selected_attacker_id].is_selected(true)
+
+	state = SelectionState.SELECTING_ATTACK
+	valid_targets = Targeting.get_attack_targets(selected_attacker_id, tick_manager.game_state)
+	_emit_targets()
+
+func _finish_attack_selection(target_id: int):
+	if tick_manager.game_state.entities.get(selected_attacker_id):
+		if valid_targets.has(target_id):
+			_queue_attack(selected_attacker_id, target_id)
+	_reset_attack_selection()
+
+# -------------------------
+# Reset helpers
+func _reset_attack_selection():
+	if selected_attacker_id != -1:
+		entity_manager.entity_nodes[selected_attacker_id].is_selected(false)
+
+	selected_attacker_id = -1
+	state = SelectionState.IDLE
+	_clear_targets()
+
+func _reset_card_selection():
+	selected_card_id = -1
+	state = SelectionState.IDLE
+	_clear_targets()
 
 # -------------------------
 # Queue commands
@@ -109,8 +115,7 @@ func _queue_play_card(card_id: int, target_id: int):
 		target_id
 	)
 	tick_manager.send_local_command(cmd)
-	valid_targets.clear()
-	emit_signal("valid_targets_modified", valid_targets)
+	_clear_targets()
 
 func _queue_attack(attacker_id: int, target_id: int):
 	var cmd = AttackCommand.new(
@@ -120,5 +125,32 @@ func _queue_attack(attacker_id: int, target_id: int):
 		target_id
 	)
 	tick_manager.send_local_command(cmd)
+	_clear_targets()
+	
+# -------------------------
+# Target helpers
+func _clear_targets():
 	valid_targets.clear()
+	_emit_targets()
+
+func _emit_targets():
+	emit_signal("valid_targets_modified", valid_targets)
+
+func _get_valid_targets():
+	if state == SelectionState.IDLE:
+		return
+	if state == SelectionState.SELECTING_ATTACK:
+		if tick_manager.game_state.entities.has(selected_attacker_id):
+			valid_targets = Targeting.get_attack_targets(selected_attacker_id, tick_manager.game_state)
+		else:
+			valid_targets.clear()
+			state = SelectionState.IDLE
+			selected_attacker_id = -1
+	if state == SelectionState.SELECTING_CARD_TARGET:
+		valid_targets = Targeting.get_valid_targets(
+		local_player_id,
+		tick_manager.game_state.card_instances[selected_card_id].definition.target_type,
+		tick_manager.game_state.card_instances[selected_card_id].definition.target_filters,
+		tick_manager.game_state
+	)
 	emit_signal("valid_targets_modified", valid_targets)

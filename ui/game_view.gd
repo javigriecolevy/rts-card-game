@@ -31,9 +31,6 @@ func setup():
 		entity_manager.create_hero(hero_id)
 	
 func _on_events_emitted(events: Array):
-	#TODO: target displays update here
-	#	   valid targets could enter play while selecting, attacker could die, etc
-	#	   somehow recalculate the input_controller.valid_targets on each event
 	for event in events:
 		if event is DrawCardEvent:
 			if event.player_id == local_player_id:
@@ -45,15 +42,19 @@ func _on_events_emitted(events: Array):
 
 		elif event is SummonEvent:
 			entity_manager.update_board(event.player_id)
+			input_controller._get_valid_targets()
 
 		elif event is DamageEvent:
 			entity_manager.update_entity_stats(event.target_id)
 
 		elif event is DeathEvent:
 			entity_manager.remove_entity(event.entity_id)
+			input_controller._get_valid_targets()
 
 		else:
 			print("Unhandled event type: ", event)
+		
+		
 
 # Draw a card into the player's hand
 func _handle_draw_card(event: DrawCardEvent):

@@ -32,8 +32,10 @@ func update_can_attack_view(enabled: bool):
 func is_selected(enabled: bool):
 	if enabled:
 		AttackGlow.material.set_shader_parameter("pulse_speed", 5.5)
+		AttackGlow.material.set_shader_parameter("glow_color", Color.ORANGE)
 	else:
 		AttackGlow.material.set_shader_parameter("pulse_speed", 0.0)
+		AttackGlow.material.set_shader_parameter("glow_color", Color(0,255,0))
 
 func is_target(enabled: bool):
 	if enabled:
