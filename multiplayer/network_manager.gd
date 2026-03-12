@@ -12,7 +12,10 @@ var is_host := false
 var local_player_id: int = -1
 var peer_to_player_id := {}
 
+var decks_info : Dictionary[int, Array] = {} # player id -> array["card_id"] (string)
+
 signal remote_command_received(command_data: Dictionary)
+signal remote_deck_received(player_id: int, deck: Array)
 
 
 
@@ -84,8 +87,7 @@ func _on_peer_connected(peer_id : int):
 			var match_seed := rng.randi()
 
 			print("Generated match seed:", match_seed)
-
-			# NEW: Sync mapping + seed together
+	
 			rpc_sync_match_data.rpc(peer_to_player_id, match_seed)
 
 
@@ -104,8 +106,8 @@ func rpc_start_game():
 	# -------------------------
 	# Assign player ID based on peer ID
 	local_player_id = multiplayer.get_unique_id()
-
 	print("Assigned local player ID:", local_player_id)
+
 	emit_signal("start_game")
 
 # =========================
@@ -114,14 +116,18 @@ func rpc_start_game():
 @rpc("any_peer", "call_local", "reliable")
 func rpc_sync_match_data(mapping: Dictionary, match_seed: int):
 	peer_to_player_id = mapping
-
+	
 	var my_peer := multiplayer.get_unique_id()
 	local_player_id = peer_to_player_id[my_peer]
-
+	#decks_info[local_player_id] = load_deck("res://selected_deck/deck.txt")
 	print("Assigned game player ID:", local_player_id)
 	print("Received match seed:", match_seed)
 	
-	emit_signal("start_game", match_seed)
+	var deck: Array[String] = load_deck("res://selected_deck/deck.txt")
+	decks_info[local_player_id] = deck
+	rpc_send_deck.rpc(local_player_id, deck)
+	
+	emit_signal("start_game", match_seed, decks_info)
 
 # =========================
 # Broadcast Commands
@@ -129,3 +135,18 @@ func rpc_sync_match_data(mapping: Dictionary, match_seed: int):
 @rpc("any_peer", "call_remote", "reliable")
 func rpc_broadcast_command(command_data: Dictionary):
 	emit_signal("remote_command_received", command_data)
+
+@rpc("any_peer", "call_remote", "reliable")
+func rpc_send_deck(player_id: int, deck: Array):
+	print("AAA", local_player_id, "Received deck from player: ", player_id)
+	decks_info[player_id] = deck
+	emit_signal("remote_deck_received", player_id, deck)
+
+func load_deck(path: String) -> Array[String]:
+	var cards: Array[String] = []
+	var file := FileAccess.open(path, FileAccess.READ)
+	while not file.eof_reached():
+		var line := file.get_line().strip_edges()
+		if line != "" and not line.begins_with("#"):
+			cards.append(line)
+	return cards

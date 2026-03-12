@@ -16,6 +16,7 @@ var running: bool = false
 var local_player_id: int = -1
 var finalized_local_tick: int = -1
 var match_seed: int = -1
+var starting_decks: Dictionary[int, Array] = {} # player_id -> Array[card_ids]
 
 var commands_by_tick: Dictionary = {} # tick -> Array[GameCommand]
 var command_processor: CommandProcessor = CommandProcessor.new(game_state, game_state.event_resolver)
@@ -157,31 +158,10 @@ func process_commands_for_tick():
 # -------------------------
 # Starting deck
 func _create_starting_deck(player_id: int) -> Deck:
-	if player_id == 1:
-		return Deck.new([
-			card_database.get_card("spellbreaker"),
-			card_database.get_card("spellbreaker"),
-			card_database.get_card("spellbreaker"),
-			card_database.get_card("spellbreaker"),
-			card_database.get_card("elven_archer"),
-			card_database.get_card("elven_archer"),
-			card_database.get_card("elven_archer"),
-			card_database.get_card("elven_archer"),
-			card_database.get_card("elven_archer"),
-			card_database.get_card("elven_archer"),
-			card_database.get_card("elven_archer")
-		])
-	else:
-		return Deck.new([
-			card_database.get_card("spicy_chicken"),
-			card_database.get_card("spicy_chicken"),
-			card_database.get_card("spicy_chicken"),
-			card_database.get_card("spicy_chicken"),
-			card_database.get_card("spicy_chicken"),
-			card_database.get_card("spicy_chicken"),
-			card_database.get_card("spicy_chicken"),
-			card_database.get_card("spicy_chicken"),
-			card_database.get_card("spicy_chicken"),
-			card_database.get_card("spicy_chicken"),
-			card_database.get_card("spicy_chicken")
-		])
+	var card_ids : Array = starting_decks[player_id]
+	var cards : Array = []
+	
+	for id in card_ids:
+		cards.append(card_database.get_card(id))
+	
+	return Deck.new(cards)
