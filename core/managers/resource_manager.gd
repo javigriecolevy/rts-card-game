@@ -8,21 +8,26 @@ func _init(_game_state: GameState) -> void:
 
 # -------------------------
 # Setup players
-func setup_players(player_ids: Array, starting_deck_func: Callable) -> void:
+func setup_players(player_ids: Array, starting_deck: Dictionary[int, Array]) -> void:
 	for pid in player_ids:
 		# -------------------------
+		# Create player deck
+		var deck : Deck = _create_starting_deck(pid, starting_deck)
+		var hero_card: HeroCardInfo = deck.cards.pop_front()
+		
+		# -------------------------
 		# Create hero entity
-		var hero: Hero = Hero.new_hero(pid, 30)
+		var hero: Hero = Hero.new_hero(hero_card, pid, 30)
 		hero.id = game_state._allocate_entity_id()
 		hero.owner_id = pid
 		hero.display_name = "Hero %d" % pid
 
 		game_state.entities[hero.id] = hero
-		game_state.heroes[pid] = hero.id
+		game_state.heroes[pid] = hero
 
 		# -------------------------
 		# Deck / hand
-		game_state.decks[pid] = starting_deck_func.call(pid)
+		game_state.decks[pid] = deck
 		game_state.hands[pid] = []
 
 		# -------------------------
@@ -33,6 +38,17 @@ func setup_players(player_ids: Array, starting_deck_func: Callable) -> void:
 		# -------------------------
 		# Board
 		game_state.boards[pid] = []
+
+# -------------------------
+# Starting deck
+func _create_starting_deck(player_id: int, starting_decks: Dictionary) -> Deck:
+	var card_ids : Array = starting_decks[player_id]
+	var cards : Array = []
+	
+	for id in card_ids:
+		cards.append(card_database.get_card(id))
+	
+	return Deck.new(cards)
 
 # -------------------------
 # Increase mana at the start of a cycle (or turn)

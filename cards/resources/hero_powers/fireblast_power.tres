@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="HeroPowerInfo" format=3 uid="uid://bv681dpyr5hgc"]
+
+[ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_x5tsa"]
+[ext_resource type="Script" uid="uid://bpng4h5x5u6s4" path="res://core/effects/give_burn_effect.gd" id="2_7qg7m"]
+[ext_resource type="Script" uid="uid://bs5kvfagybwou" path="res://cards/card_info/hero_power_info.gd" id="3_c31u1"]
+[ext_resource type="Script" uid="uid://bmcwxpgl4selc" path="res://core/targeting/target_filter.gd" id="4_4nyva"]
+
+[sub_resource type="Resource" id="Resource_ed6ms"]
+script = ExtResource("2_7qg7m")
+duration_amount = 1
+metadata/_custom_type_script = "uid://bpng4h5x5u6s4"
+
+[resource]
+script = ExtResource("3_c31u1")
+display_name = "Fire Blast"
+target_type = 6
+effects = Array[ExtResource("1_x5tsa")]([SubResource("Resource_ed6ms")])
+metadata/_custom_type_script = "uid://bs5kvfagybwou"

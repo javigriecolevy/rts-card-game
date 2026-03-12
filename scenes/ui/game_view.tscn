@@ -4,10 +4,16 @@
 [ext_resource type="Texture2D" uid="uid://c0ffpb6hv458v" path="res://assets/random/Screenshot-of-a-HearthStone-match.jpg" id="2_u6547"]
 [ext_resource type="Texture2D" uid="uid://bkwtqij8wuvtl" path="res://assets/random/7f4733d473614aa39026774eff098797.jpeg" id="3_bn6fs"]
 
-[node name="GameView" type="Control" unique_id=1326419423]
+[node name="GameView" type="Control" unique_id=1326419423 node_paths=PackedStringArray("PlayerBoard", "EnemyBoard", "EnemyHeroContainer", "PlayerHeroContainer", "Hand", "PlayerHeroPowerContainer")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_h4lqr")
+PlayerBoard = NodePath("PlayerBoard")
+EnemyBoard = NodePath("EnemyBoard")
+EnemyHeroContainer = NodePath("EnemyHeroContainer")
+PlayerHeroContainer = NodePath("PlayerHeroContainer")
+Hand = NodePath("Hand")
+PlayerHeroPowerContainer = NodePath("PlayerHeroPowerContainer")
 
 [node name="EnemyHeroContainer" type="HBoxContainer" parent="." unique_id=406128607]
 layout_mode = 1
@@ -65,6 +71,19 @@ offset_right = 647.0
 offset_bottom = 576.1041
 alignment = 1
 
+[node name="PlayerHeroPowerContainer" type="HBoxContainer" parent="." unique_id=1117493365]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.45000002
+anchor_top = 0.67300004
+anchor_right = 0.55700004
+anchor_bottom = 0.84000003
+offset_left = 669.0
+offset_top = 596.0
+offset_right = 808.0
+offset_bottom = 713.1041
+alignment = 1
+
 [node name="Hand" type="HBoxContainer" parent="." unique_id=915579663]
 layout_mode = 1
 offset_left = 163.0
@@ -97,3 +116,4 @@ z_index = -10
 position = Vector2(600, 384)
 scale = Vector2(0.9700104, 0.93020827)
 texture = ExtResource("3_bn6fs")
+metadata/_edit_lock_ = true

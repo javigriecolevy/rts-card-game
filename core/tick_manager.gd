@@ -36,8 +36,7 @@ func initialize_game() -> void:
 	game_state.rng.seed = match_seed
 	
 	# Setup players
-	var deck_func: Callable = Callable(self, "_create_starting_deck")
-	game_state.event_resolver.resource_manager.setup_players([1, 2], deck_func)
+	game_state.event_resolver.resource_manager.setup_players([1, 2], starting_decks)
 	
 	# Shuffle each player's deck deterministically
 	for pid in game_state.decks.keys():
@@ -154,14 +153,3 @@ func process_commands_for_tick():
 		command_processor.process(cmd)
 	commands_by_tick.erase(game_state.tick)
 # -------------------------
-
-# -------------------------
-# Starting deck
-func _create_starting_deck(player_id: int) -> Deck:
-	var card_ids : Array = starting_decks[player_id]
-	var cards : Array = []
-	
-	for id in card_ids:
-		cards.append(card_database.get_card(id))
-	
-	return Deck.new(cards)

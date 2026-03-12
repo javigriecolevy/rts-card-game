@@ -15,6 +15,7 @@ func _init(_game_state: GameState) -> void:
 func handle_attack(event: AttackEvent) -> void:
 	var attacker: Entity = game_state.entities.get(event.attacker_id)
 	var target: Entity = game_state.entities.get(event.target_id)
+	
 	# -------------------------
 	# Consume attack
 	attacker.on_attack(game_state.tick)
@@ -114,6 +115,24 @@ func handle_death(event: DeathEvent) -> void:
 	if entity is Hero:
 		print("Hero %s has died. Game Over!" % entity.display_name)
 		# TODO: end the game !
+
+
+# -------------------------
+# Solves what happens when a hero power is used
+func handle_hero_power(event: HeroPowerEvent):
+	var hero: Hero = game_state.heroes.get(event.player_id)
+	var power: HeroPowerInfo = hero.hero_power
+	
+	game_state.mana[event.player_id] -= power.cost
+	
+	# -------------------------
+	# Consume Hero power
+	hero.on_hero_power(event.tick)
+	
+	# -------------------------
+	# apply its effects
+	for effect in hero.hero_power.effects:
+		effect.apply_effect(game_state, event.target_id)
 
 # -------------------------
 # Register an effect as listener for a specific GameEvent Script

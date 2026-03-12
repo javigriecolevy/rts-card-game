@@ -10,7 +10,7 @@ var hand_manager: HandViewManager
 
 # -------------------------
 # Selection state
-enum SelectionState { IDLE, SELECTING_CARD_TARGET, SELECTING_ATTACK }
+enum SelectionState { IDLE, SELECTING_CARD_TARGET, SELECTING_ATTACK, SELECTING_HERO_POWER_TARGET}
 var state: SelectionState = SelectionState.IDLE
 
 var selected_card_id: int = -1
@@ -30,6 +30,7 @@ func setup(_tick_manager, _local_player_id, _entity_manager, _hand_manager):
 
 	entity_manager.connect("minion_clicked", Callable(self, "_on_minion_clicked"))
 	entity_manager.connect("hero_clicked", Callable(self, "_on_hero_clicked"))
+	entity_manager.connect("hero_power_clicked", Callable(self, "_on_hero_power_clicked"))
 	hand_manager.connect("card_clicked", Callable(self, "_on_card_clicked"))
 
 # -------------------------
@@ -59,6 +60,21 @@ func _on_minion_clicked(minion_id: int):
 func _on_hero_clicked(hero_id: int):
 	_on_entity_clicked(hero_id)
 
+func _on_hero_power_clicked(hero_id: int):
+	var hero: Hero = tick_manager.game_state.heroes.get(hero_id)
+	valid_targets = Targeting.get_valid_targets(
+		local_player_id,
+		hero.hero_power.target_type,
+		hero.hero_power.target_filters,
+		tick_manager.game_state
+	)
+	if valid_targets.is_empty():
+		if hero.hero_power.target_optional or hero.hero_power.target_type == Targeting.TargetType.NONE:
+			_queue_hero_power(-1) # effect should handle skipping when no target
+	else:
+		state = SelectionState.SELECTING_HERO_POWER_TARGET
+		_emit_targets()
+
 func _on_entity_clicked(entity_id: int):
 	match state:
 		SelectionState.SELECTING_CARD_TARGET:
@@ -70,6 +86,10 @@ func _on_entity_clicked(entity_id: int):
 		
 		SelectionState.SELECTING_ATTACK:
 			_finish_attack_selection(entity_id)
+		
+		SelectionState.SELECTING_HERO_POWER_TARGET:
+			_queue_hero_power(entity_id)
+			_reset_card_selection()
 
 # -------------------------
 # Attack selection
@@ -126,7 +146,16 @@ func _queue_attack(attacker_id: int, target_id: int):
 	)
 	tick_manager.send_local_command(cmd)
 	_clear_targets()
-	
+
+func _queue_hero_power(target_id: int):
+	var cmd = HeroPowerCommand.new(
+		tick_manager.game_state.tick + tick_manager.INPUT_DELAY,
+		local_player_id,
+		target_id
+	)
+	tick_manager.send_local_command(cmd)
+	_clear_targets()
+
 # -------------------------
 # Target helpers
 func _clear_targets():

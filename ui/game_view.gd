@@ -2,12 +2,21 @@ extends Control
 class_name GameView
 
 @export var tick_manager: TickManager
+@export var PlayerBoard: HBoxContainer
+@export var EnemyBoard: HBoxContainer
+@export var EnemyHeroContainer: HBoxContainer
+@export var PlayerHeroContainer: HBoxContainer
+@export var Hand: HBoxContainer
+@export var PlayerHeroPowerContainer: HBoxContainer
+@export var EnemyHeroPowerContainer: HBoxContainer
 
 var local_player_id: int = -1
 
 var entity_manager: EntityViewManager
 var hand_manager: HandViewManager
 var input_controller: InputController
+
+
 
 func setup():
 	# Initialize managers
@@ -27,7 +36,7 @@ func setup():
 	
 	var gs = tick_manager.game_state
 	for pid in gs.heroes.keys():
-		var hero_id = gs.heroes[pid]
+		var hero_id = gs.heroes[pid].id
 		entity_manager.create_hero(hero_id)
 	
 func _on_events_emitted(events: Array):

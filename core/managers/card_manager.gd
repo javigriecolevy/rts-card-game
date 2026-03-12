@@ -15,7 +15,7 @@ func handle_draw_card(event: DrawCardEvent) -> void:
 	if card == null:
 			print("Player %d deck is empty" % player_id)
 
-			var hero_id: int = game_state.heroes[player_id]
+			var hero_id: int = game_state.heroes[player_id].id
 
 			var damage_event: DamageEvent = DamageEvent.new(
 				hero_id,

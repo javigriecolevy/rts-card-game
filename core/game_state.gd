@@ -10,7 +10,7 @@ var cycle_length: int = 200
 # Entity system
 var next_entity_id: int = 1
 var entities: Dictionary[int, Entity] = {}   # entity_id -> Entity
-var heroes: Dictionary[int, int] = {}        # player_id -> hero_entity_id
+var heroes: Dictionary[int, Hero] = {}        # player_id -> hero_entity_id
 
 # -------------------------
 # Card instance system

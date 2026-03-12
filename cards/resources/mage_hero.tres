@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="HeroCardInfo" format=3 uid="uid://b6dvmhx7h2xrr"]
+
+[ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_ocydr"]
+[ext_resource type="Script" uid="uid://k5pl2ei0nb7f" path="res://core/enchantments/enchantment.gd" id="2_ycd52"]
+[ext_resource type="Resource" uid="uid://bv681dpyr5hgc" path="res://cards/resources/hero_powers/fireblast_power.tres" id="3_rue3l"]
+[ext_resource type="Script" uid="uid://cx4mf4wa2kfpb" path="res://cards/card_info/hero_card_info.gd" id="4_tovdc"]
+[ext_resource type="Script" uid="uid://bmcwxpgl4selc" path="res://core/targeting/target_filter.gd" id="5_hg2l0"]
+
+[resource]
+script = ExtResource("4_tovdc")
+health = 30
+attack_cooldown = 15
+hero_power = ExtResource("3_rue3l")
+id = "mage_hero"
+display_name = "Mage"

@@ -30,4 +30,3 @@ func can_attack(current_tick: int) -> bool:
 
 func on_attack(current_tick: int) -> void:
 	ready_at_tick = current_tick + attack_cooldown
-	print(display_name, " will be ready to attack at tick ", ready_at_tick, "it is currently: ", current_tick)

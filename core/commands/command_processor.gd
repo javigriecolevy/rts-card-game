@@ -16,6 +16,8 @@ func process(command: GameCommand) -> void:
 		_process_play_card(command)
 	elif command is AttackCommand:
 		_process_attack(command)
+	elif command is HeroPowerCommand:
+		_process_hero_power(command)
 	elif command is EndInputCommand:
 		_process_empty_input()
 	else:
@@ -38,7 +40,13 @@ func _process_attack(cmd: AttackCommand) -> void:
 		)
 	game_state.event_resolver.add_event(event)
 
+func _process_hero_power(cmd: HeroPowerCommand):
+	var event: HeroPowerEvent = HeroPowerEvent.new(
+			cmd.player_id,
+			cmd.target_id,
+			cmd.tick
+		)
+	game_state.event_resolver.add_event(event)
+	
 func _process_empty_input():
 	pass
-#func _process_use_heropower(cmd: UseHeroPowerCommand):
-	#pass

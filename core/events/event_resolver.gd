@@ -13,6 +13,7 @@ class Phase:
 var future_event_queue: Array[GameEvent] = []
 var draw_card_event_queue: Array[DrawCardEvent] = []
 var play_card_event_queue: Array[PlayCardEvent] = []
+var hero_power_event_queue: Array[HeroPowerEvent] = []
 var attack_event_queue: Array[AttackEvent] = []
 var summon_event_queue: Array[SummonEvent] = []
 var damage_event_queue: Array[DamageEvent] = []
@@ -43,6 +44,7 @@ func _init(_game_state: GameState):
 	phase_queues = [
 		Phase.new(draw_card_event_queue, Callable(card_manager, "handle_draw_card")),
 		Phase.new(play_card_event_queue, Callable(card_manager, "handle_play_card")),
+		Phase.new(hero_power_event_queue, Callable(combat_manager, "handle_hero_power")),
 		Phase.new(attack_event_queue, Callable(combat_manager, "handle_attack")),
 		Phase.new(summon_event_queue, Callable(combat_manager, "handle_summon")),
 		Phase.new(damage_event_queue, Callable(combat_manager, "handle_damage")),
@@ -59,6 +61,8 @@ func add_event(event: GameEvent):
 		draw_card_event_queue.append(event)
 	elif event is PlayCardEvent:
 		play_card_event_queue.append(event)
+	elif event is HeroPowerEvent:
+		hero_power_event_queue.append(event)
 	elif event is AttackEvent:
 		attack_event_queue.append(event)
 	elif event is SummonEvent:

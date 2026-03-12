@@ -14,8 +14,8 @@ func is_valid(command: GameCommand) -> bool:
 		return check_play_card_command(command)
 	elif command is EndInputCommand:
 		return true
-	#elif command is HeroPowerCommand:
-	#	return check_hero_power_command(command)
+	elif command is HeroPowerCommand:
+		return check_hero_power_command(command)
 	else:
 		assert(false, "Unhandled command type: %s" % command)
 		return false
@@ -60,4 +60,24 @@ func check_play_card_command(play_card_command: PlayCardCommand) -> bool:
 		print("Player %d cannot afford %s"
 			% [player_id, card.display_name])
 		return false
+	return true
+
+func check_hero_power_command(hero_power_command: HeroPowerCommand):
+	var player_id = hero_power_command.player_id
+	var hero : Hero = game_state.heroes.get(player_id)
+	var hero_power : HeroPowerInfo = hero.card.hero_power
+	if hero_power.cost > game_state.mana[player_id]:
+		print("Player %d cannot afford its hero power!"
+			% [player_id])
+		return false
+	
+	if hero.hero_power_ready_tick > game_state.tick:
+		print("HERO POWER STILL NTO READD!! ", hero.hero_power_ready_tick, " but its currently: ", game_state.tick)
+		return false
+	
+	if hero_power_command.target_id not in Targeting.get_valid_targets(player_id, hero_power.target_type, hero_power.target_filters, game_state):
+		print("HERO POWER TARGET NOT I VALID TRAGETS!")
+		return false
+	
+	print("HERO POWER SUCECSSFULYL EXUTED!")
 	return true

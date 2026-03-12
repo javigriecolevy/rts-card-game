@@ -1,15 +1,9 @@
 extends Button
-class_name HeroView
-
-@export var hero_power_button: Node
-
-var entity_id: int
+class_name HeroPowerView
 
 signal hero_clicked(hero_id)
-signal hero_power_clicked(hero_id)
 
-func _ready() -> void:
-	hero_power_button.pressed.connect(_on_hero_power_clicked)
+var entity_id: int
 
 func setup(hero: Hero):
 	entity_id = hero.id
@@ -24,6 +18,3 @@ func update_stats(hero: Hero):
 
 func _pressed():
 	hero_clicked.emit(entity_id)
-
-func _on_hero_power_clicked():
-	hero_power_clicked.emit(entity_id)

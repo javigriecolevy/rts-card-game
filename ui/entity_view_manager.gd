@@ -20,6 +20,7 @@ var entity_nodes: Dictionary[int, Node] = {}
 # Signals
 signal minion_clicked(minion_id: int)
 signal hero_clicked(hero_id: int)
+signal hero_power_clicked(hero_id: int)
 
 # -------------------------
 # Setup
@@ -43,6 +44,7 @@ func create_hero(hero_id: int):
 
 	# Connect internal click to forward signal
 	view.hero_clicked.connect(_on_hero_clicked)
+	view.hero_power_clicked.connect(_on_hero_power_clicked)
 
 	if hero.owner_id == local_player_id:
 		player_hero_container.add_child(view)
@@ -104,11 +106,13 @@ func update_attack_glow(tick: int):
 #TODO: make this function not stupid
 func update_target_glow(target_ids: Array[int]):
 	for entity_id in tick_manager.game_state.entities.keys():
-		if tick_manager.game_state.entities.get(entity_id) is Minion:
-			entity_nodes[entity_id].is_target(false)
+		if entity_nodes.has(entity_id):
+			if tick_manager.game_state.entities.get(entity_id) is Minion:
+				entity_nodes[entity_id].is_target(false)
 	for entity_id in target_ids:
-		if tick_manager.game_state.entities.get(entity_id) is Minion:
-			entity_nodes[entity_id].is_target(true)
+		if entity_nodes.has(entity_id):
+			if tick_manager.game_state.entities.get(entity_id) is Minion:
+				entity_nodes[entity_id].is_target(true)
 
 # -------------------------
 # Signal forwarding
@@ -117,3 +121,6 @@ func _on_minion_clicked(minion_id: int):
 
 func _on_hero_clicked(hero_id: int):
 	emit_signal("hero_clicked", hero_id)
+
+func _on_hero_power_clicked(hero_id: int):
+	emit_signal("hero_power_clicked", hero_id)
