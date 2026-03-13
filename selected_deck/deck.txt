@@ -1,4 +1,4 @@
-warrior_hero
+warlock_hero
 egg
 egg
 egg

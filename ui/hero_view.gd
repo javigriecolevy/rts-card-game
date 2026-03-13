@@ -2,15 +2,18 @@ extends Button
 class_name HeroView
 
 @export var hero_power_button: Node
-@export var card_view: CardView
+
 @export var VFXLayer: Control
 @export var AttackGlow: TextureRect
 @export var TargettedGlow: TextureRect
+
 @export var HealthLabel : Label
 @export var ArmorLabel : Label
 @export var AttackLabel : Label
 @export var ArmorBG : TextureRect
 @export var AttackBG : TextureRect
+
+@export var HeroArt : TextureRect
 
 var entity_id: int
 
@@ -23,6 +26,10 @@ func _ready() -> void:
 func setup(hero: Hero):
 	TargettedGlow.material = TargettedGlow.material.duplicate()
 	entity_id = hero.id
+	
+	var art_path = "res://assets/hero_assets/hero_art/%s.png" % hero.card.id
+	if ResourceLoader.exists(art_path):
+		HeroArt.texture = load(art_path)
 	update_stats(hero)
 
 func update_stats(hero: Hero):

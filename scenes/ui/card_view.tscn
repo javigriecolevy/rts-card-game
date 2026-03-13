@@ -23,6 +23,7 @@ anchors_preset = 0
 offset_right = 152.0
 offset_bottom = 207.0
 mouse_filter = 2
+mouse_default_cursor_shape = 2
 script = ExtResource("1_vgx4y")
 CostLabel = NodePath("CostLabel")
 HealthLabel = NodePath("HealthLabel")

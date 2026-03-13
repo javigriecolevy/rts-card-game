@@ -78,10 +78,13 @@ shader_parameter/glow_radius = 10.0
 shader_parameter/glow_strength = 0.0
 shader_parameter/pulse_speed = 0.0
 
-[node name="HeroView" type="Button" unique_id=137052355 node_paths=PackedStringArray("hero_power_button", "TargettedGlow", "HealthLabel", "ArmorLabel", "AttackLabel", "ArmorBG", "AttackBG")]
-custom_minimum_size = Vector2(150, 165)
-offset_right = 146.0
-offset_bottom = 165.90909
+[node name="HeroView" type="Button" unique_id=137052355 node_paths=PackedStringArray("hero_power_button", "TargettedGlow", "HealthLabel", "ArmorLabel", "AttackLabel", "ArmorBG", "AttackBG", "HeroArt")]
+custom_minimum_size = Vector2(160, 235)
+offset_left = -6.0
+offset_top = 3.0
+offset_right = 154.0
+offset_bottom = 237.0
+mouse_default_cursor_shape = 2
 flat = true
 script = ExtResource("1_2df77")
 hero_power_button = NodePath("HeroPowerButton")
@@ -91,15 +94,16 @@ ArmorLabel = NodePath("StatsLayer/ArmorLabel")
 AttackLabel = NodePath("StatsLayer/AttackLabel")
 ArmorBG = NodePath("StatsLayer/ArmorBG")
 AttackBG = NodePath("StatsLayer/AttackBG")
+HeroArt = NodePath("HeroArtContainer/HeroArt")
 
 [node name="HeroBorder" type="TextureRect" parent="." unique_id=171928126]
 use_parent_material = true
 custom_minimum_size = Vector2(200, 300)
 layout_mode = 0
-offset_left = -33.0
-offset_top = -51.0
-offset_right = 167.0
-offset_bottom = 249.0
+offset_left = -23.0
+offset_top = -21.0
+offset_right = 177.0
+offset_bottom = 279.0
 mouse_filter = 2
 texture = ExtResource("2_0g6fa")
 expand_mode = 1
@@ -108,8 +112,10 @@ stretch_mode = 4
 [node name="StatsLayer" type="Control" parent="." unique_id=1482639275]
 z_index = 1
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 10.0
+offset_top = 30.0
+offset_right = 50.0
+offset_bottom = 70.0
 mouse_filter = 2
 
 [node name="HealthBG" type="TextureRect" parent="StatsLayer" unique_id=1369796657]
@@ -187,19 +193,19 @@ horizontal_alignment = 1
 [node name="HeroArtContainer" type="Control" parent="." unique_id=1746722476]
 z_index = -2
 clip_contents = true
-custom_minimum_size = Vector2(137, 144)
 anchors_preset = 0
-offset_left = -4.0
-offset_top = -3.0
-offset_right = 133.0
-offset_bottom = 141.0
+offset_left = 20.0
+offset_top = 51.0
+offset_right = 140.0
+offset_bottom = 167.0
 mouse_filter = 2
 
 [node name="HeroArt" type="TextureRect" parent="HeroArtContainer" unique_id=1701960740]
 layout_mode = 0
-offset_top = -5.0
-offset_right = 136.0
-offset_bottom = 162.0
+offset_left = -42.0
+offset_top = -87.0
+offset_right = 158.0
+offset_bottom = 208.0
 mouse_filter = 2
 texture = ExtResource("4_hms5n")
 expand_mode = 1
@@ -207,16 +213,17 @@ stretch_mode = 6
 
 [node name="HeroPowerButton" parent="." unique_id=323108291 instance=ExtResource("3_w2vig")]
 layout_mode = 0
-offset_left = 152.0
-offset_top = 2.0
-offset_right = 278.0
-offset_bottom = 171.0
-mouse_filter = 2
+offset_left = 162.0
+offset_top = 32.0
+offset_right = 288.0
+offset_bottom = 201.0
 
 [node name="VFXLayer" type="Control" parent="." unique_id=185611934]
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 10.0
+offset_top = 30.0
+offset_right = 50.0
+offset_bottom = 70.0
 mouse_filter = 2
 
 [node name="TargettedGlow" type="TextureRect" parent="VFXLayer" unique_id=2075719139]

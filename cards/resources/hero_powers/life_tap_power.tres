@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="HeroPowerInfo" format=3 uid="uid://dnssjstd73mxx"]
+
+[ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_ty6ga"]
+[ext_resource type="Script" uid="uid://blome7s1rkwbb" path="res://core/effects/damage_effect.gd" id="2_ty6ga"]
+[ext_resource type="Script" uid="uid://bs5kvfagybwou" path="res://cards/card_info/hero_power_info.gd" id="3_wef7f"]
+[ext_resource type="Script" uid="uid://cpmjep3modj5w" path="res://core/effects/draw_card_effect.gd" id="3_ysrvc"]
+[ext_resource type="Script" uid="uid://bmcwxpgl4selc" path="res://core/targeting/target_filter.gd" id="4_qptul"]
+
+[sub_resource type="Resource" id="Resource_ysrvc"]
+script = ExtResource("2_ty6ga")
+amount = 2
+metadata/_custom_type_script = "uid://blome7s1rkwbb"
+
+[sub_resource type="Resource" id="Resource_wef7f"]
+script = ExtResource("3_ysrvc")
+metadata/_custom_type_script = "uid://cpmjep3modj5w"
+
+[resource]
+script = ExtResource("3_wef7f")
+display_name = "Life tap"
+effects = Array[ExtResource("1_ty6ga")]([SubResource("Resource_ysrvc"), SubResource("Resource_wef7f")])
+metadata/_custom_type_script = "uid://bs5kvfagybwou"

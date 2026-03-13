@@ -110,6 +110,7 @@ offset_top = -18.0
 offset_right = 159.0
 offset_bottom = 212.0
 mouse_filter = 2
+mouse_default_cursor_shape = 2
 texture = ExtResource("2_gk52o")
 expand_mode = 1
 stretch_mode = 4

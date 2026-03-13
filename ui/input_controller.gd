@@ -52,6 +52,7 @@ func _on_card_clicked(card_instance_id: int):
 			_reset_card_selection()
 	else:
 		state = SelectionState.SELECTING_CARD_TARGET
+		Input.set_default_cursor_shape(Input.CURSOR_FORBIDDEN)
 		_emit_targets()
 
 func _on_minion_clicked(minion_id: int):
@@ -73,6 +74,7 @@ func _on_hero_power_clicked(hero_id: int):
 			_queue_hero_power(local_player_id)
 	else:
 		state = SelectionState.SELECTING_HERO_POWER_TARGET
+		Input.set_default_cursor_shape(Input.CURSOR_FORBIDDEN)
 		_emit_targets()
 
 func _on_entity_clicked(entity_id: int):
@@ -83,6 +85,7 @@ func _on_entity_clicked(entity_id: int):
 		
 		SelectionState.IDLE:
 			_start_attack_selection(entity_id)
+			Input.set_default_cursor_shape(Input.CURSOR_FORBIDDEN)
 		
 		SelectionState.SELECTING_ATTACK:
 			_finish_attack_selection(entity_id)
@@ -160,7 +163,9 @@ func _queue_hero_power(target_id: int):
 # Target helpers
 func _clear_targets():
 	valid_targets.clear()
+	Input.set_default_cursor_shape(Input.CURSOR_ARROW)
 	_emit_targets()
+	
 
 func _emit_targets():
 	emit_signal("valid_targets_modified", valid_targets)
