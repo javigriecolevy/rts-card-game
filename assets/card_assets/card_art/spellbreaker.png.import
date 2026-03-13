@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dojkj8qqte0uj"
-path="res://.godot/imported/card_border.png-fadb2df45335e103bdede9c35519d21b.ctex"
+uid="uid://dc2ewuffddb8c"
+path="res://.godot/imported/spellbreaker.png-c5b83b5e7f1e23800cf5858ff9c8b597.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/card_border.png"
-dest_files=["res://.godot/imported/card_border.png-fadb2df45335e103bdede9c35519d21b.ctex"]
+source_file="res://assets/card_assets/card_art/spellbreaker.png"
+dest_files=["res://.godot/imported/spellbreaker.png-c5b83b5e7f1e23800cf5858ff9c8b597.ctex"]
 
 [params]
 

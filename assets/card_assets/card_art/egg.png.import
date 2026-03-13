@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://k4b70hmpphyg"
-path="res://.godot/imported/minion_border.png-2676bc5f184361604889c37468af2ebb.ctex"
+uid="uid://bsbb1qoc4rfvr"
+path="res://.godot/imported/egg.png-62cb3d956c55a27c917bbdb0dfc263ed.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/minion_border.png"
-dest_files=["res://.godot/imported/minion_border.png-2676bc5f184361604889c37468af2ebb.ctex"]
+source_file="res://assets/card_assets/card_art/egg.png"
+dest_files=["res://.godot/imported/egg.png-62cb3d956c55a27c917bbdb0dfc263ed.ctex"]
 
 [params]
 

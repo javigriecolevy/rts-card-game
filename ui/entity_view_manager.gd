@@ -107,12 +107,10 @@ func update_attack_glow(tick: int):
 func update_target_glow(target_ids: Array[int]):
 	for entity_id in tick_manager.game_state.entities.keys():
 		if entity_nodes.has(entity_id):
-			if tick_manager.game_state.entities.get(entity_id) is Minion:
-				entity_nodes[entity_id].is_target(false)
+			entity_nodes[entity_id].is_target(false)
 	for entity_id in target_ids:
 		if entity_nodes.has(entity_id):
-			if tick_manager.game_state.entities.get(entity_id) is Minion:
-				entity_nodes[entity_id].is_target(true)
+			entity_nodes[entity_id].is_target(true)
 
 # -------------------------
 # Signal forwarding

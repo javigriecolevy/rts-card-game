@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b2o2k40a6u7cc"
-path="res://.godot/imported/gradient.png-d202e9d2061bad1e62c61a0d531cfdd0.ctex"
+uid="uid://crgduvtjht5le"
+path="res://.godot/imported/ancient_watcher.png-f787924f4f4ba9199a958c61e9094315.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/gradient.png"
-dest_files=["res://.godot/imported/gradient.png-d202e9d2061bad1e62c61a0d531cfdd0.ctex"]
+source_file="res://assets/card_assets/card_art/ancient_watcher.png"
+dest_files=["res://.godot/imported/ancient_watcher.png-f787924f4f4ba9199a958c61e9094315.ctex"]
 
 [params]
 

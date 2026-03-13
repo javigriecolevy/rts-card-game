@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dgcnmy54o4w5w"
-path="res://.godot/imported/galakronds-awakening-bug-v0-fx93b3w554ng1.webp-7e9aa3a4f7d6976cfb3606e08b9b491b.ctex"
+uid="uid://cr8rury60accq"
+path="res://.godot/imported/spicy_chicken.png-142fe1c6066e1a26e3d5dfaecd8f8a0f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/galakronds-awakening-bug-v0-fx93b3w554ng1.webp"
-dest_files=["res://.godot/imported/galakronds-awakening-bug-v0-fx93b3w554ng1.webp-7e9aa3a4f7d6976cfb3606e08b9b491b.ctex"]
+source_file="res://assets/card_assets/card_art/spicy_chicken.png"
+dest_files=["res://.godot/imported/spicy_chicken.png-142fe1c6066e1a26e3d5dfaecd8f8a0f.ctex"]
 
 [params]
 

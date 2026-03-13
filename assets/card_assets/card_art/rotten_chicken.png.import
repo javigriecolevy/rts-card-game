@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dc2ewuffddb8c"
-path="res://.godot/imported/spellbreaker.png-dda5660e3e145a7d9910829df9530f73.ctex"
+uid="uid://32wge2v5yk5t"
+path="res://.godot/imported/rotten_chicken.png-6273a81626ae9fd711826580ffea002d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/card_art/spellbreaker.png"
-dest_files=["res://.godot/imported/spellbreaker.png-dda5660e3e145a7d9910829df9530f73.ctex"]
+source_file="res://assets/card_assets/card_art/rotten_chicken.png"
+dest_files=["res://.godot/imported/rotten_chicken.png-6273a81626ae9fd711826580ffea002d.ctex"]
 
 [params]
 

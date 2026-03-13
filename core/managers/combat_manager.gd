@@ -51,7 +51,13 @@ func handle_damage(event: DamageEvent) -> void:
 			if enchantment is ActiveEnchantment:
 				enchantment.on_damage_dealt(source.id, game_state, target.id)
 	
-	target.health -= damage
+	if target is Hero && target.armor > 0:
+		target.armor -= damage
+		if target.armor < 0:
+			target.health += target.armor
+			target.armor = 0
+	else:
+		target.health -= damage
 	
 	if target.health <= 0:
 		var death_event: DeathEvent = DeathEvent.new(target.id, event.tick)

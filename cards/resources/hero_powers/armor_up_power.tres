@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="HeroPowerInfo" format=3 uid="uid://dekl4byonchni"]
+
+[ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_te5ig"]
+[ext_resource type="Script" uid="uid://dmn3llxhtbp27" path="res://core/effects/gain_armor_effect.gd" id="2_te5ig"]
+[ext_resource type="Script" uid="uid://bs5kvfagybwou" path="res://cards/card_info/hero_power_info.gd" id="3_se30d"]
+[ext_resource type="Script" uid="uid://bmcwxpgl4selc" path="res://core/targeting/target_filter.gd" id="4_1g4q0"]
+
+[sub_resource type="Resource" id="Resource_kfnbb"]
+script = ExtResource("2_te5ig")
+amount = 2
+metadata/_custom_type_script = "uid://dmn3llxhtbp27"
+
+[resource]
+script = ExtResource("3_se30d")
+display_name = "Armor Up"
+effects = Array[ExtResource("1_te5ig")]([SubResource("Resource_kfnbb")])
+metadata/_custom_type_script = "uid://bs5kvfagybwou"

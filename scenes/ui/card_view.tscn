@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://cdrbewgg1wp7r"]
 
 [ext_resource type="Script" uid="uid://b03aa4xf83gix" path="res://ui/card_view.gd" id="1_vgx4y"]
-[ext_resource type="Texture2D" uid="uid://dojkj8qqte0uj" path="res://assets/card_border.png" id="2_jjgc2"]
+[ext_resource type="Texture2D" uid="uid://dojkj8qqte0uj" path="res://assets/card_assets/card_border.png" id="2_jjgc2"]
 [ext_resource type="Texture2D" uid="uid://c0ffpb6hv458v" path="res://assets/random/Screenshot-of-a-HearthStone-match.jpg" id="3_1v373"]
-[ext_resource type="Texture2D" uid="uid://b2o2k40a6u7cc" path="res://assets/gradient.png" id="4_1v373"]
+[ext_resource type="Texture2D" uid="uid://b2o2k40a6u7cc" path="res://assets/card_assets/gradient.png" id="4_1v373"]
 [ext_resource type="Texture2D" uid="uid://b22vpxaf01y7y" path="res://assets/random/594152982_1405824260925496_2212293862454278028_n.jpg" id="5_fssk5"]
 [ext_resource type="Texture2D" uid="uid://cy10bo6l578gi" path="res://icon.svg" id="6_shnkw"]
 

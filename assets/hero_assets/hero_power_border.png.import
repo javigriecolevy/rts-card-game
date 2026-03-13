@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://7v8v6865djtj"
-path="res://.godot/imported/Screenshot-of-a-HearthStone-match.jpg-8ca66e6bb3ea1a69c4374df667cecaa4.ctex"
+uid="uid://cncycj5yxn5r7"
+path="res://.godot/imported/hero_power_border.png-e1650880b10b89d4620898a730495e2a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Screenshot-of-a-HearthStone-match.jpg"
-dest_files=["res://.godot/imported/Screenshot-of-a-HearthStone-match.jpg-8ca66e6bb3ea1a69c4374df667cecaa4.ctex"]
+source_file="res://assets/hero_assets/hero_power_border.png"
+dest_files=["res://.godot/imported/hero_power_border.png-e1650880b10b89d4620898a730495e2a.ctex"]
 
 [params]
 

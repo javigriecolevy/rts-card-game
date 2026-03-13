@@ -20,13 +20,13 @@ func setup(definition: CardInfo):
 	AttackLabel.text = str(definition.attack)
 	
 	Shadow.visible = true
-	CardBorder.texture = load("res://assets/card_border.png")
+	CardBorder.texture = load("res://assets/card_assets/card_border.png")
 	
 	DescriptionLabel.text = definition.description
 	if not definition.description:
 		TextGradient.visible = false
 	
-	var art_path = "res://assets/card_art/%s.png" % definition.id
+	var art_path = "res://assets/card_assets/card_art/%s.png" % definition.id
 	if ResourceLoader.exists(art_path):
 		CardArt.texture = load(art_path)
 	HealthLabel.add_theme_color_override("font_color", Color(1, 0, 0))
@@ -34,5 +34,5 @@ func setup(definition: CardInfo):
 func minion_setup():
 	Shadow.visible = false
 	CostLabel.visible = false
-	CardBorder.texture = load("res://assets/minion_border.png")
+	CardBorder.texture = load("res://assets/card_assets/minion_border.png")
 	HealthLabel.add_theme_color_override("font_color", Color(1, 0, 0))

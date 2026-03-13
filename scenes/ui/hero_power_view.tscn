@@ -1,8 +1,44 @@
 [gd_scene format=3 uid="uid://coxgp6g43mye6"]
 
-[ext_resource type="Script" uid="uid://76q8hruljyqo" path="res://ui/hero_view.gd" id="1_oqvh4"]
+[ext_resource type="Texture2D" uid="uid://cncycj5yxn5r7" path="res://assets/hero_assets/hero_power_border.png" id="2_jr1r4"]
+[ext_resource type="Texture2D" uid="uid://cy10bo6l578gi" path="res://icon.svg" id="2_ry5b3"]
 
-[node name="HeroView" type="Button" unique_id=137052355]
-offset_right = 8.0
-offset_bottom = 8.0
-script = ExtResource("1_oqvh4")
+[node name="HeroPowerButton" type="Button" unique_id=137052355]
+offset_right = 126.0
+offset_bottom = 169.0
+flat = true
+
+[node name="HeroPowerBorder" type="TextureRect" parent="." unique_id=330934617]
+use_parent_material = true
+layout_mode = 0
+offset_left = -18.0
+offset_top = -35.0
+offset_right = 141.0
+offset_bottom = 185.30122
+mouse_filter = 2
+texture = ExtResource("2_jr1r4")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="HeroPowerArtContainer" type="Control" parent="." unique_id=2724771]
+z_index = -2
+clip_contents = true
+custom_minimum_size = Vector2(50, 50)
+anchors_preset = 0
+offset_left = 28.0
+offset_top = 9.0
+offset_right = 94.0
+offset_bottom = 70.0
+mouse_filter = 2
+
+[node name="HeroPowerArt" type="TextureRect" parent="HeroPowerArtContainer" unique_id=26302274]
+layout_mode = 0
+offset_left = -2.0
+offset_top = -4.0
+offset_right = 71.0
+offset_bottom = 66.0
+mouse_filter = 2
+texture = ExtResource("2_ry5b3")
+expand_mode = 1
+stretch_mode = 6
+metadata/_edit_lock_ = true

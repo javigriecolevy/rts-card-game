@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="HeroCardInfo" format=3 uid="uid://u1m8phv8jnf0"]
+
+[ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_nrxa3"]
+[ext_resource type="Script" uid="uid://k5pl2ei0nb7f" path="res://core/enchantments/enchantment.gd" id="2_8nffp"]
+[ext_resource type="Resource" uid="uid://dekl4byonchni" path="res://cards/resources/hero_powers/armor_up_power.tres" id="3_nrxa3"]
+[ext_resource type="Script" uid="uid://cx4mf4wa2kfpb" path="res://cards/card_info/hero_card_info.gd" id="4_m3fm8"]
+[ext_resource type="Script" uid="uid://bmcwxpgl4selc" path="res://core/targeting/target_filter.gd" id="5_caxgu"]
+
+[resource]
+script = ExtResource("4_m3fm8")
+health = 30
+attack_cooldown = 15
+hero_power = ExtResource("3_nrxa3")
+id = "warrior_hero"
+display_name = "Warrior"

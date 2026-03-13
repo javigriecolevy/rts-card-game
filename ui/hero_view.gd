@@ -2,6 +2,15 @@ extends Button
 class_name HeroView
 
 @export var hero_power_button: Node
+@export var card_view: CardView
+@export var VFXLayer: Control
+@export var AttackGlow: TextureRect
+@export var TargettedGlow: TextureRect
+@export var HealthLabel : Label
+@export var ArmorLabel : Label
+@export var AttackLabel : Label
+@export var ArmorBG : TextureRect
+@export var AttackBG : TextureRect
 
 var entity_id: int
 
@@ -12,15 +21,32 @@ func _ready() -> void:
 	hero_power_button.pressed.connect(_on_hero_power_clicked)
 
 func setup(hero: Hero):
+	TargettedGlow.material = TargettedGlow.material.duplicate()
 	entity_id = hero.id
 	update_stats(hero)
 
 func update_stats(hero: Hero):
-	text = "%s (%d/%d)" % [
-		hero.display_name,
-		hero.health,
-		hero.max_health
-	]
+	HealthLabel.text = str(hero.health)
+	
+	if hero.attack > 0:
+		AttackLabel.text = str(hero.attack)
+		AttackBG.visible = true
+	else:
+		AttackLabel.text = str("")
+		AttackBG.visible = false
+	
+	if hero.armor > 0:
+		ArmorLabel.text = str(hero.armor)
+		ArmorBG.visible = true
+	else:
+		ArmorLabel.text = str("")
+		ArmorBG.visible = false
+
+func is_target(enabled: bool):
+	if enabled:
+		TargettedGlow.material.set_shader_parameter("glow_strength", 10)
+	else:
+		TargettedGlow.material.set_shader_parameter("glow_strength", 0.0)
 
 func _pressed():
 	hero_clicked.emit(entity_id)

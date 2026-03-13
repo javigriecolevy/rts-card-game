@@ -62,6 +62,7 @@ func _on_events_emitted(events: Array):
 
 		else:
 			print("Unhandled event type: ", event)
+			entity_manager.update_entity_stats(event.target_id)
 		
 		
 

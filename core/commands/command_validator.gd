@@ -75,7 +75,7 @@ func check_hero_power_command(hero_power_command: HeroPowerCommand):
 		print("HERO POWER STILL NTO READD!! ", hero.hero_power_ready_tick, " but its currently: ", game_state.tick)
 		return false
 	
-	if hero_power_command.target_id not in Targeting.get_valid_targets(player_id, hero_power.target_type, hero_power.target_filters, game_state):
+	if hero_power.target_type != Targeting.TargetType.NONE and hero_power_command.target_id not in Targeting.get_valid_targets(player_id, hero_power.target_type, hero_power.target_filters, game_state):
 		print("HERO POWER TARGET NOT I VALID TRAGETS!")
 		return false
 	

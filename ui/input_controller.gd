@@ -70,7 +70,7 @@ func _on_hero_power_clicked(hero_id: int):
 	)
 	if valid_targets.is_empty():
 		if hero.hero_power.target_optional or hero.hero_power.target_type == Targeting.TargetType.NONE:
-			_queue_hero_power(-1) # effect should handle skipping when no target
+			_queue_hero_power(local_player_id)
 	else:
 		state = SelectionState.SELECTING_HERO_POWER_TARGET
 		_emit_targets()

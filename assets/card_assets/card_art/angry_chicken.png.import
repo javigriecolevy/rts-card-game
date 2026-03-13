@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dyutednoaxfat"
-path="res://.godot/imported/elven_archer.png-0dbec8798fb255e41427c74747fb896d.ctex"
+uid="uid://d4c8d2y7iew6t"
+path="res://.godot/imported/angry_chicken.png-65b78beb0365592682c9f0d52d3f4ff3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/card_art/elven_archer.png"
-dest_files=["res://.godot/imported/elven_archer.png-0dbec8798fb255e41427c74747fb896d.ctex"]
+source_file="res://assets/card_assets/card_art/angry_chicken.png"
+dest_files=["res://.godot/imported/angry_chicken.png-65b78beb0365592682c9f0d52d3f4ff3.ctex"]
 
 [params]
 

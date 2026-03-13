@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cr8rury60accq"
-path="res://.godot/imported/spicy_chicken.png-5b0c959162c00e3b675eeda3dd7aad64.ctex"
+uid="uid://dbn2olnp2lvrb"
+path="res://.godot/imported/hero_border.png-5d86b863a1014f258f501fd44251fea6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/card_art/spicy_chicken.png"
-dest_files=["res://.godot/imported/spicy_chicken.png-5b0c959162c00e3b675eeda3dd7aad64.ctex"]
+source_file="res://assets/hero_assets/hero_border.png"
+dest_files=["res://.godot/imported/hero_border.png-5d86b863a1014f258f501fd44251fea6.ctex"]
 
 [params]
 

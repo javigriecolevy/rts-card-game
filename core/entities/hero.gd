@@ -7,6 +7,7 @@ var card: HeroCardInfo
 
 var hero_power: HeroPowerInfo
 var hero_power_ready_tick : int = 0
+var armor : int = 0
 
 # Factory
 static func new_hero(card_info: HeroCardInfo, owner_player_id: int, starting_health: int) -> Hero:

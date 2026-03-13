@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bsbb1qoc4rfvr"
-path="res://.godot/imported/egg.png-b1248ce065cdbed7cf7dea9a81f263e6.ctex"
+uid="uid://ccnucfuc3sm7w"
+path="res://.godot/imported/Attack.png-2c16a2ced40a31d423a0305fa6ba0269.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/card_art/egg.png"
-dest_files=["res://.godot/imported/egg.png-b1248ce065cdbed7cf7dea9a81f263e6.ctex"]
+source_file="res://assets/Attack.png"
+dest_files=["res://.godot/imported/Attack.png-2c16a2ced40a31d423a0305fa6ba0269.ctex"]
 
 [params]
 
