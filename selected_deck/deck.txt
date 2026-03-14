@@ -9,5 +9,13 @@ hand_of_adal
 hand_of_adal
 murloc_tidehunter
 murloc_tidehunter
-
-
+harvest_golem
+harvest_golem
+muster_for_battle
+muster_for_battle
+blessing_of_kings
+blessing_of_kings
+senjin_shieldmasta
+senjin_shieldmasta
+the_black_knight
+the_black_knight

@@ -37,6 +37,7 @@ offset_left = -27.0
 offset_top = -27.0
 offset_right = 27.0
 offset_bottom = 27.0
+mouse_filter = 2
 min_value = 5.0
 value = 5.0
 fill_mode = 4

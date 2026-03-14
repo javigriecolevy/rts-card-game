@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="MinionCardInfo" format=3 uid="uid://dtkakptwwxg7j"]
+
+[ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_wh2hc"]
+[ext_resource type="Script" uid="uid://k5pl2ei0nb7f" path="res://core/enchantments/enchantment.gd" id="2_jh2qu"]
+[ext_resource type="Script" uid="uid://djj5w1glq1v7h" path="res://core/enchantments/taunt_enchantment.gd" id="4_ek5sq"]
+[ext_resource type="Script" uid="uid://b5d8j7lm45poq" path="res://cards/card_info/minion_card_info.gd" id="5_4t4qx"]
+[ext_resource type="Script" uid="uid://bmcwxpgl4selc" path="res://core/targeting/target_filter.gd" id="6_1brcw"]
+
+[sub_resource type="Resource" id="Resource_3oujw"]
+script = ExtResource("4_ek5sq")
+metadata/_custom_type_script = "uid://djj5w1glq1v7h"
+
+[resource]
+script = ExtResource("5_4t4qx")
+attack = 3
+health = 6
+enchantments = Array[ExtResource("2_jh2qu")]([SubResource("Resource_3oujw")])
+id = "senjin_shieldmasta"
+display_name = "Taz dingo"
+cost = 4
+description = "Taunt"

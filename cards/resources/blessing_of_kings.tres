@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="CardInfo" format=3 uid="uid://eswhnfhvs6yv"]
+
+[ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_is3xh"]
+[ext_resource type="Script" uid="uid://3fbtucrkf77v" path="res://core/effects/add_stat_effect.gd" id="2_wi1rl"]
+[ext_resource type="Script" uid="uid://b4o2sfjs4ky3v" path="res://core/effects/self_burn_effect.gd" id="3_is3xh"]
+[ext_resource type="Script" uid="uid://cn5wuprk57deq" path="res://cards/card_info/_card_info.gd" id="4_fc48h"]
+[ext_resource type="Script" uid="uid://bmcwxpgl4selc" path="res://core/targeting/target_filter.gd" id="5_ikk1s"]
+
+[sub_resource type="Resource" id="Resource_043t7"]
+script = ExtResource("2_wi1rl")
+attack = 5
+health = 5
+metadata/_custom_type_script = "uid://3fbtucrkf77v"
+
+[sub_resource type="Resource" id="Resource_wi1rl"]
+script = ExtResource("3_is3xh")
+duration_amount = 5
+metadata/_custom_type_script = "uid://b4o2sfjs4ky3v"
+
+[resource]
+script = ExtResource("4_fc48h")
+id = "blessing_of_kings"
+display_name = "Blessing of Burgers"
+cost = 4
+effects = Array[ExtResource("1_is3xh")]([SubResource("Resource_043t7"), SubResource("Resource_wi1rl")])
+target_type = 3
+description = "Give a minion +5/+5   Apply 5 burn to self.  (not optimal for health)"

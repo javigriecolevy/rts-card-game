@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="CardInfo" format=3 uid="uid://k11vuyb77ag8"]
+
+[ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_ji5gh"]
+[ext_resource type="Resource" uid="uid://bxysfr115mrbw" path="res://cards/resources/small_burger.tres" id="2_axpl8"]
+[ext_resource type="Script" uid="uid://bxikxkghrdmfh" path="res://core/effects/summon_effect.gd" id="3_u8l57"]
+[ext_resource type="Script" uid="uid://cn5wuprk57deq" path="res://cards/card_info/_card_info.gd" id="4_227uc"]
+[ext_resource type="Script" uid="uid://bqrbfpci0xk35" path="res://core/effects/random_repeat_effect.gd" id="4_iear2"]
+[ext_resource type="Script" uid="uid://bmcwxpgl4selc" path="res://core/targeting/target_filter.gd" id="5_iear2"]
+
+[sub_resource type="Resource" id="Resource_2v4jj"]
+script = ExtResource("3_u8l57")
+card = ExtResource("2_axpl8")
+metadata/_custom_type_script = "uid://bxikxkghrdmfh"
+
+[sub_resource type="Resource" id="Resource_fy4xe"]
+script = ExtResource("4_iear2")
+effect = SubResource("Resource_2v4jj")
+metadata/_custom_type_script = "uid://bqrbfpci0xk35"
+
+[resource]
+script = ExtResource("4_227uc")
+id = "muster_for_battle"
+display_name = "Mustard for Burger"
+cost = 3
+effects = Array[ExtResource("1_ji5gh")]([SubResource("Resource_fy4xe")])
+description = "Summon 2 to 4 1/1 small burgers (random = fun?)"

@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="MinionCardInfo" format=3 uid="uid://bd2nd14xy0hdj"]
+
+[ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_1g5oh"]
+[ext_resource type="Resource" uid="uid://bxysfr115mrbw" path="res://cards/resources/small_burger.tres" id="2_1g5oh"]
+[ext_resource type="Script" uid="uid://bxikxkghrdmfh" path="res://core/effects/summon_effect.gd" id="3_7ksnc"]
+[ext_resource type="Script" uid="uid://bqrbfpci0xk35" path="res://core/effects/random_repeat_effect.gd" id="4_i1vw0"]
+[ext_resource type="Script" uid="uid://k5pl2ei0nb7f" path="res://core/enchantments/enchantment.gd" id="5_0fdji"]
+[ext_resource type="Script" uid="uid://b5d8j7lm45poq" path="res://cards/card_info/minion_card_info.gd" id="6_rq6yy"]
+[ext_resource type="Script" uid="uid://bmcwxpgl4selc" path="res://core/targeting/target_filter.gd" id="7_6drba"]
+
+[sub_resource type="Resource" id="Resource_vn7t8"]
+script = ExtResource("3_7ksnc")
+card = ExtResource("2_1g5oh")
+metadata/_custom_type_script = "uid://bxikxkghrdmfh"
+
+[sub_resource type="Resource" id="Resource_7ksnc"]
+script = ExtResource("4_i1vw0")
+min_amount = 1
+max_amount = 3
+effect = SubResource("Resource_vn7t8")
+trigger = 2
+metadata/_custom_type_script = "uid://bqrbfpci0xk35"
+
+[resource]
+script = ExtResource("6_rq6yy")
+attack = 2
+health = 3
+id = "harvest_golem"
+display_name = "Harvest Golem"
+cost = 3
+effects = Array[ExtResource("1_1g5oh")]([SubResource("Resource_7ksnc")])
+description = "Deathrattle: Summon 1-3 1/1 small burgers (random is fun)"

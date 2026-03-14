@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="MinionCardInfo" format=3 uid="uid://ccqh0tp6ft1hk"]
+
+[ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_5uieh"]
+[ext_resource type="Script" uid="uid://k5pl2ei0nb7f" path="res://core/enchantments/enchantment.gd" id="2_3ih55"]
+[ext_resource type="Script" uid="uid://b7wcamch6bfom" path="res://core/effects/kill_effect.gd" id="2_5uieh"]
+[ext_resource type="Script" uid="uid://djj5w1glq1v7h" path="res://core/enchantments/taunt_enchantment.gd" id="3_q7qn4"]
+[ext_resource type="Script" uid="uid://b5d8j7lm45poq" path="res://cards/card_info/minion_card_info.gd" id="4_h7o2v"]
+[ext_resource type="Script" uid="uid://bmcwxpgl4selc" path="res://core/targeting/target_filter.gd" id="5_iolpd"]
+[ext_resource type="Script" uid="uid://ckgck6yds1d4k" path="res://core/targeting/filters/has_enchantment_filter.gd" id="7_q7qn4"]
+
+[sub_resource type="Resource" id="Resource_3ih55"]
+script = ExtResource("2_5uieh")
+trigger = 1
+metadata/_custom_type_script = "uid://b7wcamch6bfom"
+
+[sub_resource type="Resource" id="Resource_q7qn4"]
+script = ExtResource("7_q7qn4")
+enchantment_type = ExtResource("3_q7qn4")
+metadata/_custom_type_script = "uid://ckgck6yds1d4k"
+
+[resource]
+script = ExtResource("4_h7o2v")
+attack = 4
+health = 5
+id = "the_black_knight"
+display_name = "The Black Knight"
+cost = 5
+effects = Array[ExtResource("1_5uieh")]([SubResource("Resource_3ih55")])
+target_type = 2
+target_filters = Array[ExtResource("5_iolpd")]([SubResource("Resource_q7qn4")])
+target_optional = true
+description = "Battlecry: Destroy an enemy minion with taunt"
