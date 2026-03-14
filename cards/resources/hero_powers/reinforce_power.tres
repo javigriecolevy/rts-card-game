@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="HeroPowerInfo" format=3 uid="uid://cfxhohdxcvohr"]
+
+[ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_14ucp"]
+[ext_resource type="Resource" uid="uid://dwpbhnfg7pe0f" path="res://cards/resources/silver_hand_recruit.tres" id="2_hd2sv"]
+[ext_resource type="Script" uid="uid://bxikxkghrdmfh" path="res://core/effects/summon_effect.gd" id="3_00rct"]
+[ext_resource type="Script" uid="uid://bs5kvfagybwou" path="res://cards/card_info/hero_power_info.gd" id="3_ihdm2"]
+[ext_resource type="Script" uid="uid://bmcwxpgl4selc" path="res://core/targeting/target_filter.gd" id="4_00rct"]
+
+[sub_resource type="Resource" id="Resource_7p10u"]
+script = ExtResource("3_00rct")
+card = ExtResource("2_hd2sv")
+metadata/_custom_type_script = "uid://bxikxkghrdmfh"
+
+[resource]
+script = ExtResource("3_ihdm2")
+display_name = "Reinforce!"
+effects = Array[ExtResource("1_14ucp")]([SubResource("Resource_7p10u")])
+metadata/_custom_type_script = "uid://bs5kvfagybwou"

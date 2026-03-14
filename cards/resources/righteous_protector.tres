@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="MinionCardInfo" format=3 uid="uid://ds7gtt6meah47"]
+
+[ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_aj73u"]
+[ext_resource type="Script" uid="uid://k5pl2ei0nb7f" path="res://core/enchantments/enchantment.gd" id="3_iboh4"]
+[ext_resource type="Script" uid="uid://djj5w1glq1v7h" path="res://core/enchantments/taunt_enchantment.gd" id="4_aj73u"]
+[ext_resource type="Script" uid="uid://b2gisne4q8qdf" path="res://core/enchantments/divine_shield_enchantment.gd" id="4_nk87m"]
+[ext_resource type="Script" uid="uid://b5d8j7lm45poq" path="res://cards/card_info/minion_card_info.gd" id="5_exndj"]
+[ext_resource type="Script" uid="uid://bmcwxpgl4selc" path="res://core/targeting/target_filter.gd" id="6_81182"]
+
+[sub_resource type="Resource" id="Resource_iiaus"]
+script = ExtResource("4_nk87m")
+metadata/_custom_type_script = "uid://b2gisne4q8qdf"
+
+[sub_resource type="Resource" id="Resource_3oujw"]
+script = ExtResource("4_aj73u")
+metadata/_custom_type_script = "uid://djj5w1glq1v7h"
+
+[resource]
+script = ExtResource("5_exndj")
+attack = 1
+health = 1
+enchantments = Array[ExtResource("3_iboh4")]([SubResource("Resource_iiaus"), SubResource("Resource_3oujw")])
+id = "righteous_protector"
+display_name = "righteous_protector"
+cost = 1
+description = "Taunt Divine Shield"

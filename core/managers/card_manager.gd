@@ -67,10 +67,10 @@ func handle_play_card(event: PlayCardEvent) -> void:
 		game_state.event_resolver.add_event(summon_minion)
 
 	elif card is CardInfo: #Card is a spell, it holds no additional data 
-			#TODO play spell with target_id
-			for effect in card.effects:
+			for effect: Effect in card.effects:
 				effect.source_player_id = player_id
-				effect.apply_effect(game_state, -1)
+				effect.source_entity_id = player_id
+				effect.apply_effect(game_state, target_id)
 
 	# -------------------------
 	# Cleanup

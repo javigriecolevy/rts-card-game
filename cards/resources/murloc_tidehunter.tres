@@ -1,0 +1,24 @@
+[gd_resource type="Resource" script_class="MinionCardInfo" format=3 uid="uid://d06mvf46muknm"]
+
+[ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_4wqx0"]
+[ext_resource type="Resource" uid="uid://bxysfr115mrbw" path="res://cards/resources/small_burger.tres" id="2_4wqx0"]
+[ext_resource type="Script" uid="uid://k5pl2ei0nb7f" path="res://core/enchantments/enchantment.gd" id="2_jagg0"]
+[ext_resource type="Script" uid="uid://bxikxkghrdmfh" path="res://core/effects/summon_effect.gd" id="3_jagg0"]
+[ext_resource type="Script" uid="uid://b5d8j7lm45poq" path="res://cards/card_info/minion_card_info.gd" id="5_1v8om"]
+[ext_resource type="Script" uid="uid://bmcwxpgl4selc" path="res://core/targeting/target_filter.gd" id="6_3ygyv"]
+
+[sub_resource type="Resource" id="Resource_2mkog"]
+script = ExtResource("3_jagg0")
+card = ExtResource("2_4wqx0")
+trigger = 1
+metadata/_custom_type_script = "uid://bxikxkghrdmfh"
+
+[resource]
+script = ExtResource("5_1v8om")
+attack = 2
+health = 1
+id = "murloc_tidehunter"
+display_name = "Murlep Burgeristeer"
+cost = 2
+effects = Array[ExtResource("1_4wqx0")]([SubResource("Resource_2mkog")])
+description = "Battlecry: Summon a 1/1 small burger"

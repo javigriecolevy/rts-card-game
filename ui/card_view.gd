@@ -13,11 +13,16 @@ class_name CardView
 @export var TextGradient : TextureRect
 
 func setup(definition: CardInfo):
+	
 
 	CostLabel.text = str(definition.cost)
 	DisplayNameLabel.text = str(definition.display_name)
-	HealthLabel.text = str(definition.health)
-	AttackLabel.text = str(definition.attack)
+	if definition is MinionCardInfo:
+		HealthLabel.text = str(definition.health)
+		AttackLabel.text = str(definition.attack)
+	else:
+		HealthLabel.text = str("SPELL")
+		AttackLabel.text = str("SPELL")
 	
 	Shadow.visible = true
 	CardBorder.texture = load("res://assets/card_assets/card_border.png")

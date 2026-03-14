@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://34y2b7tnu5cy"]
+
+[ext_resource type="Script" uid="uid://ddwe6xdm6b3b1" path="res://ui/circular_timer.gd" id="1_115a6"]
+[ext_resource type="Texture2D" uid="uid://cax3df2dk6grm" path="res://assets/Icon_Standard.png" id="3_b6opl"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_mq8op"]
+
+[node name="CircularTimer" type="Control" unique_id=1105953679 node_paths=PackedStringArray("timer", "display")]
+z_index = 10
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1152.0
+offset_bottom = -800.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_115a6")
+timer = NodePath("Progress")
+display = NodePath("Label")
+
+[node name="Label" type="Label" parent="." unique_id=1993403552]
+visible = false
+z_index = 3
+layout_mode = 0
+offset_left = -4.0
+offset_top = -13.0
+offset_right = 5.0
+offset_bottom = 10.0
+text = "x"
+
+[node name="Progress" type="TextureProgressBar" parent="." unique_id=422523249]
+material = SubResource("CanvasItemMaterial_mq8op")
+layout_mode = 0
+offset_left = -27.0
+offset_top = -27.0
+offset_right = 27.0
+offset_bottom = 27.0
+min_value = 5.0
+value = 5.0
+fill_mode = 4
+nine_patch_stretch = true
+texture_under = ExtResource("3_b6opl")
+texture_over = ExtResource("3_b6opl")
+texture_progress = ExtResource("3_b6opl")
+tint_under = Color(0.37839603, 0.37140858, 0, 0)
+tint_over = Color(0.017732391, 0.017732391, 0.01773239, 0.46666667)
+tint_progress = Color(1, 1, 1, 0.54901963)

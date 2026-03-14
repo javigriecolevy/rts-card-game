@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://c5if164mtrvop"]
 
 [ext_resource type="Script" uid="uid://b27m2yfyjg4ql" path="res://ui/minion_view.gd" id="1_cpi00"]
-[ext_resource type="PackedScene" uid="uid://cdrbewgg1wp7r" path="res://scenes/ui/card_view.tscn" id="2_3sorx"]
+[ext_resource type="PackedScene" uid="uid://cdrbewgg1wp7r" path="res://scenes/ui_scenes/card_view.tscn" id="2_3sorx"]
 [ext_resource type="Texture2D" uid="uid://k4b70hmpphyg" path="res://assets/card_assets/minion_border.png" id="2_gk52o"]
+[ext_resource type="PackedScene" uid="uid://34y2b7tnu5cy" path="res://scenes/ui_scenes/circular_timer.tscn" id="4_8stor"]
 
 [sub_resource type="Shader" id="Shader_8sn2j"]
 code = "shader_type canvas_item;
@@ -69,7 +70,7 @@ shader_parameter/glow_radius = 10.0
 shader_parameter/glow_strength = 0.0
 shader_parameter/pulse_speed = 0.0
 
-[node name="MinionView" type="Button" unique_id=354509731 node_paths=PackedStringArray("card_view", "AttackGlow", "TargettedGlow")]
+[node name="MinionView" type="Button" unique_id=354509731 node_paths=PackedStringArray("card_view", "AttackGlow", "TargettedGlow", "attack_timer", "enchantments_container")]
 custom_minimum_size = Vector2(152, 207)
 offset_right = 152.0
 offset_bottom = 207.0
@@ -79,6 +80,8 @@ script = ExtResource("1_cpi00")
 card_view = NodePath("CardView")
 AttackGlow = NodePath("VFXLayer/AttackGlow")
 TargettedGlow = NodePath("VFXLayer/TargettedGlow")
+attack_timer = NodePath("VFXLayer/AttackTimer")
+enchantments_container = NodePath("VFXLayer/EnchantmentsContainer")
 
 [node name="CardView" parent="." unique_id=665730067 instance=ExtResource("2_3sorx")]
 layout_mode = 0
@@ -115,7 +118,25 @@ texture = ExtResource("2_gk52o")
 expand_mode = 1
 stretch_mode = 4
 
+[node name="AttackTimer" parent="VFXLayer" unique_id=1105953679 instance=ExtResource("4_8stor")]
+layout_mode = 1
+offset_left = 22.0
+offset_top = 187.0
+offset_right = -18.0
+offset_bottom = 147.0
+
+[node name="EnchantmentsContainer" type="HBoxContainer" parent="VFXLayer" unique_id=414429821]
+layout_mode = 0
+offset_left = 17.0
+offset_top = 51.0
+offset_right = 134.0
+offset_bottom = 51.0
+mouse_filter = 2
+theme_override_constants/separation = 50
+alignment = 1
+
 [node name="InteractionLayer" type="Control" parent="." unique_id=1256709385]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+metadata/_edit_lock_ = true

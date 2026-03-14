@@ -31,8 +31,8 @@ static func new_from_card(card_info: MinionCardInfo, owner_player_id: int, curre
 
 	# -------------------------
 	# Timing
-	minion.attack_cooldown = card_info.attack_cooldown
-	minion.ready_at_tick = current_tick + card_info.attack_cooldown
+	minion.attack_cooldown = card_info.attack_cooldown * 100
+	minion.ready_at_tick = current_tick + minion.attack_cooldown
 	
 	# -------------------------
 	# Effect/Enchant instanciating

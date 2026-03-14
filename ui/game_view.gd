@@ -16,8 +16,6 @@ var entity_manager: EntityViewManager
 var hand_manager: HandViewManager
 var input_controller: InputController
 
-
-
 func setup():
 	# Initialize managers
 	entity_manager = EntityViewManager.new()
@@ -93,6 +91,7 @@ func _handle_death(event: DeathEvent):
 
 func _on_tick_advanced(current_tick: int):
 	entity_manager.update_attack_glow(current_tick)
+	entity_manager.update_timers(current_tick)
 
 func _on_displayed_targets(target_ids: Array[int]):
 	entity_manager.update_target_glow(target_ids)

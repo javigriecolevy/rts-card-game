@@ -31,6 +31,7 @@ func setup(_tick_manager, _local_player_id, _player_board, _enemy_board, _player
 	enemy_board = _enemy_board
 	player_hero_container = _player_hero_container
 	enemy_hero_container = _enemy_hero_container
+	tick_manager.game_state.enchantment_manager.enchantment_applied.connect(_on_enchantment_applied)
 
 # -------------------------
 # Hero functions
@@ -38,7 +39,7 @@ func create_hero(hero_id: int):
 	var gs = tick_manager.game_state
 	var hero = gs.entities[hero_id]
 
-	var scene = preload("res://scenes/ui/hero_view.tscn")
+	var scene = preload("res://scenes/ui_scenes/hero_view.tscn")
 	var view = scene.instantiate()
 	view.setup(hero)
 
@@ -57,20 +58,19 @@ func create_hero(hero_id: int):
 # Minion functions
 func create_minion(minion: Minion):
 	var container = player_board if minion.owner_id == local_player_id else enemy_board
-	var scene = preload("res://scenes/ui/minion_view.tscn")
+	var scene = preload("res://scenes/ui_scenes/minion_view.tscn")
 	var view = scene.instantiate()
 	view.setup(minion)
 
 	# Connect internal click to forward signal
 	view.minion_clicked.connect(_on_minion_clicked)
-
 	container.add_child(view)
 	entity_nodes[minion.id] = view
 	
 	if not entities_ready_to_attack_by_tick.has(minion.ready_at_tick):
 		entities_ready_to_attack_by_tick[minion.ready_at_tick] = []
 	entities_ready_to_attack_by_tick[minion.ready_at_tick].append(minion)
-
+	
 # -------------------------
 # Remove entity
 func remove_entity(entity_id: int):
@@ -100,7 +100,8 @@ func update_board(player_id: int):
 
 func update_attack_glow(tick: int):
 	for entity_id: int in entity_nodes.keys():
-		if tick_manager.game_state.entities.get(entity_id) is Minion:
+		var entity: Entity = tick_manager.game_state.entities.get(entity_id)
+		if entity is Minion && entity.owner_id == local_player_id:
 			entity_nodes[entity_id].update_can_attack_view(tick_manager.game_state.entities.get(entity_id).can_attack(tick))
 
 #TODO: make this function not stupid
@@ -112,6 +113,12 @@ func update_target_glow(target_ids: Array[int]):
 		if entity_nodes.has(entity_id):
 			entity_nodes[entity_id].is_target(true)
 
+func update_timers(tick: int):
+	for entity_id in entity_nodes:
+		var entity: Entity = tick_manager.game_state.entities.get(entity_id)
+		if entity is Minion:
+			entity_nodes[entity_id].update_timers(tick, tick_manager.game_state.entities.get(entity_id))
+
 # -------------------------
 # Signal forwarding
 func _on_minion_clicked(minion_id: int):
@@ -122,3 +129,7 @@ func _on_hero_clicked(hero_id: int):
 
 func _on_hero_power_clicked(hero_id: int):
 	emit_signal("hero_power_clicked", hero_id)
+
+func _on_enchantment_applied(entity_id: int):
+	if tick_manager.game_state.entities.get(entity_id) is Minion:
+		entity_nodes[entity_id].add_enchantment_timer(entity_id)

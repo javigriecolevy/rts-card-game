@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="HeroCardInfo" format=3 uid="uid://chr31qon8chbo"]
+
+[ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_b51dm"]
+[ext_resource type="Script" uid="uid://k5pl2ei0nb7f" path="res://core/enchantments/enchantment.gd" id="2_aq0tv"]
+[ext_resource type="Resource" uid="uid://cfxhohdxcvohr" path="res://cards/resources/hero_powers/reinforce_power.tres" id="3_b51dm"]
+[ext_resource type="Script" uid="uid://cx4mf4wa2kfpb" path="res://cards/card_info/hero_card_info.gd" id="4_yj3q8"]
+[ext_resource type="Script" uid="uid://bmcwxpgl4selc" path="res://core/targeting/target_filter.gd" id="5_ps15p"]
+
+[resource]
+script = ExtResource("4_yj3q8")
+health = 30
+attack_cooldown = 15
+hero_power = ExtResource("3_b51dm")
+id = "paladin_hero"
+display_name = "Paladin"

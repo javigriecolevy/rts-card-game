@@ -16,6 +16,7 @@ metadata/_custom_type_script = "uid://bpng4h5x5u6s4"
 script = ExtResource("4_xafxp")
 attack = 10
 health = 10
+attack_cooldown = 500
 id = "spicy_chicken"
 display_name = "Spicy Chiggin"
 cost = 1

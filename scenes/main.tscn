@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cqqo4o4edxntv" path="res://core/tick_manager.gd" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://vhi2056v6w51" path="res://main.gd" id="1_sugp2"]
 [ext_resource type="Script" uid="uid://c8p0ny0bfb1au" path="res://multiplayer/network_manager.gd" id="3_jyhfs"]
-[ext_resource type="PackedScene" uid="uid://bhl2frco8scum" path="res://scenes/ui/game_view.tscn" id="4_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://bhl2frco8scum" path="res://scenes/ui_scenes/game_view.tscn" id="4_jyhfs"]
 
 [node name="GameRoot" type="Node2D" unique_id=847468554]
 script = ExtResource("1_sugp2")

@@ -13,7 +13,9 @@ func apply_effect(game_state: GameState, target_id: int) -> void:
 		return
 	
 	if game_state.entities.get(target_id) is Minion:
-		var hp_mod : StatEnchantment = StatEnchantment.new(StatEnchantment.StatType.HEALTH, StatEnchantment.Mode.ADD, health)
-		game_state.enchantment_manager.apply_enchantment(target_id, hp_mod)
-		var atk_mod : StatEnchantment = StatEnchantment.new(StatEnchantment.StatType.ATTACK, StatEnchantment.Mode.ADD, attack)
-		game_state.enchantment_manager.apply_enchantment(target_id, atk_mod)
+		if health > 0:
+			var hp_mod : StatEnchantment = StatEnchantment.new(StatEnchantment.StatType.HEALTH, StatEnchantment.Mode.ADD, health)
+			game_state.enchantment_manager.apply_enchantment(target_id, hp_mod)
+		if attack > 0:
+			var atk_mod : StatEnchantment = StatEnchantment.new(StatEnchantment.StatType.ATTACK, StatEnchantment.Mode.ADD, attack)
+			game_state.enchantment_manager.apply_enchantment(target_id, atk_mod)

@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="CardInfo" format=3 uid="uid://bnq2hgxk5l24l"]
+
+[ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_801rn"]
+[ext_resource type="Script" uid="uid://3fbtucrkf77v" path="res://core/effects/add_stat_effect.gd" id="2_ba4q6"]
+[ext_resource type="Script" uid="uid://cpmjep3modj5w" path="res://core/effects/draw_card_effect.gd" id="3_3pehv"]
+[ext_resource type="Script" uid="uid://cn5wuprk57deq" path="res://cards/card_info/_card_info.gd" id="3_mew4i"]
+[ext_resource type="Script" uid="uid://bmcwxpgl4selc" path="res://core/targeting/target_filter.gd" id="4_3pehv"]
+
+[sub_resource type="Resource" id="Resource_043t7"]
+script = ExtResource("2_ba4q6")
+attack = 2
+health = 1
+metadata/_custom_type_script = "uid://3fbtucrkf77v"
+
+[sub_resource type="Resource" id="Resource_flnwj"]
+script = ExtResource("3_3pehv")
+metadata/_custom_type_script = "uid://cpmjep3modj5w"
+
+[resource]
+script = ExtResource("3_mew4i")
+id = "hand_of_adal"
+display_name = "Hand of Lep"
+cost = 2
+effects = Array[ExtResource("1_801rn")]([SubResource("Resource_043t7"), SubResource("Resource_flnwj")])
+target_type = 3
+description = "Give a minion +2/+1. Draw a card"

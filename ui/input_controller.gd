@@ -36,6 +36,8 @@ func setup(_tick_manager, _local_player_id, _entity_manager, _hand_manager):
 # -------------------------
 # Signal handlers
 func _on_card_clicked(card_instance_id: int):
+	_reset_card_selection()
+	_reset_attack_selection()
 	selected_card_id = card_instance_id
 
 	var card: CardInstance = tick_manager.game_state.card_instances[card_instance_id]
@@ -52,7 +54,6 @@ func _on_card_clicked(card_instance_id: int):
 			_reset_card_selection()
 	else:
 		state = SelectionState.SELECTING_CARD_TARGET
-		Input.set_default_cursor_shape(Input.CURSOR_FORBIDDEN)
 		_emit_targets()
 
 func _on_minion_clicked(minion_id: int):
@@ -62,42 +63,51 @@ func _on_hero_clicked(hero_id: int):
 	_on_entity_clicked(hero_id)
 
 func _on_hero_power_clicked(hero_id: int):
-	var hero: Hero = tick_manager.game_state.heroes.get(hero_id)
-	valid_targets = Targeting.get_valid_targets(
-		local_player_id,
-		hero.hero_power.target_type,
-		hero.hero_power.target_filters,
-		tick_manager.game_state
-	)
-	if valid_targets.is_empty():
-		if hero.hero_power.target_optional or hero.hero_power.target_type == Targeting.TargetType.NONE:
-			_queue_hero_power(local_player_id)
-	else:
-		state = SelectionState.SELECTING_HERO_POWER_TARGET
-		Input.set_default_cursor_shape(Input.CURSOR_FORBIDDEN)
-		_emit_targets()
+	if hero_id == local_player_id:
+		_reset_card_selection()
+		_reset_attack_selection()
 
+		var hero: Hero = tick_manager.game_state.heroes.get(hero_id)
+		valid_targets = Targeting.get_valid_targets(
+			local_player_id,
+			hero.hero_power.target_type,
+			hero.hero_power.target_filters,
+			tick_manager.game_state
+		)
+		if valid_targets.is_empty():
+			if hero.hero_power.target_optional or hero.hero_power.target_type == Targeting.TargetType.NONE:
+				_queue_hero_power(local_player_id)
+		else:
+			state = SelectionState.SELECTING_HERO_POWER_TARGET
+			_emit_targets()
+
+#TODO: make this not stupid
 func _on_entity_clicked(entity_id: int):
 	match state:
 		SelectionState.SELECTING_CARD_TARGET:
-			_queue_play_card(selected_card_id, entity_id)
+			if entity_id in valid_targets:
+				_queue_play_card(selected_card_id, entity_id)
 			_reset_card_selection()
 		
 		SelectionState.IDLE:
-			_start_attack_selection(entity_id)
-			Input.set_default_cursor_shape(Input.CURSOR_FORBIDDEN)
+			var entity: Entity = tick_manager.game_state.entities.get(entity_id)
+			if entity.can_attack(tick_manager.game_state.tick) and entity.owner_id == local_player_id:
+				_start_attack_selection(entity_id)
 		
 		SelectionState.SELECTING_ATTACK:
 			_finish_attack_selection(entity_id)
 		
 		SelectionState.SELECTING_HERO_POWER_TARGET:
-			_queue_hero_power(entity_id)
+			if entity_id in valid_targets:
+				_queue_hero_power(entity_id)
 			_reset_card_selection()
+			_reset_attack_selection()
 
 # -------------------------
 # Attack selection
 func _start_attack_selection(attacker_id: int):
-	if selected_attacker_id != -1 or tick_manager.game_state.entities.get(attacker_id) is Hero:
+	if selected_attacker_id != -1 or tick_manager.game_state.entities.get(attacker_id) is Hero or not tick_manager.game_state.entities.get(attacker_id).can_attack:
+		_reset_card_selection()
 		return
 
 	selected_attacker_id = attacker_id
@@ -163,9 +173,7 @@ func _queue_hero_power(target_id: int):
 # Target helpers
 func _clear_targets():
 	valid_targets.clear()
-	Input.set_default_cursor_shape(Input.CURSOR_ARROW)
 	_emit_targets()
-	
 
 func _emit_targets():
 	emit_signal("valid_targets_modified", valid_targets)

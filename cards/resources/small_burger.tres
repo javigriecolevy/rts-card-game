@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MinionCardInfo" format=3 uid="uid://bxysfr115mrbw"]
+
+[ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_sj8mq"]
+[ext_resource type="Script" uid="uid://k5pl2ei0nb7f" path="res://core/enchantments/enchantment.gd" id="2_0vict"]
+[ext_resource type="Script" uid="uid://b5d8j7lm45poq" path="res://cards/card_info/minion_card_info.gd" id="5_6ejh7"]
+[ext_resource type="Script" uid="uid://bmcwxpgl4selc" path="res://core/targeting/target_filter.gd" id="6_nkohr"]
+
+[resource]
+script = ExtResource("5_6ejh7")
+attack = 1
+health = 1
+id = "small_burger"
+display_name = "smol burgar"

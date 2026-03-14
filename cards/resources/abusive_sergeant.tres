@@ -9,6 +9,7 @@
 [sub_resource type="Resource" id="Resource_wlh2t"]
 script = ExtResource("2_7h1v0")
 attack = 4
+health = null
 duration = 4.0
 trigger = 1
 metadata/_custom_type_script = "uid://baniq7kx0indf"
@@ -21,6 +22,6 @@ id = "abusive_sergeant"
 display_name = "Abusive Sergeant"
 cost = 1
 effects = Array[ExtResource("1_wlh2t")]([SubResource("Resource_wlh2t")])
-target_type = 1
+target_type = 3
 target_optional = true
 description = "Battlecry: Give a minion +4 attack for 4 seconds"

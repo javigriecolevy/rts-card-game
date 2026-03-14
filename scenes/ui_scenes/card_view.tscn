@@ -82,13 +82,14 @@ horizontal_alignment = 1
 
 [node name="DisplayNameLabel" type="Label" parent="." unique_id=1470136522]
 layout_mode = 1
-offset_left = 25.0
+offset_left = -44.0
 offset_top = 95.0
-offset_right = 128.0
+offset_right = 197.0
 offset_bottom = 118.00001
 text = "Card Name"
 label_settings = SubResource("LabelSettings_d111w")
 horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="CostLabel" type="Label" parent="." unique_id=1148536595]
 layout_mode = 1

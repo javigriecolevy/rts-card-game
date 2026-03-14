@@ -8,6 +8,7 @@ var entities_by_enchant_expiration_tick: Dictionary[int, Array] # tick -> Array[
 var dirty_entities: Dictionary = {} # entity.id
 
 signal entity_recalculated(entity_id: int)
+signal enchantment_applied(entity_id: int)
 
 func _init(_game_state: GameState) -> void:
 	game_state = _game_state
@@ -22,9 +23,11 @@ func apply_enchantment(entity_id: int, new_enchantment: Enchantment):
 				recalculate_entity(entity)
 				register_enchantments(entity_id)
 				return
+	new_enchantment.applied_at_tick = game_state.tick
 	entity.enchantments.append(new_enchantment)
 	recalculate_entity(entity)
 	register_enchantments(entity_id)
+	emit_signal("enchantment_applied", entity.id)
 	
 func register_enchantments(entity_id: int):
 	var entity: Entity = game_state.entities.get(entity_id)
@@ -72,7 +75,8 @@ func recalculate_entity(entity: Entity) -> void:
 	entity.health = min(entity.health, entity.max_health)
 	
 	# Apply each stat modifier and remove expired enchants
-	for enchantment : Enchantment in entity.enchantments:
+	for i in range(entity.enchantments.size() - 1, -1, -1):
+		var enchantment : Enchantment = entity.enchantments[i]
 		if enchantment.expires_at_tick && enchantment.expires_at_tick <= game_state.tick:
 			entity.enchantments.erase(enchantment)
 		elif  enchantment is StatEnchantment:

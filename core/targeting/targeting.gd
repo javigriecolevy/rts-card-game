@@ -21,8 +21,8 @@ static func get_attack_targets(attacker_id: int, game_state: GameState) -> Array
 	
 	return targets
 
-static func _apply_taunt_rule(targets: Array, game_state: GameState):
-	var entities_with_taunt: Array = []
+static func _apply_taunt_rule(targets: Array[int], game_state: GameState) -> Array[int]:
+	var entities_with_taunt: Array[int] = []
 	var taunt_filter: TargetFilter = HasEnchantmentFilter.new(TauntEnchantment)
 	for entity_id in targets:
 		if _passes_filters(game_state.entities.get(entity_id), [taunt_filter]):
@@ -31,7 +31,7 @@ static func _apply_taunt_rule(targets: Array, game_state: GameState):
 		return targets
 	return entities_with_taunt
 
-static func _remove_stealthed(targets: Array[int], game_state: GameState):
+static func _remove_stealthed(targets: Array[int], game_state: GameState) -> Array[int]:
 	var stealth_filter: TargetFilter = HasEnchantmentFilter.new(StealthEnchantment)
 	for entity_id in targets:
 		if _passes_filters(game_state.entities.get(entity_id), [stealth_filter]):

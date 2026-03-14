@@ -139,6 +139,7 @@ func handle_hero_power(event: HeroPowerEvent):
 	# apply its effects
 	for effect in hero.hero_power.effects:
 		effect.source_entity_id = event.player_id
+		effect.source_player_id = event.player_id
 		effect.apply_effect(game_state, event.target_id)
 
 # -------------------------

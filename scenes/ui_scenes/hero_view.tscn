@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://76q8hruljyqo" path="res://ui/hero_view.gd" id="1_2df77"]
 [ext_resource type="Texture2D" uid="uid://dbn2olnp2lvrb" path="res://assets/hero_assets/hero_border.png" id="2_0g6fa"]
 [ext_resource type="Texture2D" uid="uid://da206v861wxhd" path="res://assets/Health.png" id="3_2fvq0"]
-[ext_resource type="PackedScene" uid="uid://coxgp6g43mye6" path="res://scenes/ui/hero_power_view.tscn" id="3_w2vig"]
+[ext_resource type="PackedScene" uid="uid://coxgp6g43mye6" path="res://scenes/ui_scenes/hero_power_view.tscn" id="3_w2vig"]
 [ext_resource type="Texture2D" uid="uid://cy10bo6l578gi" path="res://icon.svg" id="4_hms5n"]
 [ext_resource type="Texture2D" uid="uid://cbh3jtktwekvd" path="res://assets/Armor.png" id="4_pvqkm"]
 [ext_resource type="Texture2D" uid="uid://ccnucfuc3sm7w" path="res://assets/Attack.png" id="4_xfjub"]

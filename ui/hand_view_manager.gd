@@ -14,7 +14,7 @@ func setup(_tick_manager, _local_player_id, _hand_container):
 	hand_container = _hand_container
 
 func create_card(card_instance_id: int):
-	var scene = preload("res://scenes/ui/hand_card_view.tscn")
+	var scene = preload("res://scenes/ui_scenes/hand_card_view.tscn")
 	var view = scene.instantiate()
 	var instance = tick_manager.game_state.card_instances[card_instance_id]
 	view.setup(card_instance_id, instance.definition)
