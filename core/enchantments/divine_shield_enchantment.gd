@@ -1,7 +1,7 @@
 extends ActiveEnchantment
 class_name DivineShieldEnchantment
 
-func _on_ready():
+func _init() -> void:
 	stackable = false
 
 # Absorbs first instance of damage

@@ -1,0 +1,42 @@
+[gd_resource type="Resource" script_class="MinionCardInfo" format=3 uid="uid://beauviq1bfv5d"]
+
+[ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_8e48t"]
+[ext_resource type="Script" uid="uid://bpng4h5x5u6s4" path="res://core/effects/give_burn_effect.gd" id="2_8e48t"]
+[ext_resource type="Script" uid="uid://bh7c31objb8tw" path="res://core/effects/select_random_target_effect.gd" id="3_2dqoc"]
+[ext_resource type="Script" uid="uid://k5pl2ei0nb7f" path="res://core/enchantments/enchantment.gd" id="4_ffrwp"]
+[ext_resource type="Script" uid="uid://b5d8j7lm45poq" path="res://cards/card_info/minion_card_info.gd" id="5_0yahc"]
+[ext_resource type="Script" uid="uid://bmcwxpgl4selc" path="res://core/targeting/target_filter.gd" id="6_84twh"]
+
+[sub_resource type="Resource" id="Resource_4g0o1"]
+script = ExtResource("2_8e48t")
+duration_amount = 3
+metadata/_custom_type_script = "uid://bpng4h5x5u6s4"
+
+[sub_resource type="Resource" id="Resource_txms7"]
+script = ExtResource("3_2dqoc")
+target_type = 2
+effect = SubResource("Resource_4g0o1")
+trigger = 2
+metadata/_custom_type_script = "uid://bh7c31objb8tw"
+
+[sub_resource type="Resource" id="Resource_2dqoc"]
+script = ExtResource("2_8e48t")
+duration_amount = 3
+metadata/_custom_type_script = "uid://bpng4h5x5u6s4"
+
+[sub_resource type="Resource" id="Resource_4ghle"]
+script = ExtResource("3_2dqoc")
+target_type = 2
+effect = SubResource("Resource_2dqoc")
+trigger = 1
+metadata/_custom_type_script = "uid://bh7c31objb8tw"
+
+[resource]
+script = ExtResource("5_0yahc")
+attack = 3
+health = 3
+id = "overcooker"
+display_name = "overcooker"
+cost = 5
+effects = Array[ExtResource("1_8e48t")]([SubResource("Resource_txms7"), SubResource("Resource_4ghle")])
+description = "Battlecry AND Deathrattle: deal 3 burn to a random enemy minion"

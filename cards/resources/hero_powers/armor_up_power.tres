@@ -13,5 +13,6 @@ metadata/_custom_type_script = "uid://dmn3llxhtbp27"
 [resource]
 script = ExtResource("3_se30d")
 display_name = "Armor Up"
+description = "Gain 2 armor"
 effects = Array[ExtResource("1_te5ig")]([SubResource("Resource_kfnbb")])
 metadata/_custom_type_script = "uid://bs5kvfagybwou"

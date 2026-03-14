@@ -78,7 +78,8 @@ shader_parameter/glow_radius = 10.0
 shader_parameter/glow_strength = 0.0
 shader_parameter/pulse_speed = 0.0
 
-[node name="HeroView" type="Button" unique_id=137052355 node_paths=PackedStringArray("hero_power_button", "TargettedGlow", "HealthLabel", "ArmorLabel", "AttackLabel", "ArmorBG", "AttackBG", "HeroArt")]
+[node name="HeroView" type="Button" unique_id=137052355 node_paths=PackedStringArray("hero_power_button", "TargettedGlow", "HealthLabel", "ArmorLabel", "AttackLabel", "ArmorBG", "AttackBG", "HeroArt", "HeroPower")]
+z_index = -5
 custom_minimum_size = Vector2(160, 235)
 offset_left = -6.0
 offset_top = 3.0
@@ -95,6 +96,7 @@ AttackLabel = NodePath("StatsLayer/AttackLabel")
 ArmorBG = NodePath("StatsLayer/ArmorBG")
 AttackBG = NodePath("StatsLayer/AttackBG")
 HeroArt = NodePath("HeroArtContainer/HeroArt")
+HeroPower = NodePath("HeroPowerButton")
 
 [node name="HeroBorder" type="TextureRect" parent="." unique_id=171928126]
 use_parent_material = true

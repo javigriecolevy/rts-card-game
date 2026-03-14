@@ -27,5 +27,11 @@ func remove_card(card_instance_id: int):
 		card_nodes[card_instance_id].queue_free()
 		card_nodes.erase(card_instance_id)
 
+func update_afford_glow():
+	for card_instance_id: int in card_nodes.keys():
+		var game_state: GameState = tick_manager.game_state
+		var card_instance: CardInstance = game_state.card_instances.get(card_instance_id)
+		card_nodes[card_instance_id].update_can_afford_glow(card_instance.definition.cost <= game_state.mana[local_player_id])
+
 func _on_card_clicked(card_instance_id: int):
 	emit_signal("card_clicked", card_instance_id)

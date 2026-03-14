@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://k4b70hmpphyg" path="res://assets/card_assets/minion_border.png" id="2_gk52o"]
 [ext_resource type="PackedScene" uid="uid://34y2b7tnu5cy" path="res://scenes/ui_scenes/circular_timer.tscn" id="4_8stor"]
 
-[sub_resource type="Shader" id="Shader_8sn2j"]
+[sub_resource type="Shader" id="Shader_8stor"]
 code = "shader_type canvas_item;
 
 uniform vec4 glow_color : source_color = vec4(0.2, 1.0, 0.2, 1.0);
@@ -57,14 +57,14 @@ void fragment() {
 }"
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_octte"]
-shader = SubResource("Shader_8sn2j")
+shader = SubResource("Shader_8stor")
 shader_parameter/glow_color = Color(0, 1, 0, 1)
 shader_parameter/glow_radius = 10.0
 shader_parameter/glow_strength = 0.0
 shader_parameter/pulse_speed = 0.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8sn2j"]
-shader = SubResource("Shader_8sn2j")
+shader = SubResource("Shader_8stor")
 shader_parameter/glow_color = Color(7.70092e-07, 0.8831871, 0.9334329, 1)
 shader_parameter/glow_radius = 10.0
 shader_parameter/glow_strength = 0.0

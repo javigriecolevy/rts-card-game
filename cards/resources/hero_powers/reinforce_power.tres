@@ -14,5 +14,6 @@ metadata/_custom_type_script = "uid://bxikxkghrdmfh"
 [resource]
 script = ExtResource("3_ihdm2")
 display_name = "Reinforce!"
+description = "Summon a 1/1 Silver Hand Recruid"
 effects = Array[ExtResource("1_14ucp")]([SubResource("Resource_7p10u")])
 metadata/_custom_type_script = "uid://bs5kvfagybwou"

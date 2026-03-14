@@ -32,13 +32,15 @@ func setup_players(player_ids: Array, starting_deck: Dictionary[int, Array]) -> 
 
 		# -------------------------
 		# Mana
-		game_state.max_mana[pid] = 1
-		game_state.mana[pid] = 1
+		game_state.max_mana[pid] = 0
+		game_state.mana[pid] = 0
 
 		# -------------------------
 		# Board
 		game_state.boards[pid] = []
-
+	
+	for i in range(3):
+		game_state.event_resolver.card_manager.draw_for_all_players()
 # -------------------------
 # Starting deck
 func _create_starting_deck(player_id: int, starting_decks: Dictionary) -> Deck:

@@ -1,6 +1,9 @@
 extends ActiveEnchantment
 class_name PoisonEnchantment
 
+func _init() -> void:
+	stackable = false
+
 # Kills any minion damaged by this
 func on_damage_dealt(_entity_id: int, game_state: GameState, target_id: int):
 	if game_state.entities.get(target_id) is Minion:

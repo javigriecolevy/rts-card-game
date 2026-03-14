@@ -24,7 +24,7 @@ func setup(minion: Minion):
 	card_view.minion_setup()
 	update_stats(minion)
 	for enchantment in minion.enchantments:
-		add_enchantment_timer(minion.id)
+		add_enchantment_timer()
 
 func update_stats(minion: Minion):
 	card_view.HealthLabel.text = str(minion.health)
@@ -57,16 +57,17 @@ func update_timers(tick: int, minion: Minion):
 
 func update_enchantments_timers(tick: int, minion: Minion):
 	for i in range(enchantments_container.get_child_count() - 1, -1, -1):
-		var enchantment = minion.enchantments[i]
-		if enchantment.expires_at_tick:
-			var timer = enchantments_container.get_child(i)
-			var remaining = enchantment.expires_at_tick - tick
-			var duration = enchantment.expires_at_tick - enchantment.applied_at_tick
-			var progress = 1.0 - float(remaining) / duration
-			timer.set_progress(progress)
-			if remaining <= 1:
-				enchantments_container.get_child(i).queue_free()
-				print("REMOVED TIMER ENCHANTMENT")
+		if i <  minion.enchantments.size():
+			var enchantment = minion.enchantments[i]
+			if enchantment.expires_at_tick:
+				var timer = enchantments_container.get_child(i)
+				var remaining = enchantment.expires_at_tick - tick
+				var duration = enchantment.expires_at_tick - enchantment.applied_at_tick
+				var progress = 1.0 - float(remaining) / duration
+				timer.set_progress(progress)
+				if remaining <= 1:
+					enchantments_container.get_child(i).queue_free()
+					print("REMOVED TIMER ENCHANTMENT")
 
 func update_attack_timer(tick: int, minion: Minion):
 	if minion.ready_at_tick <= tick:
@@ -77,7 +78,7 @@ func update_attack_timer(tick: int, minion: Minion):
 	var progress = 1.0 - float(remaining) / minion.attack_cooldown
 	attack_timer.set_progress(progress)
 
-func add_enchantment_timer(minion_id: int):
+func add_enchantment_timer():
 	print("adding timer enchantment!")
 	var new_timer: CircularTimer = CircularTimerScene.instantiate()
 	new_timer.visible = true

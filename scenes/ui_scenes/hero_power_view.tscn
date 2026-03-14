@@ -43,3 +43,25 @@ texture = ExtResource("2_ry5b3")
 expand_mode = 1
 stretch_mode = 6
 metadata/_edit_lock_ = true
+
+[node name="DescriptionLabel" type="Label" parent="." unique_id=700584255]
+layout_mode = 0
+offset_left = -9.0
+offset_top = 94.0
+offset_right = 142.0
+offset_bottom = 153.0
+text = "this hero power does nuffin"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="CostLabel" type="Label" parent="." unique_id=1717931391]
+layout_mode = 0
+offset_left = 43.0
+offset_top = -10.0
+offset_right = 84.0
+offset_bottom = 14.0
+text = "$"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2

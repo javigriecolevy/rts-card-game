@@ -132,4 +132,4 @@ func _on_hero_power_clicked(hero_id: int):
 
 func _on_enchantment_applied(entity_id: int):
 	if tick_manager.game_state.entities.get(entity_id) is Minion:
-		entity_nodes[entity_id].add_enchantment_timer(entity_id)
+		entity_nodes[entity_id].add_enchantment_timer()

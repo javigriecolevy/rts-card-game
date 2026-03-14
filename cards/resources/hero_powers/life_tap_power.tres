@@ -18,5 +18,6 @@ metadata/_custom_type_script = "uid://cpmjep3modj5w"
 [resource]
 script = ExtResource("3_wef7f")
 display_name = "Life tap"
+description = "Deal 2 damage to yourself, draw a card"
 effects = Array[ExtResource("1_ty6ga")]([SubResource("Resource_ysrvc"), SubResource("Resource_wef7f")])
 metadata/_custom_type_script = "uid://bs5kvfagybwou"

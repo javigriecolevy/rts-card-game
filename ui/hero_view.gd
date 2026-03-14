@@ -14,6 +14,7 @@ class_name HeroView
 @export var AttackBG : TextureRect
 
 @export var HeroArt : TextureRect
+@export var HeroPower: Button
 
 var entity_id: int
 
@@ -31,6 +32,9 @@ func setup(hero: Hero):
 	if ResourceLoader.exists(art_path):
 		HeroArt.texture = load(art_path)
 	update_stats(hero)
+	
+	HeroPower.find_child("DescriptionLabel").text = str(hero.hero_power.description)
+	HeroPower.find_child("CostLabel").text = str(hero.hero_power.cost)
 
 func update_stats(hero: Hero):
 	HealthLabel.text = str(hero.health)

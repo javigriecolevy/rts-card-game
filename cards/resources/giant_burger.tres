@@ -1,0 +1,36 @@
+[gd_resource type="Resource" script_class="MinionCardInfo" format=3 uid="uid://3ca4na5jle6b"]
+
+[ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_4ghle"]
+[ext_resource type="Script" uid="uid://d0yjrjd82q010" path="res://core/effects/give_divine_shield_effect.gd" id="2_072nk"]
+[ext_resource type="Script" uid="uid://bh7c31objb8tw" path="res://core/effects/select_random_target_effect.gd" id="3_0b6yi"]
+[ext_resource type="Script" uid="uid://k5pl2ei0nb7f" path="res://core/enchantments/enchantment.gd" id="4_66di1"]
+[ext_resource type="Script" uid="uid://b5d8j7lm45poq" path="res://cards/card_info/minion_card_info.gd" id="5_7t3u3"]
+[ext_resource type="Script" uid="uid://bmcwxpgl4selc" path="res://core/targeting/target_filter.gd" id="6_rw35n"]
+
+[sub_resource type="Resource" id="Resource_d1xxo"]
+script = ExtResource("2_072nk")
+metadata/_custom_type_script = "uid://d0yjrjd82q010"
+
+[sub_resource type="Resource" id="Resource_txms7"]
+script = ExtResource("3_0b6yi")
+target_type = 1
+effect = SubResource("Resource_d1xxo")
+trigger = 2
+metadata/_custom_type_script = "uid://bh7c31objb8tw"
+
+[sub_resource type="Resource" id="Resource_4ghle"]
+script = ExtResource("3_0b6yi")
+target_type = 1
+effect = SubResource("Resource_d1xxo")
+trigger = 1
+metadata/_custom_type_script = "uid://bh7c31objb8tw"
+
+[resource]
+script = ExtResource("5_7t3u3")
+attack = 7
+health = 7
+id = "giant_burger"
+display_name = "Giant Burger"
+cost = 7
+effects = Array[ExtResource("1_4ghle")]([SubResource("Resource_txms7"), SubResource("Resource_4ghle")])
+description = "Battlecry AND Deathrattle: Give a random friendly minion Divine Shield"

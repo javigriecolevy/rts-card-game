@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="MinionCardInfo" format=3 uid="uid://b7x0itatrpsi0"]
+
+[ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_t2fbd"]
+[ext_resource type="Script" uid="uid://mv2ifkhh8y8m" path="res://core/effects/set_stat_effect.gd" id="2_2s6l2"]
+[ext_resource type="Script" uid="uid://k5pl2ei0nb7f" path="res://core/enchantments/enchantment.gd" id="4_8lhx4"]
+[ext_resource type="Script" uid="uid://b5d8j7lm45poq" path="res://cards/card_info/minion_card_info.gd" id="5_26d81"]
+[ext_resource type="Script" uid="uid://bmcwxpgl4selc" path="res://core/targeting/target_filter.gd" id="6_j8m0t"]
+
+[sub_resource type="Resource" id="Resource_t2fbd"]
+script = ExtResource("2_2s6l2")
+attack = 1
+trigger = 1
+metadata/_custom_type_script = "uid://mv2ifkhh8y8m"
+
+[resource]
+script = ExtResource("5_26d81")
+attack = 3
+health = 3
+id = "aldor_peacekeeper"
+display_name = "Aldor Peacekeeper"
+cost = 3
+effects = Array[ExtResource("1_t2fbd")]([SubResource("Resource_t2fbd")])
+target_type = 2
+target_optional = true
+description = "Battlecry: Change an enemy minions attack to 1"

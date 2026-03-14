@@ -54,6 +54,7 @@ func _on_card_clicked(card_instance_id: int):
 			_reset_card_selection()
 	else:
 		state = SelectionState.SELECTING_CARD_TARGET
+		hand_manager.card_nodes[selected_card_id].is_selected(true)
 		_emit_targets()
 
 func _on_minion_clicked(minion_id: int):
@@ -134,6 +135,9 @@ func _reset_attack_selection():
 	_clear_targets()
 
 func _reset_card_selection():
+	if state == SelectionState.SELECTING_CARD_TARGET:
+		hand_manager.card_nodes[selected_card_id].is_selected(false)
+	
 	selected_card_id = -1
 	state = SelectionState.IDLE
 	_clear_targets()

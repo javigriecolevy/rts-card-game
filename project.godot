@@ -25,6 +25,7 @@ card_database="*uid://bkr8u1mbr4kcv"
 
 [display]
 
-window/size/viewport_height=800
+window/size/viewport_width=1500
+window/size/viewport_height=1000
 window/stretch/mode="viewport"
 window/vsync/vsync_mode=0

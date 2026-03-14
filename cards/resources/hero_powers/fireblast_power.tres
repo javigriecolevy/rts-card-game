@@ -13,6 +13,7 @@ metadata/_custom_type_script = "uid://bpng4h5x5u6s4"
 [resource]
 script = ExtResource("3_c31u1")
 display_name = "Fire Blast"
+description = "deal 1 burn to target"
 target_type = 6
 effects = Array[ExtResource("1_x5tsa")]([SubResource("Resource_ed6ms")])
 metadata/_custom_type_script = "uid://bs5kvfagybwou"

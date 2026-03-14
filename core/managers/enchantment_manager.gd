@@ -19,10 +19,12 @@ func apply_enchantment(entity_id: int, new_enchantment: Enchantment):
 	if not new_enchantment.stackable:
 		for existing_enchantment in entity.enchantments:
 			if existing_enchantment.get_script() == new_enchantment.get_script():
-				existing_enchantment.expires_at_tick = existing_enchantment.expires_at_tick + new_enchantment.expires_at_tick - game_state.tick
+				if existing_enchantment.expires_at_tick:
+					existing_enchantment.expires_at_tick = existing_enchantment.expires_at_tick + new_enchantment.expires_at_tick - game_state.tick
 				recalculate_entity(entity)
 				register_enchantments(entity_id)
 				return
+				
 	new_enchantment.applied_at_tick = game_state.tick
 	entity.enchantments.append(new_enchantment)
 	recalculate_entity(entity)

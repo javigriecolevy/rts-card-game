@@ -2,6 +2,7 @@ extends Resource
 class_name HeroPowerInfo
 
 @export var display_name: String = "hero power"
+@export var description : String = "This hero power does nothin"
 
 @export var cost : int = 2
 @export var cooldown : int = 15

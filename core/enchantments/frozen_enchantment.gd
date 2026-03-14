@@ -1,7 +1,7 @@
 extends ActiveEnchantment
 class_name FrozenEnchantment
 
-func _on_ready():
+func _init() -> void:
 	stackable = false
 
 # Frozen entities cant attack and its attack cooldown timer doesnt go down
