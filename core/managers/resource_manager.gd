@@ -48,7 +48,7 @@ func _create_starting_deck(player_id: int, starting_decks: Dictionary) -> Deck:
 	var cards : Array = []
 	
 	for id in card_ids:
-		cards.append(card_database.get_card(id))
+		cards.append(card_database.get_card_by_id(id))
 	
 	return Deck.new(cards)
 

@@ -70,7 +70,7 @@ func handle_damage(event: DamageEvent) -> void:
 # Handle minion summon
 func handle_summon(event: SummonEvent):
 	var player_id = event.player_id
-	var minion: Minion = Minion.new_from_card(card_database.get_card(event.card_db_id), player_id, event.tick)
+	var minion: Minion = Minion.new_from_card(card_database.get_card_by_id(event.card_db_id), player_id, event.tick)
 	minion.id = game_state._allocate_entity_id()
 	
 	game_state.entities[minion.id] = minion

@@ -15,3 +15,5 @@ class_name CardInfo
 @export var target_optional: bool = false
 
 @export var description: String
+
+@export var class_type: CardAttributes.CLASS

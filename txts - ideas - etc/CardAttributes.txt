@@ -1,0 +1,63 @@
+class_name CardAttributes
+
+##METHOD 1:
+const COST_1 = 1 << 0
+const COST_2 = 1 << 1
+const COST_3 = 1 << 2
+##PROS: 
+# Usage: card.attributes & CardAttribute.COST_2 != 0
+##CONS:
+# Manual string mapping from json file to attribute consts
+# Massive table somewhere with all the consts manually defined and manually bit shifted
+
+##METHOD 2:
+enum Attributes { COST_1, COST_2, COST_3}
+var flags: Dictionary[Attributes, int] = {} # Attribute -> bit flag value
+##PROS:
+# adding/removing attributes is just modyfying the attribute enum
+##CONS:
+# Usage: card.atributes & CardAtribute.flags[CardAtribute.Attributes.COST_2] != 0
+# massive enum with all attributes
+# "manual" string mapping
+
+##METHOD 3:
+enum class AttributeCategory {
+    COST,
+    CLASS,
+    TRIBE,
+    BATTLECRY
+    // Add more categories here
+};
+
+// Helper function to automatically assign unique bit positions
+template <AttributeCategory category>
+struct AttributeFlag {
+    static constexpr int get() {
+        return 1 << (static_cast<int>(category) * 8 + currentOffset++);
+    }
+
+    // A static variable to keep track of the offset within each category
+    static inline int currentOffset = 0;
+};
+
+// Automatically generate attributes for each category
+enum class CostAttribute {
+    COST_1 = AttributeFlag<AttributeCategory::COST>::get(),
+    COST_2 = AttributeFlag<AttributeCategory::COST>::get(),
+    COST_3 = AttributeFlag<AttributeCategory::COST>::get(),
+    COST_4 = AttributeFlag<AttributeCategory::COST>::get()
+};
+
+enum class ClassAttribute {
+    MAGE = AttributeFlag<AttributeCategory::CLASS>::get(),
+    WARRIOR = AttributeFlag<AttributeCategory::CLASS>::get()
+};
+
+enum class TribeAttribute {
+    BEAST = AttributeFlag<AttributeCategory::TRIBE>::get(),
+    DRAGON = AttributeFlag<AttributeCategory::TRIBE>::get()
+};
+
+enum class BattlecryAttribute {
+    DESTROY_PIRATE = AttributeFlag<AttributeCategory::BATTLECRY>::get()
+};
