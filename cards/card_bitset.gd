@@ -26,7 +26,7 @@ func to_indices() -> Array:
 				indices.append(base + bit)
 	return indices
 	
-func _bitand(other: CardBitset) -> CardBitset:
+func _and(other: CardBitset) -> CardBitset:
 	var result = CardBitset.new()
 	result.bitset.resize(max(bitset.size(), other.bitset.size()))
 	
@@ -41,6 +41,10 @@ func _bitand(other: CardBitset) -> CardBitset:
 		result.bitset[i] = a & b
 	
 	return result
+
+func get_size() -> int:
+	return bitset.size() * 64
+
 #
 ## Bitwise AND with another CardBitset (returns new CardBitset)
 #func and_bitset(other: CardBitset) -> CardBitset:

@@ -6,15 +6,29 @@ var card_id_to_index: Dictionary[String, int] = {} # id(internal name) -> index
 var index_to_card: Dictionary[int, CardInfo] = {}  # index -> CardInfo Resource
 
 # Bitset flag mapping
-var by_cost: Dictionary[int, CardBitset] = {}                       # cost->card index array
-var by_class: Dictionary[CardAttributes.CLASS, CardBitset] = {}     # class->card index array
-var by_tribe: Dictionary[CardAttributes.TRIBE, CardBitset] = {}     # tribe->card index array
-var by_keyword: Dictionary[CardAttributes.KEYWORD, CardBitset] = {} # keyword->card index array
+var by_cost: Dictionary[int, CardBitset] = {}                       # cost -> card index array
+var by_class: Dictionary[CardAttributes.CLASS, CardBitset] = {}     # class -> card index array
+var by_type: Dictionary[CardAttributes.CARDTYPE, CardBitset] = {} 	# cardtype -> card index array
+var by_tribe: Dictionary[CardAttributes.TRIBE, CardBitset] = {}     # tribe -> card index array
+var by_keyword: Dictionary[CardAttributes.KEYWORD, CardBitset] = {} # keyword -> card index array
 
 # Bitset helper class
 var card_bitset: CardBitset
 
 func _ready():
+	
+	# -------------------------
+	# Initilize all dictionaries as empty card bitsets
+	for cost in range(0, 11):  # Change range if any card costs more than 10
+		by_cost[cost] = CardBitset.new()
+	for class_type in CardAttributes.CLASS.values():
+		by_class[class_type] = CardBitset.new()
+	for type in CardAttributes.CARDTYPE.values():
+		by_type[type] = CardBitset.new()
+	for tribe in CardAttributes.TRIBE.values():
+		by_tribe[tribe] = CardBitset.new()
+	for keyword in CardAttributes.KEYWORD.values():
+		by_keyword[keyword] = CardBitset.new()
 	_load_cards()
 	print("CardDatabase loaded:", card_id_to_index.keys())
 
@@ -51,18 +65,15 @@ func register_card(card_res: CardInfo, index: int):
 	card_id_to_index[card_res.id] = index
 	index_to_card[index] = card_res
 	
-	if not by_cost.has(card_res.cost):
-		by_cost[card_res.cost] = CardBitset.new()
 	by_cost[card_res.cost].set_bit(index)
-	
-	if not by_class.has(card_res.class_type):
-		by_class[card_res.class_type] = CardBitset.new()
 	by_class[card_res.class_type].set_bit(index)
-	
-	#if card_res is MinionCardInfo:
-		#if not by_tribe.has(card_res.tribe):
-			#by_tribe[card_res.tribe] = CardBitset.new()
-		#by_tribe[card_res.tribe].set_bit(index)
+	if card_res is MinionCardInfo:
+		by_type[CardAttributes.CARDTYPE.MINION].set_bit(index)
+		by_tribe[card_res.tribe].set_bit(index)
+#	elif card_res is WeaponCardInfo:
+#		by_type[CardAttributes.CARDTYPE.WEAPON].set_bit(index)
+	elif card_res is CardInfo:
+		by_type[CardAttributes.CARDTYPE.SPELL].set_bit(index)
 
 # -------------------------
 # Get a card by ID
@@ -84,11 +95,15 @@ func get_card_by_index(index: int) -> CardInfo:
 # -------------------------
 # bitset filtering
 func get_random_card_from_bitset(bitset: CardBitset, rng: RandomNumberGenerator) -> CardInfo:
-	var cards_array: Array[CardInfo] = get_cards_from_bitset(bitset)
-	if cards_array.size() == 0:
-		return null
-	var random_index: int = rng.randi_range(0, cards_array.size() - 1)
-	return cards_array[random_index]
+	var set_indices = bitset.to_indices()
+	var num_set_bits = set_indices.size()
+	if num_set_bits == 0: # EMPTY BITSET, GAME WILL CRASH
+		return null # TODO: return easter egg card (will prevent crash)
+	
+	var random_index = rng.randi_range(0, num_set_bits - 1)
+	var set_index = set_indices[random_index]
+	 
+	return get_card_by_index(set_index)
 
 func get_cards_from_bitset(bitset: CardBitset) -> Array[CardInfo]:
 	var cards_array: Array[CardInfo] = []
@@ -100,21 +115,13 @@ func get_cards_from_bitset(bitset: CardBitset) -> Array[CardInfo]:
 	return cards_array
 
 func get_bitset_by_cost(cost: int) -> CardBitset:
-	if cost in by_cost:
-		return by_cost[cost]
-	return CardBitset.new()  # empty bitset if no cards
+	return by_cost[cost]
 
 func get_bitset_by_class(class_type: CardAttributes.CLASS) -> CardBitset:
-	if class_type in by_class:
-		return by_class[class_type]
-	return CardBitset.new()
+	return by_class[class_type]
 
 func get_bitset_by_tribe(tribe: CardAttributes.TRIBE) -> CardBitset:
-	if tribe in by_tribe:
-		return by_tribe[tribe]
-	return CardBitset.new()
+	return by_tribe[tribe]
 
 func get_bitset_by_keyword(keyword: CardAttributes.KEYWORD) -> CardBitset:
-	if keyword in by_keyword:
-		return by_keyword[keyword]
-	return CardBitset.new()
+	return by_keyword[keyword]

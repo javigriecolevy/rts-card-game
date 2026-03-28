@@ -16,4 +16,5 @@ class_name CardInfo
 
 @export var description: String
 
-@export var class_type: CardAttributes.CLASS
+@export var class_type: CardAttributes.CLASS = CardAttributes.CLASS.NEUTRAL
+@export var collectible: bool = true
