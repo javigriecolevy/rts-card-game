@@ -4,6 +4,7 @@ class_name DamageEffect
 # -------------------------
 # Config
 @export var amount: int = 0
+@export var reason: DamageEvent.DAMAGE_REASON = DamageEvent.DAMAGE_REASON.COMBAT
 
 # -------------------------
 # Queue damage event
@@ -16,6 +17,7 @@ func apply_effect(game_state: GameState, target_id: int) -> void:
 				source_entity_id,
 				target_id,
 				amount,
-				game_state.tick
+				game_state.tick,
+				reason
 			)
 		)

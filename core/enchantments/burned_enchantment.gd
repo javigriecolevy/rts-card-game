@@ -15,5 +15,8 @@ func _init() -> void:
 func on_tick(entity_id: int, game_state: GameState) -> void:
 	if (game_state.tick + applied_at_tick) % TICKS_PER_SECOND == 0:
 		var entity: Entity = game_state.entities.get(entity_id)
-		var damage_entity: DamageEvent = DamageEvent.new(entity.owner_id, entity_id, damage, game_state.tick)
+		var damage_entity: DamageEvent = DamageEvent.new(entity.owner_id, 
+														entity_id, damage, 
+														game_state.tick,
+														DamageEvent.DAMAGE_REASON.BURN)
 		game_state.event_resolver.add_event(damage_entity)

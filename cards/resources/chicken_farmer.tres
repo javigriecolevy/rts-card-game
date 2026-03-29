@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://bxikxkghrdmfh" path="res://core/effects/summon_effect.gd" id="3_qy1gu"]
 [ext_resource type="Script" uid="uid://b5d8j7lm45poq" path="res://cards/card_info/minion_card_info.gd" id="5_blstd"]
 [ext_resource type="Script" uid="uid://k5pl2ei0nb7f" path="res://core/enchantments/enchantment.gd" id="5_qy1gu"]
+[ext_resource type="Script" uid="uid://bmcwxpgl4selc" path="res://core/targeting/target_filter.gd" id="7_ql0i0"]
 
 [sub_resource type="Resource" id="Resource_qy1gu"]
 script = ExtResource("3_qy1gu")

@@ -44,24 +44,3 @@ func _and(other: CardBitset) -> CardBitset:
 
 func get_size() -> int:
 	return bitset.size() * 64
-
-#
-## Bitwise AND with another CardBitset (returns new CardBitset)
-#func and_bitset(other: CardBitset) -> CardBitset:
-	#var result = CardBitset.new()
-	#var max_len = max(bitset.size(), other.bitset.size())
-	#for i in range(max_len):
-		#var a = i < bitset.size() ? bitset[i] : 0
-		#var b = i < other.bitset.size() ? other.bitset[i] : 0
-		#result.bitset.append(a & b)
-	#return result
-#
-## Bitwise OR with another CardBitset (returns new CardBitset)
-#func or_bitset(other: CardBitset) -> CardBitset:
-	#var result = CardBitset.new()
-	#var max_len = max(bitset.size(), other.bitset.size())
-	#for i in range(max_len):
-		#var a = i < bitset.size() ? bitset[i] : 0
-		#var b = i < other.bitset.size() ? other.bitset[i] : 0
-		#result.bitset.append(a | b)
-	#return result
