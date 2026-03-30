@@ -3,17 +3,28 @@
 [ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_801rn"]
 [ext_resource type="Script" uid="uid://3fbtucrkf77v" path="res://core/effects/add_stat_effect.gd" id="2_ba4q6"]
 [ext_resource type="Script" uid="uid://cpmjep3modj5w" path="res://core/effects/draw_card_effect.gd" id="3_3pehv"]
+[ext_resource type="Script" uid="uid://bjfsu75kfh488" path="res://core/effects/triggers/effect_trigger.gd" id="3_043t7"]
 [ext_resource type="Script" uid="uid://cn5wuprk57deq" path="res://cards/card_info/_card_info.gd" id="3_mew4i"]
 [ext_resource type="Script" uid="uid://bmcwxpgl4selc" path="res://core/targeting/target_filter.gd" id="4_3pehv"]
+
+[sub_resource type="Resource" id="Resource_f7adf"]
+script = ExtResource("3_043t7")
+metadata/_custom_type_script = "uid://bjfsu75kfh488"
 
 [sub_resource type="Resource" id="Resource_043t7"]
 script = ExtResource("2_ba4q6")
 attack = 2
 health = 1
+trigger = SubResource("Resource_f7adf")
 metadata/_custom_type_script = "uid://3fbtucrkf77v"
+
+[sub_resource type="Resource" id="Resource_01ryo"]
+script = ExtResource("3_043t7")
+metadata/_custom_type_script = "uid://bjfsu75kfh488"
 
 [sub_resource type="Resource" id="Resource_flnwj"]
 script = ExtResource("3_3pehv")
+trigger = SubResource("Resource_01ryo")
 metadata/_custom_type_script = "uid://cpmjep3modj5w"
 
 [resource]

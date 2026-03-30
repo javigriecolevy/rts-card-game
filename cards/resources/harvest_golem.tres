@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://bxikxkghrdmfh" path="res://core/effects/summon_effect.gd" id="3_7ksnc"]
 [ext_resource type="Script" uid="uid://bqrbfpci0xk35" path="res://core/effects/random_repeat_effect.gd" id="4_i1vw0"]
 [ext_resource type="Script" uid="uid://k5pl2ei0nb7f" path="res://core/enchantments/enchantment.gd" id="5_0fdji"]
+[ext_resource type="Script" uid="uid://cacyetu3vvsa1" path="res://core/effects/triggers/deathrattle_trigger.gd" id="5_vn7t8"]
 [ext_resource type="Script" uid="uid://b5d8j7lm45poq" path="res://cards/card_info/minion_card_info.gd" id="6_rq6yy"]
 [ext_resource type="Script" uid="uid://bmcwxpgl4selc" path="res://core/targeting/target_filter.gd" id="7_6drba"]
 
@@ -13,12 +14,16 @@ script = ExtResource("3_7ksnc")
 card = ExtResource("2_1g5oh")
 metadata/_custom_type_script = "uid://bxikxkghrdmfh"
 
+[sub_resource type="Resource" id="Resource_i1vw0"]
+script = ExtResource("5_vn7t8")
+metadata/_custom_type_script = "uid://cacyetu3vvsa1"
+
 [sub_resource type="Resource" id="Resource_7ksnc"]
 script = ExtResource("4_i1vw0")
 min_amount = 1
 max_amount = 3
 effect = SubResource("Resource_vn7t8")
-trigger = 2
+trigger = SubResource("Resource_i1vw0")
 metadata/_custom_type_script = "uid://bqrbfpci0xk35"
 
 [resource]

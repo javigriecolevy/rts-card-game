@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://bqrbfpci0xk35" path="res://core/effects/random_repeat_effect.gd" id="3_a14jp"]
 [ext_resource type="Script" uid="uid://bxikxkghrdmfh" path="res://core/effects/summon_effect.gd" id="3_qy1gu"]
 [ext_resource type="Script" uid="uid://b5d8j7lm45poq" path="res://cards/card_info/minion_card_info.gd" id="5_blstd"]
+[ext_resource type="Script" uid="uid://dq36rysdp8dj2" path="res://core/effects/triggers/battlecry_trigger.gd" id="5_hs58m"]
 [ext_resource type="Script" uid="uid://k5pl2ei0nb7f" path="res://core/enchantments/enchantment.gd" id="5_qy1gu"]
 [ext_resource type="Script" uid="uid://bmcwxpgl4selc" path="res://core/targeting/target_filter.gd" id="7_ql0i0"]
 
@@ -13,11 +14,15 @@ script = ExtResource("3_qy1gu")
 card = ExtResource("2_blstd")
 metadata/_custom_type_script = "uid://bxikxkghrdmfh"
 
+[sub_resource type="Resource" id="Resource_wvw06"]
+script = ExtResource("5_hs58m")
+metadata/_custom_type_script = "uid://dq36rysdp8dj2"
+
 [sub_resource type="Resource" id="Resource_blstd"]
 script = ExtResource("3_a14jp")
 min_amount = 1
 effect = SubResource("Resource_qy1gu")
-trigger = 1
+trigger = SubResource("Resource_wvw06")
 metadata/_custom_type_script = "uid://bqrbfpci0xk35"
 
 [resource]

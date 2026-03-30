@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://k5pl2ei0nb7f" path="res://core/enchantments/enchantment.gd" id="2_d1xxo"]
 [ext_resource type="Script" uid="uid://bh7c31objb8tw" path="res://core/effects/select_random_target_effect.gd" id="2_pvi66"]
 [ext_resource type="Script" uid="uid://d0yjrjd82q010" path="res://core/effects/give_divine_shield_effect.gd" id="2_txms7"]
+[ext_resource type="Script" uid="uid://cacyetu3vvsa1" path="res://core/effects/triggers/deathrattle_trigger.gd" id="4_d1xxo"]
 [ext_resource type="Script" uid="uid://b5d8j7lm45poq" path="res://cards/card_info/minion_card_info.gd" id="5_um7b5"]
 [ext_resource type="Script" uid="uid://bmcwxpgl4selc" path="res://core/targeting/target_filter.gd" id="6_gmbek"]
 
@@ -11,10 +12,15 @@
 script = ExtResource("2_txms7")
 metadata/_custom_type_script = "uid://d0yjrjd82q010"
 
+[sub_resource type="Resource" id="Resource_rsrnp"]
+script = ExtResource("4_d1xxo")
+metadata/_custom_type_script = "uid://cacyetu3vvsa1"
+
 [sub_resource type="Resource" id="Resource_d1xxo"]
 script = ExtResource("2_pvi66")
 target_type = 1
 effect = SubResource("Resource_txms7")
+trigger = SubResource("Resource_rsrnp")
 metadata/_custom_type_script = "uid://bh7c31objb8tw"
 
 [resource]

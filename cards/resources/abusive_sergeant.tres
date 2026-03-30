@@ -2,16 +2,20 @@
 
 [ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_wlh2t"]
 [ext_resource type="Script" uid="uid://baniq7kx0indf" path="res://core/effects/add_timed_stats_effect.gd" id="2_7h1v0"]
+[ext_resource type="Script" uid="uid://dq36rysdp8dj2" path="res://core/effects/triggers/battlecry_trigger.gd" id="3_qr4sy"]
 [ext_resource type="Script" uid="uid://k5pl2ei0nb7f" path="res://core/enchantments/enchantment.gd" id="3_v1uvu"]
 [ext_resource type="Script" uid="uid://bmcwxpgl4selc" path="res://core/targeting/target_filter.gd" id="5_mk0dk"]
 [ext_resource type="Script" uid="uid://b5d8j7lm45poq" path="res://cards/card_info/minion_card_info.gd" id="5_y1b5u"]
 
+[sub_resource type="Resource" id="Resource_5vypo"]
+script = ExtResource("3_qr4sy")
+metadata/_custom_type_script = "uid://dq36rysdp8dj2"
+
 [sub_resource type="Resource" id="Resource_wlh2t"]
 script = ExtResource("2_7h1v0")
 attack = 4
-health = null
 duration = 4.0
-trigger = 1
+trigger = SubResource("Resource_5vypo")
 metadata/_custom_type_script = "uid://baniq7kx0indf"
 
 [resource]

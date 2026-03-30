@@ -3,29 +3,50 @@
 [ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_q72ju"]
 [ext_resource type="Script" uid="uid://blome7s1rkwbb" path="res://core/effects/damage_effect.gd" id="2_3hslw"]
 [ext_resource type="Script" uid="uid://dmn3llxhtbp27" path="res://core/effects/gain_armor_effect.gd" id="3_kdv27"]
+[ext_resource type="Script" uid="uid://bjfsu75kfh488" path="res://core/effects/triggers/effect_trigger.gd" id="3_mtyo8"]
 [ext_resource type="Script" uid="uid://bs5kvfagybwou" path="res://cards/card_info/hero_power_info.gd" id="3_s2e4q"]
 [ext_resource type="Script" uid="uid://cpmjep3modj5w" path="res://core/effects/draw_card_effect.gd" id="4_mtyo8"]
 [ext_resource type="Script" uid="uid://bmcwxpgl4selc" path="res://core/targeting/target_filter.gd" id="4_x7218"]
 [ext_resource type="Resource" uid="uid://bsu2oa1lhnv31" path="res://cards/resources/spicy_chicken.tres" id="5_yfvtt"]
 [ext_resource type="Script" uid="uid://bxikxkghrdmfh" path="res://core/effects/summon_effect.gd" id="6_wwtao"]
 
+[sub_resource type="Resource" id="Resource_yfvtt"]
+script = ExtResource("3_mtyo8")
+metadata/_custom_type_script = "uid://bjfsu75kfh488"
+
 [sub_resource type="Resource" id="Resource_jxulh"]
 script = ExtResource("2_3hslw")
 amount = 5
+trigger = SubResource("Resource_yfvtt")
 metadata/_custom_type_script = "uid://blome7s1rkwbb"
+
+[sub_resource type="Resource" id="Resource_wwtao"]
+script = ExtResource("3_mtyo8")
+metadata/_custom_type_script = "uid://bjfsu75kfh488"
 
 [sub_resource type="Resource" id="Resource_y7vfy"]
 script = ExtResource("3_kdv27")
 amount = 5
+trigger = SubResource("Resource_wwtao")
 metadata/_custom_type_script = "uid://dmn3llxhtbp27"
+
+[sub_resource type="Resource" id="Resource_jdsxq"]
+script = ExtResource("3_mtyo8")
+metadata/_custom_type_script = "uid://bjfsu75kfh488"
 
 [sub_resource type="Resource" id="Resource_lswpr"]
 script = ExtResource("4_mtyo8")
+trigger = SubResource("Resource_jdsxq")
 metadata/_custom_type_script = "uid://cpmjep3modj5w"
+
+[sub_resource type="Resource" id="Resource_xm55x"]
+script = ExtResource("3_mtyo8")
+metadata/_custom_type_script = "uid://bjfsu75kfh488"
 
 [sub_resource type="Resource" id="Resource_iv5t1"]
 script = ExtResource("6_wwtao")
 card = ExtResource("5_yfvtt")
+trigger = SubResource("Resource_xm55x")
 metadata/_custom_type_script = "uid://bxikxkghrdmfh"
 
 [resource]

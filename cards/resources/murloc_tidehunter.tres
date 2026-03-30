@@ -4,13 +4,18 @@
 [ext_resource type="Resource" uid="uid://bxysfr115mrbw" path="res://cards/resources/small_burger.tres" id="2_4wqx0"]
 [ext_resource type="Script" uid="uid://k5pl2ei0nb7f" path="res://core/enchantments/enchantment.gd" id="2_jagg0"]
 [ext_resource type="Script" uid="uid://bxikxkghrdmfh" path="res://core/effects/summon_effect.gd" id="3_jagg0"]
+[ext_resource type="Script" uid="uid://dq36rysdp8dj2" path="res://core/effects/triggers/battlecry_trigger.gd" id="4_jagg0"]
 [ext_resource type="Script" uid="uid://b5d8j7lm45poq" path="res://cards/card_info/minion_card_info.gd" id="5_1v8om"]
 [ext_resource type="Script" uid="uid://bmcwxpgl4selc" path="res://core/targeting/target_filter.gd" id="6_3ygyv"]
+
+[sub_resource type="Resource" id="Resource_70sw3"]
+script = ExtResource("4_jagg0")
+metadata/_custom_type_script = "uid://dq36rysdp8dj2"
 
 [sub_resource type="Resource" id="Resource_2mkog"]
 script = ExtResource("3_jagg0")
 card = ExtResource("2_4wqx0")
-trigger = 1
+trigger = SubResource("Resource_70sw3")
 metadata/_custom_type_script = "uid://bxikxkghrdmfh"
 
 [resource]

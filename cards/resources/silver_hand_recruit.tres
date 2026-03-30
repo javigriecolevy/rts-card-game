@@ -12,3 +12,4 @@ health = 1
 id = "silver_hand_recruit"
 display_name = "Silver Hand Recruit!"
 cost = 1
+collectible = false

@@ -3,13 +3,18 @@
 [ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_n4s72"]
 [ext_resource type="Script" uid="uid://3fbtucrkf77v" path="res://core/effects/add_stat_effect.gd" id="2_4ojja"]
 [ext_resource type="Script" uid="uid://k5pl2ei0nb7f" path="res://core/enchantments/enchantment.gd" id="2_x7yvq"]
+[ext_resource type="Script" uid="uid://dq36rysdp8dj2" path="res://core/effects/triggers/battlecry_trigger.gd" id="3_n4s72"]
 [ext_resource type="Script" uid="uid://b5d8j7lm45poq" path="res://cards/card_info/minion_card_info.gd" id="5_5myqr"]
 [ext_resource type="Script" uid="uid://bmcwxpgl4selc" path="res://core/targeting/target_filter.gd" id="6_wms28"]
+
+[sub_resource type="Resource" id="Resource_x7yvq"]
+script = ExtResource("3_n4s72")
+metadata/_custom_type_script = "uid://dq36rysdp8dj2"
 
 [sub_resource type="Resource" id="Resource_n4s72"]
 script = ExtResource("2_4ojja")
 health = 2
-trigger = 1
+trigger = SubResource("Resource_x7yvq")
 metadata/_custom_type_script = "uid://3fbtucrkf77v"
 
 [resource]

@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://bqrbfpci0xk35" path="res://core/effects/random_repeat_effect.gd" id="3_4ncnc"]
 [ext_resource type="Script" uid="uid://bxikxkghrdmfh" path="res://core/effects/summon_effect.gd" id="3_x361h"]
 [ext_resource type="Script" uid="uid://b5d8j7lm45poq" path="res://cards/card_info/minion_card_info.gd" id="5_4ncnc"]
+[ext_resource type="Script" uid="uid://cacyetu3vvsa1" path="res://core/effects/triggers/deathrattle_trigger.gd" id="5_b5u2w"]
 [ext_resource type="Script" uid="uid://k5pl2ei0nb7f" path="res://core/enchantments/enchantment.gd" id="5_x361h"]
 [ext_resource type="Script" uid="uid://bmcwxpgl4selc" path="res://core/targeting/target_filter.gd" id="7_pny4n"]
 
@@ -13,10 +14,14 @@ script = ExtResource("3_x361h")
 card = ExtResource("2_6wkby")
 metadata/_custom_type_script = "uid://bxikxkghrdmfh"
 
+[sub_resource type="Resource" id="Resource_s4lsn"]
+script = ExtResource("5_b5u2w")
+metadata/_custom_type_script = "uid://cacyetu3vvsa1"
+
 [sub_resource type="Resource" id="Resource_x361h"]
 script = ExtResource("3_4ncnc")
 effect = SubResource("Resource_6y0qm")
-trigger = 2
+trigger = SubResource("Resource_s4lsn")
 metadata/_custom_type_script = "uid://bqrbfpci0xk35"
 
 [resource]

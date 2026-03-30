@@ -3,14 +3,20 @@
 [ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_vde0f"]
 [ext_resource type="Script" uid="uid://k5pl2ei0nb7f" path="res://core/enchantments/enchantment.gd" id="2_7gshx"]
 [ext_resource type="Script" uid="uid://3fbtucrkf77v" path="res://core/effects/add_stat_effect.gd" id="2_vde0f"]
+[ext_resource type="Script" uid="uid://dq36rysdp8dj2" path="res://core/effects/triggers/battlecry_trigger.gd" id="3_bpqtj"]
 [ext_resource type="Script" uid="uid://b2gisne4q8qdf" path="res://core/enchantments/divine_shield_enchantment.gd" id="3_vde0f"]
 [ext_resource type="Script" uid="uid://b5d8j7lm45poq" path="res://cards/card_info/minion_card_info.gd" id="5_udik7"]
+[ext_resource type="Script" uid="uid://bmcwxpgl4selc" path="res://core/targeting/target_filter.gd" id="7_op3eg"]
+
+[sub_resource type="Resource" id="Resource_s8qsx"]
+script = ExtResource("3_bpqtj")
+metadata/_custom_type_script = "uid://dq36rysdp8dj2"
 
 [sub_resource type="Resource" id="Resource_dlppw"]
 script = ExtResource("2_vde0f")
 attack = 2
 health = 2
-trigger = 1
+trigger = SubResource("Resource_s8qsx")
 metadata/_custom_type_script = "uid://3fbtucrkf77v"
 
 [sub_resource type="Resource" id="Resource_iiaus"]
@@ -25,5 +31,4 @@ enchantments = Array[ExtResource("2_7gshx")]([SubResource("Resource_iiaus")])
 id = "squire"
 display_name = "Squire"
 cost = 1
-requires_target = true
 effects = Array[ExtResource("1_vde0f")]([SubResource("Resource_dlppw")])

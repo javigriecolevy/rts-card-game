@@ -2,11 +2,17 @@
 
 [ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_aeb2p"]
 [ext_resource type="Script" uid="uid://c1rfq1ms6k2re" path="res://core/effects/summon_random_2_cost_effect.gd" id="2_h7qu8"]
+[ext_resource type="Script" uid="uid://bjfsu75kfh488" path="res://core/effects/triggers/effect_trigger.gd" id="3_3r0yc"]
 [ext_resource type="Script" uid="uid://cn5wuprk57deq" path="res://cards/card_info/_card_info.gd" id="5_nqip2"]
 [ext_resource type="Script" uid="uid://bmcwxpgl4selc" path="res://core/targeting/target_filter.gd" id="6_45aqq"]
 
+[sub_resource type="Resource" id="Resource_aeb2p"]
+script = ExtResource("3_3r0yc")
+metadata/_custom_type_script = "uid://bjfsu75kfh488"
+
 [sub_resource type="Resource" id="Resource_3r0yc"]
 script = ExtResource("2_h7qu8")
+trigger = SubResource("Resource_aeb2p")
 metadata/_custom_type_script = "uid://c1rfq1ms6k2re"
 
 [resource]
