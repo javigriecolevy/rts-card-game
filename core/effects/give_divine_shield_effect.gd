@@ -5,9 +5,10 @@ class_name GiveDivineShieldEffect
 # Config
 @export var duration_amount: int = -1
 const TICKS_PER_SECOND = 100
+
 # -------------------------
-# gives target minion the burned enchantment
-func apply_effect(game_state: GameState, target_id: int) -> void:
+# gives target minion the divine shield enchantment
+func apply_effect(game_state: GameState) -> void:
 	if target_id == -1:
 		return
 	

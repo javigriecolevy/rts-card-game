@@ -9,7 +9,7 @@ class_name AddTimedStatsEffect
 
 # -------------------------
 # adds the attack and health values to the minions stats as buffs for the duration
-func apply_effect(game_state: GameState, target_id: int) -> void:
+func apply_effect(game_state: GameState) -> void:
 	if target_id == -1:
 		return
 	

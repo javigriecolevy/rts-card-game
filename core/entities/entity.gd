@@ -24,6 +24,10 @@ var max_health: int = 0
 var enchantments: Array[Enchantment] = []
 
 # -------------------------
+# Effect list (used on heroes as secrets)
+var effects: Array[Effect] = []
+
+# -------------------------
 # Combat rules
 func can_attack(current_tick: int) -> bool:
 	return current_tick >= ready_at_tick and attack > 0

@@ -7,8 +7,8 @@ class_name SetStatEffect
 @export var health : int = -1
 
 # -------------------------
-# adds the attack and health values to the minions stats as buffs
-func apply_effect(game_state: GameState, target_id: int) -> void:
+# sets the attack and health values to the minions stats as buffs
+func apply_effect(game_state: GameState) -> void:
 	if target_id == -1:
 		return
 	

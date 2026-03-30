@@ -14,6 +14,7 @@ func on_tick(entity_id: int, game_state: GameState) -> void:
 		effect = effect.duplicate()
 		effect.source_entity_id = entity_id
 		effect.source_player_id = game_state.entities.get(entity_id).owner_id
-		effect.apply_effect(game_state, entity_id)
+		effect.target_id = entity_id
+		effect.apply_effect(game_state)
 		applied_at_tick = game_state.tick
 		expires_at_tick += (time_interval * TICKS_PER_SECOND) + 1

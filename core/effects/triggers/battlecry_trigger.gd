@@ -1,0 +1,2 @@
+extends EffectTrigger
+class_name BattlecryTrigger

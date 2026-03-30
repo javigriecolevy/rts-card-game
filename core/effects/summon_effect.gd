@@ -7,8 +7,7 @@ class_name SummonEffect
 
 # -------------------------
 # Summon minion
-func apply_effect(game_state: GameState, _target: int) -> void:
-	#var minion: Minion = Minion.new_from_card(card, source_player_id, game_state.tick)
+func apply_effect(game_state: GameState) -> void:
 	game_state.event_resolver.add_event(
 		SummonEvent.new(
 			source_player_id,

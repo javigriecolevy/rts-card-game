@@ -3,7 +3,7 @@ class_name SummonRandom2CostEffect
 
 # -------------------------
 # Summon minion
-func apply_effect(game_state: GameState, _target: int) -> void:
+func apply_effect(game_state: GameState) -> void:
 	var cost_bitset: CardBitset = card_database.get_bitset_by_cost(2)
 	var class_bitset: CardBitset = card_database.get_bitset_by_class(CardAttributes.CLASS.NEUTRAL)
 	var type_bitset: CardBitset = card_database.by_type[CardAttributes.CARDTYPE.MINION]

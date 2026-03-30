@@ -60,7 +60,7 @@ func handle_damage(event: DamageEvent) -> void:
 		target.health -= damage
 	
 	if target.health <= 0:
-		var death_event: DeathEvent = DeathEvent.new(target.id, event.tick)
+		var death_event: DeathEvent = DeathEvent.new(target.id, event.tick, event.reason)
 		game_state.event_resolver.add_event(death_event)
 		
 	print("%s takes %d damage (%d remaining)"
@@ -69,26 +69,21 @@ func handle_damage(event: DamageEvent) -> void:
 # -------------------------
 # Handle minion summon
 func handle_summon(event: SummonEvent):
-	var player_id = event.player_id
-	var minion: Minion = Minion.new_from_card(card_database.get_card_by_id(event.card_db_id), player_id, event.tick)
+	if game_state.boards[event.player_id].size() >= 7:
+		return
+	
+	var minion: Minion = Minion.new_from_card(card_database.get_card_by_id(event.card_db_id), event.player_id, event.tick)
 	minion.id = game_state._allocate_entity_id()
 	
 	game_state.entities[minion.id] = minion
-	game_state.boards[player_id].append(minion)
+	game_state.boards[event.player_id].append(minion)
 	
-	# Trigger battlecry
-	if event.from_play:
-		for effect: Effect in minion.effects:
-			if effect.trigger == effect.Trigger.BATTLECRY:
-				effect.source_player_id = player_id
-				effect.source_entity_id = minion.id
-				effect.apply_effect(game_state, event.battlecry_target_id)
-
-	# Check for event trigger and add to listener list
 	for effect: Effect in minion.effects:
-		if effect.trigger_event_class:
+		if effect.trigger is BattlecryTrigger:
 			effect.source_player_id = minion.owner_id
-			_register_listener(effect.trigger_event_class, effect)
+			effect.source_entity_id = minion.id
+			effect.target_id = event.battlecry_target_id
+			effect.apply_effect(game_state)
 	
 	game_state.enchantment_manager.register_enchantments(minion.id)
 
@@ -100,25 +95,17 @@ func handle_death(event: DeathEvent) -> void:
 		print("Entity %d not found for death resolution." % event.entity_id)
 		return
 	
-	# Log entity death
 	print("%s has died" % entity.display_name)
-			
-	# Remove entity from all game structures
+	
+	# Remove entity from ALL game structures (board and entity list)
 	game_state.remove_entity(entity)
-	
-	# Apply deathrattle
 	if entity is Minion:
-		for effect in entity.effects:
-			# Check for deathrattle
-			if effect.trigger == effect.Trigger.DEATHRATTLE:
-				effect.source_entity_id = entity.id
+		for effect: Effect in entity.effects:
+			if effect.trigger is DeathrattleTrigger:
 				effect.source_player_id = entity.owner_id
-				effect.apply_effect(game_state, -1)
-			# Check for event trigger and remove from listener list
-			if effect.trigger_event_class:
-				_unregister_listener(effect.trigger_event_class, effect)
-	
-	if entity is Hero:
+				effect.source_entity_id = entity.owner_id
+				effect.apply_effect(game_state)
+	elif entity is Hero:
 		print("Hero %s has died. Game Over!" % entity.display_name)
 		# TODO: end the game !
 
@@ -140,38 +127,18 @@ func handle_hero_power(event: HeroPowerEvent):
 	for effect in hero.hero_power.effects:
 		effect.source_entity_id = event.player_id
 		effect.source_player_id = event.player_id
-		effect.apply_effect(game_state, event.target_id)
+		effect.target_id = event.target_id
+		effect.apply_effect(game_state)
 
 # -------------------------
-# Register an effect as listener for a specific GameEvent Script
-func _register_listener(event_script: Script, effect: Effect) -> void:
-	if not listeners.has(event_script):
-		listeners[event_script] = []
-	listeners[event_script].append(effect)
-
-# Unregister
-func _unregister_listener(event_script: Script, effect: Effect) -> void:
-	if listeners.has(event_script):
-		listeners[event_script].erase(effect)
-		if listeners[event_script].is_empty():
-			listeners.erase(event_script)
-
-# -------------------------
-# Trigger event-driven effects
-func process_triggers(event: GameEvent) -> void:
-	var event_script: Script = event.get_script()
-	if not listeners.has(event_script):
-		return
-	# Sort listeners deterministically
-	listeners[event_script].sort_custom(self._compare_effects)
-	
-	for effect: Effect in listeners[event_script]:
-		# Apply effect
-		effect.apply_effect(game_state, -1)
-
-func _compare_effects(a: Effect, b: Effect) -> int:
-	# 1. By player ID
-	if a.source_player_id != b.source_player_id:
-		return a.source_player_id - b.source_player_id
-	# 2. By source entity ID
-	return a.source_entity_id - b.source_entity_id
+# Trigger effects
+func process_event_effect_triggers(event: GameEvent) -> void:
+	var sorted_keys = game_state.entities.keys()
+	sorted_keys.sort()
+	for entity_id in sorted_keys:
+		var entity: Entity = game_state.entities.get(entity_id)
+		for effect in entity.effects:
+			if effect.trigger.should_trigger(event):
+				effect.source_entity_id = entity_id
+				effect.source_player_id = entity.owner_id
+				effect.apply_effect(game_state)

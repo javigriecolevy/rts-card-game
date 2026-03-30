@@ -91,9 +91,9 @@ func register_minion_keywords(card: MinionCardInfo, index: int):
 			by_keyword[CardAttributes.KEYWORD.EVASIVE].set_bit(index)
 	
 	for effect in card.effects:
-		if effect.trigger == effect.Trigger.BATTLECRY:
+		if effect.trigger is BattlecryTrigger:
 			by_keyword[CardAttributes.KEYWORD.BATTLECRY].set_bit(index)
-		elif effect.trigger == effect.Trigger.DEATHRATTLE:
+		elif effect.trigger is DeathrattleTrigger:
 			by_keyword[CardAttributes.KEYWORD.DEATHRATTLE].set_bit(index)
 
 # -------------------------

@@ -7,8 +7,8 @@ class_name SelectRandomTargetEffect
 @export var effect: Effect
 
 # -------------------------
-# Applies the wrapped effect a random number of times (between min and max amount values)
-func apply_effect(game_state: GameState, _target: int) -> void:
+# Applies the wrapped effect to a random target (from the target_type pool)
+func apply_effect(game_state: GameState) -> void:
 	var select_valid_targets = Targeting.get_valid_targets(source_player_id, target_type, [], game_state)
 	select_valid_targets.erase(source_entity_id)
 	if select_valid_targets.size() > 0:
@@ -16,4 +16,5 @@ func apply_effect(game_state: GameState, _target: int) -> void:
 		var random_target = select_valid_targets[game_state.rng.randi_range(0, select_valid_targets.size() - 1)]
 		effect.source_player_id = source_player_id
 		effect.source_entity_id = source_entity_id
-		effect.apply_effect(game_state, random_target)
+		effect.target_id = random_target
+		effect.apply_effect(game_state)

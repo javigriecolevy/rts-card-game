@@ -88,7 +88,7 @@ func resolve() -> void:
 				var event: GameEvent = phase.queue.pop_front()
 				if event.tick == game_state.tick:
 					phase.handler.call(event)
-					combat_manager.process_triggers(event)
+					combat_manager.process_event_effect_triggers(event)
 					if not event.cancelled:
 						game_state.ui_event_queue.append(event)
 					processed_count += 1

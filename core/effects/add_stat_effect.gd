@@ -8,7 +8,7 @@ class_name AddStatEffect
 
 # -------------------------
 # adds the attack and health values to the minions stats as buffs
-func apply_effect(game_state: GameState, target_id: int) -> void:
+func apply_effect(game_state: GameState) -> void:
 	if target_id == -1:
 		return
 	

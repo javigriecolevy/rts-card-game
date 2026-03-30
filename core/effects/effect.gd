@@ -2,32 +2,18 @@ extends Resource
 class_name Effect
 
 # -------------------------
-# Trigger type
-enum Trigger {
-	MANUAL,
-	BATTLECRY,
-	DEATHRATTLE
-}
-#only lifecycle / manual triggers
-@export var trigger: Trigger = Trigger.MANUAL
-
-# Only for event-driven effects: on_summon, on_attack, on_death, on_damage, etc.
-@export var trigger_event_class: Script = null
+# What causes effect to trigger
+@export var trigger: EffectTrigger = EffectTrigger.new()
 
 # -------------------------
 # Source context
 var source_player_id: int = -1
 var source_entity_id: int = -1
 
-# -------------------------
-# Targeting
-func requires_target() -> bool:
-	return false
-
-func valid_targets(_game_state: GameState) -> Array:
-	return []
+# target entity (-1 for global / no-target effects)
+var target_id: int = -1
 
 # -------------------------
-# Apply effect to a target entity (-1 for global / no-target effects)
-func apply_effect(_game_state: GameState, _target_entity_id: int) -> void:
-	pass # override in subclasses
+# Override in subclasses
+func apply_effect(_game_state: GameState) -> void:
+	pass 

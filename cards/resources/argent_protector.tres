@@ -15,7 +15,6 @@ metadata/_custom_type_script = "uid://d0yjrjd82q010"
 script = ExtResource("2_pvi66")
 target_type = 1
 effect = SubResource("Resource_txms7")
-trigger = 2
 metadata/_custom_type_script = "uid://bh7c31objb8tw"
 
 [resource]

@@ -3,7 +3,7 @@ class_name KillEffect
 
 # -------------------------
 # Queues kill event
-func apply_effect(game_state: GameState, target_id: int) -> void:
+func apply_effect(game_state: GameState) -> void:
 	if target_id == -1 && game_state.entities.get(target_id) is not Hero:
 		return
 	var death_event: DeathEvent = DeathEvent.new(target_id, game_state.tick)

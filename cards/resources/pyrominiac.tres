@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="MinionCardInfo" format=3 uid="uid://cxxcj0bkjtl61"]
+
+[ext_resource type="Script" uid="uid://cj3k6np7q5vge" path="res://core/effects/effect.gd" id="1_156rk"]
+[ext_resource type="Script" uid="uid://cpmjep3modj5w" path="res://core/effects/draw_card_effect.gd" id="2_156rk"]
+[ext_resource type="Script" uid="uid://k5pl2ei0nb7f" path="res://core/enchantments/enchantment.gd" id="2_ktmex"]
+[ext_resource type="Script" uid="uid://3qdpwk8gyybk" path="res://core/effects/triggers/death_by_reason_trigger.gd" id="3_ktmex"]
+[ext_resource type="Script" uid="uid://b5d8j7lm45poq" path="res://cards/card_info/minion_card_info.gd" id="4_4g38p"]
+[ext_resource type="Script" uid="uid://bmcwxpgl4selc" path="res://core/targeting/target_filter.gd" id="5_h8nhf"]
+
+[sub_resource type="Resource" id="Resource_jhhsg"]
+script = ExtResource("3_ktmex")
+reason = 2
+metadata/_custom_type_script = "uid://3qdpwk8gyybk"
+
+[sub_resource type="Resource" id="Resource_ktmex"]
+script = ExtResource("2_156rk")
+trigger = SubResource("Resource_jhhsg")
+metadata/_custom_type_script = "uid://cpmjep3modj5w"
+
+[resource]
+script = ExtResource("4_4g38p")
+attack = 2
+health = 4
+id = "pyrominiac"
+display_name = "Pyrominiac"
+effects = Array[ExtResource("1_156rk")]([SubResource("Resource_ktmex")])
+description = "Whenever a minion dies from burn, draw a card."

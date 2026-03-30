@@ -2,12 +2,8 @@ extends Entity
 class_name Minion
 
 # -------------------------
-# Card data
+# Minion data
 var card: MinionCardInfo
-
-# -------------------------
-# Effect list
-var effects: Array[Effect] = []
 
 # -------------------------
 # Factory
@@ -50,9 +46,9 @@ static func new_from_card(card_info: MinionCardInfo, owner_player_id: int, curre
 # -------------------------
 # ! UNUSED FUNC, PONDERING IF SHOULD BE USED OR NOT.
 # Returns all effects on this card for the given trigger type.
-func _get_effects(trigger_type: Effect.Trigger) -> Array:
-	var matching_effects: Array = []
-	for e in card.effects:
-		if e.trigger == trigger_type:
-			matching_effects.append(e)
-	return matching_effects
+#func _get_effects(trigger_type: Effect.Trigger) -> Array:
+	#var matching_effects: Array = []
+	#for e in card.effects:
+		#if e.trigger == trigger_type:
+			#matching_effects.append(e)
+	#return matching_effects

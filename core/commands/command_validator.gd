@@ -70,6 +70,11 @@ func check_play_card_command(play_card_command: PlayCardCommand) -> bool:
 			% [player_id, card.display_name])
 		return false
 	
+	if card is MinionCardInfo and game_state.boards[player_id].size() >= 7:
+		print("Player %ds board is already full!"
+			% [player_id])
+		return false
+		
 	if card.target_type != Targeting.TargetType.NONE:
 		if target_id == -1:
 			if not card.target_optional:
